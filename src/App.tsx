@@ -4,6 +4,7 @@ import BounceCards from './components/BounceCards';
 import HeroBackground from './HeroBackground';
 import { initSiteEffects } from './site-effects';
 import { useAppPreferences } from './ThemeLanguageContext';
+import GlobalClickSpark from './components/GlobalClickSpark';
 import Folder from './components/Folder';
 import { workHomeCards } from './workHomeLocale';
 
@@ -107,6 +108,7 @@ export default function App() {
 
   return (
     <>
+      <GlobalClickSpark />
       <nav className="nav" id="nav">
         <div className="nav-inner">
           <a href="/" className="nav-logo">
@@ -192,12 +194,7 @@ export default function App() {
             <a href="#work" className="btn btn-primary">
               {t('heroCtaWork')}
             </a>
-            <a
-              href={CONTACT_GMAIL_COMPOSE}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-secondary"
-            >
+            <a href="#contact" className="btn btn-secondary">
               {t('heroCtaContact')}
             </a>
           </div>

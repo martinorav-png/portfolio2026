@@ -305,6 +305,74 @@ img {
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
+/* Dark mode: header links + logo = white; hover = black text + vivid rainbow glow */
+[data-theme='dark'] .nav-logo {
+  color: #ffffff;
+  transition: filter 0.35s ease, text-shadow 0.35s ease, color 0.35s ease;
+}
+
+[data-theme='dark'] .nav-logo:hover {
+  color: #0a0a0a;
+  -webkit-text-fill-color: #0a0a0a;
+  background: none;
+  animation: none;
+  text-shadow:
+    0 0 1px rgba(255, 255, 255, 0.35),
+    0 0 14px rgba(248, 113, 232, 1),
+    0 0 26px rgba(167, 139, 250, 0.95),
+    0 0 40px rgba(56, 189, 248, 0.85),
+    0 0 52px rgba(253, 224, 71, 0.65);
+  filter: drop-shadow(0 0 8px rgba(232, 121, 249, 1))
+    drop-shadow(0 0 18px rgba(34, 211, 238, 0.85))
+    drop-shadow(0 0 28px rgba(250, 204, 21, 0.55));
+}
+
+[data-theme='dark'] .nav-links a {
+  color: #ffffff;
+  transition:
+    filter 0.35s ease,
+    text-shadow 0.35s ease,
+    color 0.35s ease;
+}
+
+[data-theme='dark'] .nav-links a:hover {
+  color: #0a0a0a;
+  -webkit-text-fill-color: #0a0a0a;
+  background: none;
+  animation: none;
+  text-shadow:
+    0 0 1px rgba(255, 255, 255, 0.35),
+    0 0 14px rgba(248, 113, 232, 1),
+    0 0 26px rgba(167, 139, 250, 0.95),
+    0 0 40px rgba(56, 189, 248, 0.85),
+    0 0 52px rgba(253, 224, 71, 0.65);
+  filter: drop-shadow(0 0 8px rgba(232, 121, 249, 1))
+    drop-shadow(0 0 18px rgba(34, 211, 238, 0.85))
+    drop-shadow(0 0 28px rgba(250, 204, 21, 0.55));
+}
+
+[data-theme='dark'] .nav-links a:hover::after {
+  background: linear-gradient(
+    90deg,
+    #f472b6,
+    #e879f9,
+    #a78bfa,
+    #38bdf8,
+    #22d3ee,
+    #2dd4bf,
+    #fde047,
+    #fda4af,
+    #f472b6
+  );
+  background-size: 260% 100%;
+  animation: prismLabel 5.5s ease-in-out infinite;
+  height: 2px;
+  box-shadow:
+    0 0 10px rgba(232, 121, 249, 1),
+    0 0 20px rgba(56, 189, 248, 0.85),
+    0 0 32px rgba(253, 224, 71, 0.6);
+}
+
 [data-theme='dark'] .btn-primary:hover {
   background: #ccc;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
