@@ -1,7 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import ASCIIText from './components/ASCIIText';
 import BounceCards from './components/BounceCards';
+import HeroBackground from './HeroBackground';
 import { initSiteEffects } from './site-effects';
+import { useAppPreferences } from './ThemeLanguageContext';
+import { workHomeCards } from './workHomeLocale';
+
+const CONTACT_EMAIL = 'martinoravdisain@gmail.com';
+/** Opens Gmail compose in the browser — avoids broken `mailto:` when Chrome is the default handler. */
+const CONTACT_GMAIL_COMPOSE = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_EMAIL)}`;
+const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}`;
 
 const HERO_IMAGE_POOL = [
   '/assets/works/honda-prelude-ui.jpg',
@@ -42,11 +50,19 @@ const HERO_BOUNCE_TRANSFORMS = [
 ];
 
 export default function App() {
+  const { theme, toggleTheme, locale, setLocale, t } = useAppPreferences();
   const [heroFeatureImages] = useState(() => pickRandomUnique(HERO_IMAGE_POOL, 4));
+
+  const tRef = useRef(t);
+  tRef.current = t;
+
+  const wh = useMemo(() => workHomeCards(locale), [locale]);
 
   useEffect(() => {
     try {
-      return initSiteEffects();
+      return initSiteEffects({
+        getModalStrings: () => ({ modalViewLive: tRef.current('modalViewLive') }),
+      });
     } catch (e) {
       console.error('initSiteEffects failed:', e);
       return undefined;
@@ -60,26 +76,67 @@ export default function App() {
           <a href="#" className="nav-logo">
             Martin.
           </a>
-          <div className="nav-links">
-            <a href="#work">Work</a>
-            <a href="#skills">Skills</a>
-            <a href="#contact">Contact</a>
+          <div className="nav-right">
+            <div className="nav-links">
+              <a href="#work">{t('navWork')}</a>
+              <a href="#about">{t('navAbout')}</a>
+              <a href="#skills">{t('navSkills')}</a>
+              <a href="#contact">{t('navContact')}</a>
+            </div>
+            <div className="nav-controls">
+              <div className="lang-switch" role="group" aria-label={t('langSwitch')}>
+                <button
+                  type="button"
+                  className={`lang-switch-btn${locale === 'en' ? ' is-active' : ''}`}
+                  onClick={() => setLocale('en')}
+                  aria-pressed={locale === 'en'}
+                >
+                  EN
+                </button>
+                <button
+                  type="button"
+                  className={`lang-switch-btn${locale === 'et' ? ' is-active' : ''}`}
+                  onClick={() => setLocale('et')}
+                  aria-pressed={locale === 'et'}
+                >
+                  ET
+                </button>
+              </div>
+              <button
+                type="button"
+                className="theme-toggle"
+                onClick={toggleTheme}
+                aria-label={theme === 'dark' ? t('themeToLight') : t('themeToDark')}
+              >
+                {theme === 'dark' ? (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                  </svg>
+                ) : (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
 
-      <section className="hero">
+      <section className={`hero ${theme === 'dark' ? 'hero--dither' : 'hero--ballpit'}`}>
         <div className="hero-bg">
           <div className="orb orb-1" />
           <div className="orb orb-2" />
           <div className="orb orb-3" />
         </div>
+        <HeroBackground theme={theme} />
         <div className="hero-dots" />
         <div className="hero-grain" />
 
         <div className="hero-content">
           <p className="hero-label anim-fade-up">
-            <span className="prism-text">Hey, I&apos;m</span>
+            <span className="prism-text">{t('heroHey')}</span>
           </p>
           <div className="ascii-name-container anim-fade-up" style={{ animationDelay: '0.1s' }}>
             <ASCIIText
@@ -88,18 +145,23 @@ export default function App() {
               asciiFontSize={10}
               textFontSize={300}
               planeBaseHeight={13}
-              textColor="#fdf9f3"
+              textColor={theme === 'dark' ? '#e8e4dc' : '#fdf9f3'}
             />
           </div>
           <p className="hero-subtitle anim-fade-up" style={{ animationDelay: '0.2s' }}>
-            A student with a thing for design. I make graphics, UI concepts, and sometimes posters of albums I like.
+            {t('heroSubtitle')}
           </p>
           <div className="hero-cta anim-fade-up" style={{ animationDelay: '0.35s' }}>
             <a href="#work" className="btn btn-primary">
-              See What I&apos;ve Made
+              {t('heroCtaWork')}
             </a>
-            <a href="#contact" className="btn btn-secondary">
-              Say Hi
+            <a
+              href={CONTACT_GMAIL_COMPOSE}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary"
+            >
+              {t('heroCtaContact')}
             </a>
           </div>
         </div>
@@ -124,109 +186,278 @@ export default function App() {
 
       <div className="gradient-divider" />
 
+      <section className="section bio-section" id="about">
+        <div className="container">
+          <h2 className="section-title reveal">{t('bioTitle')}</h2>
+          <div className="bio-grid reveal">
+            <div className="bio-text">
+              <p>{t('bioP1')}</p>
+              <p>{t('bioP2')}</p>
+              <p className="bio-closing">{t('bioP3')}</p>
+            </div>
+            <figure className="bio-photo">
+              <img
+                src="/assets/martin-portrait.png"
+                alt={t('bioPhotoAlt')}
+                width={560}
+                height={700}
+                loading="lazy"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
       <section className="section" id="work">
         <div className="container">
-          <h2 className="section-title reveal">Selected Work</h2>
-          <p className="section-subtitle reveal">A mix of client projects, UI concepts, and personal experiments.</p>
+          <h2 className="section-title reveal">{t('workTitle')}</h2>
+          <p className="section-subtitle reveal">{t('workSubtitle')}</p>
 
           <div className="work-grid">
-            <div
-              className="work-card reveal"
-              data-desc="A fictional landing page for the upcoming Honda Prelude, built as a UI challenge. Focused on bold typography, a dark automotive aesthetic, and spec highlights."
-            >
+            <div className="work-card reveal" data-desc={wh.hondaPrelude.desc}>
               <div className="work-card-img">
-                <img src="/assets/works/honda-prelude-ui.jpg" alt="Honda Prelude Landing Page UI" loading="lazy" />
+                <img src="/assets/works/honda-prelude-ui.jpg" alt={wh.hondaPrelude.imgAlt} loading="lazy" />
               </div>
               <div className="work-card-info">
-                <h3>Honda Prelude - Landing Page Concept</h3>
-                <span className="work-meta">UI Design &middot; 2026</span>
+                <h3>{wh.hondaPrelude.title}</h3>
+                <span className="work-meta">{wh.hondaPrelude.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.substrate.desc}>
+              <div className="work-card-img">
+                <img src="/assets/works/substrate-game.jpg" alt={wh.substrate.imgAlt} loading="lazy" />
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.substrate.title}</h3>
+                <span className="work-meta">{wh.substrate.meta}</span>
               </div>
             </div>
 
             <div
               className="work-card reveal"
-              data-desc="Landing page concept for a fictional psychological horror game. Designed the full page with countdown timer, gallery, and a story-driven layout."
-            >
-              <div className="work-card-img">
-                <img src="/assets/works/substrate-game.jpg" alt="Substrate Game Landing Page" loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>Substrate - Game Landing Page</h3>
-                <span className="work-meta">UI Design &middot; Concept &middot; 2026</span>
-              </div>
-            </div>
-
-            <div
-              className="work-card reveal"
-              data-desc="FTP honeypot and ESP32 flasher experience, built during the Cursor Hackathon (26 March 2026). Co-created with Gert Tali, Lukas Haavel, and Rivo Tüksammel. Deployed on Cloudflare Workers."
+              data-desc={wh.honeyBoot.desc}
               data-live-url="https://honey-boot.rivo-tuksammel.workers.dev"
             >
               <div className="work-card-img">
-                <img src="/assets/works/honey-boot.png" alt="HONEY//BOOT ESP32 flasher UI" loading="lazy" />
+                <img src="/assets/works/honey-boot.png" alt={wh.honeyBoot.imgAlt} loading="lazy" />
               </div>
               <div className="work-card-info">
-                <h3>HONEY//BOOT</h3>
-                <span className="work-meta">Hackathon &middot; Security / IoT &middot; 2026</span>
+                <h3>{wh.honeyBoot.title}</h3>
+                <span className="work-meta">{wh.honeyBoot.meta}</span>
               </div>
             </div>
 
             <div
               className="work-card reveal"
-              data-desc="Full landing page design for Pulse, a concept SaaS app that tracks team mood through anonymous monthly surveys. Features AI-powered recommendations, dashboard UI, pricing, and a custom mascot."
+              data-desc={wh.pulse.desc}
               data-full-img="/assets/works/pulse-landing-full.jpg"
             >
               <div className="work-card-img">
-                <img src="/assets/works/pulse-hero.jpg" alt="Pulse App Hero Section" loading="lazy" />
+                <img src="/assets/works/pulse-hero.jpg" alt={wh.pulse.imgAlt} loading="lazy" />
               </div>
               <div className="work-card-info">
-                <h3>Pulse - Team Wellness App</h3>
-                <span className="work-meta">Product Design &middot; Full Landing Page &middot; 2025</span>
+                <h3>{wh.pulse.title}</h3>
+                <span className="work-meta">{wh.pulse.meta}</span>
               </div>
             </div>
 
-            <div
-              className="work-card reveal"
-              data-desc="Web banner for Catwees, a Honda and Opel dealership in Estonia. Showcased their full electric and hybrid SUV range with a bold dark blue and neon glow look."
-            >
+            <div className="work-card reveal" data-desc={wh.catweesSuv.desc}>
               <div className="work-card-img">
-                <img src="/assets/works/honda-suv-lineup.jpg" alt="Honda SUV Lineup Banner for Catwees" loading="lazy" />
+                <img src="/assets/works/honda-suv-lineup.jpg" alt={wh.catweesSuv.imgAlt} loading="lazy" />
               </div>
               <div className="work-card-info">
-                <h3>Catwees Honda - SUV Lineup Banner</h3>
-                <span className="work-meta">Graphic Design &middot; Client Work &middot; 2023</span>
+                <h3>{wh.catweesSuv.title}</h3>
+                <span className="work-meta">{wh.catweesSuv.meta}</span>
               </div>
             </div>
 
-            <div
-              className="work-card reveal"
-              data-desc="A timeline poster tracing every generation of the Honda Civic from 1972 to 2022. Made for the Catwees dealership to celebrate the Civic e:HEV launch."
-            >
+            <div className="work-card reveal" data-desc={wh.civic50.desc}>
               <div className="work-card-img">
-                <img src="/assets/works/civic-50th.jpg" alt="Honda Civic 50th Anniversary Timeline Poster" loading="lazy" />
+                <img src="/assets/works/civic-50th.jpg" alt={wh.civic50.imgAlt} loading="lazy" />
               </div>
               <div className="work-card-info">
-                <h3>Honda Civic 50th Anniversary</h3>
-                <span className="work-meta">Graphic Design &middot; Client Work &middot; 2022</span>
+                <h3>{wh.civic50.title}</h3>
+                <span className="work-meta">{wh.civic50.meta}</span>
               </div>
             </div>
 
-            <div
-              className="work-card reveal"
-              data-desc="Fan-made poster for The Weeknd's After Hours album. Designed with warm bokeh tones, tracklist layout, and Spotify code integration."
-            >
-              <div className="work-card-img">
-                <img src="/assets/works/after-hours-poster.jpg" alt="The Weeknd After Hours Album Poster" loading="lazy" />
+            <div className="work-card reveal" data-desc={wh.catweesBrandAnim.desc}>
+              <div className="work-card-img work-card-img--video">
+                <video
+                  muted
+                  playsInline
+                  loop
+                  autoPlay
+                  preload="metadata"
+                  aria-label={wh.catweesBrandAnim.imgAlt}
+                >
+                  <source src="/assets/works/catwees/catwees-animation.mp4" type="video/mp4" />
+                </video>
               </div>
               <div className="work-card-info">
-                <h3>After Hours - Album Poster</h3>
-                <span className="work-meta">Poster Design &middot; Personal &middot; 2024</span>
+                <h3>{wh.catweesBrandAnim.title}</h3>
+                {wh.catweesBrandAnim.lead ? <p>{wh.catweesBrandAnim.lead}</p> : null}
+                <span className="work-meta">{wh.catweesBrandAnim.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.crvMotion.desc}>
+              <div className="work-card-img work-card-img--video">
+                <video muted playsInline loop autoPlay preload="metadata" aria-label={wh.crvMotion.imgAlt}>
+                  <source src="/assets/works/catwees/crv-2.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.crvMotion.title}</h3>
+                {wh.crvMotion.lead ? <p>{wh.crvMotion.lead}</p> : null}
+                <span className="work-meta">{wh.crvMotion.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.eny1Motion.desc}>
+              <div className="work-card-img work-card-img--video">
+                <video muted playsInline loop autoPlay preload="metadata" aria-label={wh.eny1Motion.imgAlt}>
+                  <source src="/assets/works/catwees/eny1-2.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.eny1Motion.title}</h3>
+                {wh.eny1Motion.lead ? <p>{wh.eny1Motion.lead}</p> : null}
+                <span className="work-meta">{wh.eny1Motion.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.zrvMotion.desc}>
+              <div className="work-card-img work-card-img--video">
+                <video muted playsInline loop autoPlay preload="metadata" aria-label={wh.zrvMotion.imgAlt}>
+                  <source src="/assets/works/catwees/zrv-2.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.zrvMotion.title}</h3>
+                {wh.zrvMotion.lead ? <p>{wh.zrvMotion.lead}</p> : null}
+                <span className="work-meta">{wh.zrvMotion.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.catweesHomeBanner.desc}>
+              <div className="work-card-img">
+                <img src="/assets/works/catwees/kodulehe-banner-3.gif" alt={wh.catweesHomeBanner.imgAlt} loading="lazy" />
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.catweesHomeBanner.title}</h3>
+                {wh.catweesHomeBanner.lead ? <p>{wh.catweesHomeBanner.lead}</p> : null}
+                <span className="work-meta">{wh.catweesHomeBanner.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.kuubik.desc}>
+              <div className="work-card-img work-card-img--video">
+                <video muted playsInline loop autoPlay preload="metadata" aria-label={wh.kuubik.imgAlt}>
+                  <source src="/assets/works/catwees/kuubik.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.kuubik.title}</h3>
+                {wh.kuubik.lead ? <p>{wh.kuubik.lead}</p> : null}
+                <span className="work-meta">{wh.kuubik.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.catweesComposite.desc}>
+              <div className="work-card-img">
+                <img src="/assets/works/catwees/comp-1.gif" alt={wh.catweesComposite.imgAlt} loading="lazy" />
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.catweesComposite.title}</h3>
+                {wh.catweesComposite.lead ? <p>{wh.catweesComposite.lead}</p> : null}
+                <span className="work-meta">{wh.catweesComposite.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.detailingGif.desc}>
+              <div className="work-card-img">
+                <img src="/assets/works/catwees/poleerimine.gif" alt={wh.detailingGif.imgAlt} loading="lazy" />
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.detailingGif.title}</h3>
+                {wh.detailingGif.lead ? <p>{wh.detailingGif.lead}</p> : null}
+                <span className="work-meta">{wh.detailingGif.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.hrvEmailHeader.desc}>
+              <div className="work-card-img">
+                <img src="/assets/works/catwees/hrv-kliendimeil-2.gif" alt={wh.hrvEmailHeader.imgAlt} loading="lazy" />
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.hrvEmailHeader.title}</h3>
+                {wh.hrvEmailHeader.lead ? <p>{wh.hrvEmailHeader.lead}</p> : null}
+                <span className="work-meta">{wh.hrvEmailHeader.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.sinimustvalgeFb.desc}>
+              <div className="work-card-img work-card-img--video">
+                <video muted playsInline loop autoPlay preload="metadata" aria-label={wh.sinimustvalgeFb.imgAlt}>
+                  <source src="/assets/works/catwees/sinimustvalge-fb.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.sinimustvalgeFb.title}</h3>
+                {wh.sinimustvalgeFb.lead ? <p>{wh.sinimustvalgeFb.lead}</p> : null}
+                <span className="work-meta">{wh.sinimustvalgeFb.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.newsletterLogo.desc}>
+              <div className="work-card-img">
+                <img src="/assets/works/catwees/meilipealislogo.gif" alt={wh.newsletterLogo.imgAlt} loading="lazy" />
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.newsletterLogo.title}</h3>
+                {wh.newsletterLogo.lead ? <p>{wh.newsletterLogo.lead}</p> : null}
+                <span className="work-meta">{wh.newsletterLogo.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.christmasCard.desc}>
+              <div className="work-card-img">
+                <img src="/assets/works/catwees/joulukaart-6.gif" alt={wh.christmasCard.imgAlt} loading="lazy" />
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.christmasCard.title}</h3>
+                {wh.christmasCard.lead ? <p>{wh.christmasCard.lead}</p> : null}
+                <span className="work-meta">{wh.christmasCard.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.urbanSuvGif.desc}>
+              <div className="work-card-img">
+                <img src="/assets/works/catwees/sobivlinnamaastur.gif" alt={wh.urbanSuvGif.imgAlt} loading="lazy" />
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.urbanSuvGif.title}</h3>
+                {wh.urbanSuvGif.lead ? <p>{wh.urbanSuvGif.lead}</p> : null}
+                <span className="work-meta">{wh.urbanSuvGif.meta}</span>
+              </div>
+            </div>
+
+            <div className="work-card reveal" data-desc={wh.afterHoursPoster.desc}>
+              <div className="work-card-img">
+                <img src="/assets/works/after-hours-poster.jpg" alt={wh.afterHoursPoster.imgAlt} loading="lazy" />
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.afterHoursPoster.title}</h3>
+                <span className="work-meta">{wh.afterHoursPoster.meta}</span>
               </div>
             </div>
           </div>
 
           <div className="work-cta reveal">
             <a href="/work.html" className="btn btn-primary">
-              View All Work
+              {t('viewAllWork')}
             </a>
           </div>
         </div>
@@ -234,7 +465,7 @@ export default function App() {
 
       <section className="section section-dark" id="skills">
         <div className="container">
-          <h2 className="section-title reveal">Tools & Skills</h2>
+          <h2 className="section-title reveal">{t('skillsTitle')}</h2>
           <div className="tools-strip reveal">
             <span className="tool-tag">Photoshop</span>
             <span className="tool-tag">Figma</span>
@@ -254,12 +485,22 @@ export default function App() {
 
       <section className="section" id="contact">
         <div className="container contact-container">
-          <h2 className="section-title reveal">Say Hi</h2>
-          <p className="section-subtitle reveal">Want to chat or work on something together? I&apos;m always open to it.</p>
+          <h2 className="section-title reveal">{t('contactTitle')}</h2>
+          <p className="section-subtitle reveal">{t('contactSubtitle')}</p>
           <div className="contact-links reveal">
-            <a href="mailto:martinoravdisain@gmail.com" className="btn btn-primary">
-              Say Hello
-            </a>
+            <div className="contact-email-actions">
+              <a
+                href={CONTACT_GMAIL_COMPOSE}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+              >
+                {t('sayHello')}
+              </a>
+              <a href={CONTACT_MAILTO} className="contact-mailto-fallback">
+                {t('contactUseMailApp')}
+              </a>
+            </div>
             <div className="contact-socials">
               <a
                 href="https://www.linkedin.com/in/martin-orav-30747539b/"
@@ -287,7 +528,7 @@ export default function App() {
       </section>
 
       <footer className="footer">
-        <p>&copy; 2026 Martin Orav. Built with care.</p>
+        <p>{t('footer')}</p>
       </footer>
     </>
   );

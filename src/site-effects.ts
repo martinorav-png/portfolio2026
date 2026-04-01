@@ -1,7 +1,13 @@
+export type SiteEffectsOptions = {
+  getModalStrings?: () => { modalViewLive: string };
+};
+
 /**
  * Vanilla behaviors from the original script.js (reveal, nav, hero parallax, work modal).
  */
-export function initSiteEffects(): () => void {
+export function initSiteEffects(options?: SiteEffectsOptions): () => void {
+  const getModalStrings =
+    options?.getModalStrings ?? (() => ({ modalViewLive: 'View live project' }));
   const revealElements = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver(
     (entries) => {
@@ -72,6 +78,7 @@ export function initSiteEffects(): () => void {
   modal.innerHTML = `
     <div class="modal-img-wrap">
       <img class="modal-img" src="" alt="">
+      <video class="modal-video" controls playsinline loop preload="metadata" hidden></video>
     </div>
     <div class="modal-info">
       <h3 class="modal-title"></h3>
@@ -85,6 +92,7 @@ export function initSiteEffects(): () => void {
   document.body.appendChild(overlay);
 
   const modalImg = modal.querySelector('.modal-img') as HTMLImageElement;
+  const modalVideo = modal.querySelector('.modal-video') as HTMLVideoElement;
   const modalTitle = modal.querySelector('.modal-title') as HTMLElement;
   const modalDesc = modal.querySelector('.modal-desc') as HTMLElement;
   const modalMeta = modal.querySelector('.modal-meta') as HTMLElement;
@@ -95,13 +103,16 @@ export function initSiteEffects(): () => void {
 
   function openModal(card: HTMLElement) {
     if (isOpen) return;
-    isOpen = true;
-    sourceCard = card;
 
-    const img = card.querySelector('img');
+    const cardVideo = card.querySelector('.work-card-img video') as HTMLVideoElement | null;
+    const img = card.querySelector('.work-card-img img') as HTMLImageElement | null;
     const titleEl = card.querySelector('h3');
     const metaEl = card.querySelector('.work-meta');
-    if (!img || !titleEl || !metaEl) return;
+    if (!titleEl || !metaEl) return;
+    if (!cardVideo && !img) return;
+
+    isOpen = true;
+    sourceCard = card;
 
     const title = titleEl.textContent ?? '';
     const meta = metaEl.textContent ?? '';
@@ -109,13 +120,43 @@ export function initSiteEffects(): () => void {
     const descP = card.querySelector('.work-card-info p');
     const desc = card.dataset.desc || (descP ? descP.textContent : '') || '';
 
-    modalImg.src = card.dataset.fullImg || img.src;
-    modalImg.alt = img.alt;
+    if (cardVideo && modalVideo) {
+      modalVideo.removeAttribute('hidden');
+      modalVideo.style.display = 'block';
+      modalImg.style.display = 'none';
+      const srcFromData = card.dataset.modalVideoSrc;
+      const sourceEl = cardVideo.querySelector('source');
+      const src =
+        srcFromData ||
+        sourceEl?.getAttribute('src') ||
+        cardVideo.currentSrc ||
+        cardVideo.src ||
+        '';
+      modalVideo.src = src;
+      modalVideo.muted = false;
+      void modalVideo.play().catch(() => {});
+      modalImg.removeAttribute('src');
+    } else if (img) {
+      modalImg.style.display = 'block';
+      if (modalVideo) {
+        modalVideo.pause();
+        modalVideo.removeAttribute('src');
+        modalVideo.load();
+        modalVideo.setAttribute('hidden', '');
+        modalVideo.style.display = 'none';
+      }
+      modalImg.src = card.dataset.fullImg || img.src;
+      modalImg.alt = img.alt;
+    }
     modalTitle.textContent = title;
     modalDesc.textContent = desc;
     modalMeta.textContent = meta;
 
     const liveUrl = card.dataset.liveUrl;
+    if (modalLiveLink) {
+      modalLiveLink.textContent = getModalStrings().modalViewLive;
+    }
+
     if (liveUrl && modalLiveLink) {
       modalLiveLink.href = liveUrl;
       modalLiveLink.hidden = false;
@@ -154,6 +195,10 @@ export function initSiteEffects(): () => void {
 
   function closeModal() {
     if (!isOpen) return;
+
+    modalVideo?.pause();
+    modalVideo?.removeAttribute('src');
+    modalVideo?.load();
 
     if (sourceCard) {
       const rect = sourceCard.getBoundingClientRect();

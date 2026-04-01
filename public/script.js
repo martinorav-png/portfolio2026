@@ -70,6 +70,7 @@ window.addEventListener('scroll', () => {
   modal.innerHTML = `
     <div class="modal-img-wrap">
       <img class="modal-img" src="" alt="">
+      <video class="modal-video" controls playsinline loop preload="metadata" hidden></video>
     </div>
     <div class="modal-info">
       <h3 class="modal-title"></h3>
@@ -83,33 +84,70 @@ window.addEventListener('scroll', () => {
   document.body.appendChild(overlay);
 
   const modalImg = modal.querySelector('.modal-img');
+  const modalVideo = modal.querySelector('.modal-video');
   const modalTitle = modal.querySelector('.modal-title');
   const modalDesc = modal.querySelector('.modal-desc');
   const modalMeta = modal.querySelector('.modal-meta');
   const modalLiveLink = modal.querySelector('.modal-live-link');
+
+  function getModalViewLive() {
+    const w = typeof window !== 'undefined' && window.__portfolioWorkStrings;
+    return (w && w.modalViewLive) || 'View live project';
+  }
 
   let isOpen = false;
   let sourceCard = null;
 
   function openModal(card) {
     if (isOpen) return;
-    isOpen = true;
-    sourceCard = card;
 
-    // Get data from the clicked card
-    const img = card.querySelector('img');
+    const cardVideo = card.querySelector('.work-card-img video');
+    const img = card.querySelector('.work-card-img img');
     const title = card.querySelector('h3').textContent;
     const meta = card.querySelector('.work-meta').textContent;
 
-    // Description: prefer data-desc attribute, fall back to <p> inside card
+    if (!cardVideo && !img) return;
+
+    isOpen = true;
+    sourceCard = card;
+
     const descP = card.querySelector('.work-card-info p');
     const desc = card.dataset.desc || (descP ? descP.textContent : '');
 
-    modalImg.src = card.dataset.fullImg || img.src;
-    modalImg.alt = img.alt;
+    if (cardVideo && modalVideo) {
+      modalVideo.removeAttribute('hidden');
+      modalVideo.style.display = 'block';
+      modalImg.style.display = 'none';
+      const sourceEl = cardVideo.querySelector('source');
+      const src =
+        card.dataset.modalVideoSrc ||
+        (sourceEl && sourceEl.getAttribute('src')) ||
+        cardVideo.currentSrc ||
+        cardVideo.src ||
+        '';
+      modalVideo.src = src;
+      modalVideo.muted = false;
+      modalVideo.play().catch(function () {});
+      modalImg.removeAttribute('src');
+    } else if (img) {
+      modalImg.style.display = 'block';
+      if (modalVideo) {
+        modalVideo.pause();
+        modalVideo.removeAttribute('src');
+        modalVideo.load();
+        modalVideo.setAttribute('hidden', '');
+        modalVideo.style.display = 'none';
+      }
+      modalImg.src = card.dataset.fullImg || img.src;
+      modalImg.alt = img.alt;
+    }
     modalTitle.textContent = title;
     modalDesc.textContent = desc;
     modalMeta.textContent = meta;
+
+    if (modalLiveLink) {
+      modalLiveLink.textContent = getModalViewLive();
+    }
 
     const liveUrl = card.dataset.liveUrl;
     if (liveUrl && modalLiveLink) {
@@ -155,6 +193,12 @@ window.addEventListener('scroll', () => {
 
   function closeModal() {
     if (!isOpen) return;
+
+    if (modalVideo) {
+      modalVideo.pause();
+      modalVideo.removeAttribute('src');
+      modalVideo.load();
+    }
 
     if (sourceCard) {
       // Fly back to source card position

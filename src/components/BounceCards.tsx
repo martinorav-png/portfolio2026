@@ -20,6 +20,13 @@ const defaultTransforms = [
   'rotate(5deg) translate(120px, 0px)',
 ];
 
+/** Fan layout: last card overlaps the one before it; raise penultimate z-index so it stays hittable. */
+function bounceCardStackZ(i: number, n: number): number {
+  if (n >= 2 && i === n - 2) return n;
+  if (n >= 2 && i === n - 1) return n - 1;
+  return i + 1;
+}
+
 export default function BounceCards({
   className = '',
   images,
@@ -62,11 +69,14 @@ export default function BounceCards({
 
       if (!enableHover) return;
 
-      outers.forEach((el) => {
+      outers.forEach((el, i) => {
+        const baseZ = bounceCardStackZ(i, outers.length);
         const onEnter = () => {
+          el.style.zIndex = '20';
           gsap.to(el, { y: -10, scale: 1.06, duration: 0.45, ease: 'power2.out', overwrite: 'auto' });
         };
         const onLeave = () => {
+          el.style.zIndex = String(baseZ);
           gsap.to(el, { y: 0, scale: 1, duration: 0.55, ease: 'elastic.out(1, 0.55)', overwrite: 'auto' });
         };
         el.addEventListener('mouseenter', onEnter);
@@ -110,7 +120,7 @@ export default function BounceCards({
             marginLeft: 'calc(-0.5 * clamp(72px, 26vw, 140px))',
             marginTop: 'calc(-0.5 * clamp(49px, 18vw, 95px))',
             transformOrigin: 'center center',
-            zIndex: i + 1,
+            zIndex: bounceCardStackZ(i, images.length),
             cursor: enableHover ? 'pointer' : undefined,
           }}
         >
