@@ -1,0 +1,10 @@
+.vercel
+.claude
+dist
+node_modules
+node_modules/.tmp
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example
