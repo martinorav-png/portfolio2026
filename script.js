@@ -75,6 +75,7 @@ window.addEventListener('scroll', () => {
       <h3 class="modal-title"></h3>
       <p class="modal-desc"></p>
       <span class="modal-meta"></span>
+      <a class="modal-live-link" href="#" target="_blank" rel="noopener noreferrer" hidden>View live project</a>
     </div>
   `;
   modal.appendChild(closeBtn);
@@ -85,6 +86,7 @@ window.addEventListener('scroll', () => {
   const modalTitle = modal.querySelector('.modal-title');
   const modalDesc = modal.querySelector('.modal-desc');
   const modalMeta = modal.querySelector('.modal-meta');
+  const modalLiveLink = modal.querySelector('.modal-live-link');
 
   let isOpen = false;
   let sourceCard = null;
@@ -108,6 +110,15 @@ window.addEventListener('scroll', () => {
     modalTitle.textContent = title;
     modalDesc.textContent = desc;
     modalMeta.textContent = meta;
+
+    const liveUrl = card.dataset.liveUrl;
+    if (liveUrl && modalLiveLink) {
+      modalLiveLink.href = liveUrl;
+      modalLiveLink.hidden = false;
+    } else if (modalLiveLink) {
+      modalLiveLink.hidden = true;
+      modalLiveLink.href = '#';
+    }
 
     // Get the card's position for the fly-in animation
     const rect = card.getBoundingClientRect();

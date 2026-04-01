@@ -77,6 +77,7 @@ export function initSiteEffects(): () => void {
       <h3 class="modal-title"></h3>
       <p class="modal-desc"></p>
       <span class="modal-meta"></span>
+      <a class="modal-live-link" href="#" target="_blank" rel="noopener noreferrer" hidden>View live project</a>
     </div>
   `;
   modal.appendChild(closeBtn);
@@ -87,6 +88,7 @@ export function initSiteEffects(): () => void {
   const modalTitle = modal.querySelector('.modal-title') as HTMLElement;
   const modalDesc = modal.querySelector('.modal-desc') as HTMLElement;
   const modalMeta = modal.querySelector('.modal-meta') as HTMLElement;
+  const modalLiveLink = modal.querySelector('.modal-live-link') as HTMLAnchorElement;
 
   let isOpen = false;
   let sourceCard: HTMLElement | null = null;
@@ -112,6 +114,15 @@ export function initSiteEffects(): () => void {
     modalTitle.textContent = title;
     modalDesc.textContent = desc;
     modalMeta.textContent = meta;
+
+    const liveUrl = card.dataset.liveUrl;
+    if (liveUrl && modalLiveLink) {
+      modalLiveLink.href = liveUrl;
+      modalLiveLink.hidden = false;
+    } else if (modalLiveLink) {
+      modalLiveLink.hidden = true;
+      modalLiveLink.href = '#';
+    }
 
     const rect = card.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;

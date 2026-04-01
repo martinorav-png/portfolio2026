@@ -422,6 +422,15 @@ img {
   perspective: 800px;
 }
 
+.hero-previews.hero-previews--bounce {
+  display: block;
+  perspective: 900px;
+}
+
+.hero-bounce-cards.bounce-cards {
+  max-width: min(520px, 92vw);
+}
+
 .hero-thumb {
   width: 140px;
   height: 95px;
@@ -997,6 +1006,24 @@ img {
   letter-spacing: 0.02em;
 }
 
+.modal-live-link {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.modal-live-link:hover {
+  color: #7c3aed;
+}
+
+.modal-live-link[hidden] {
+  display: none !important;
+}
+
 .modal-close {
   position: absolute;
   top: 14px;
@@ -1105,6 +1132,14 @@ img {
     gap: 10px;
   }
 
+  .hero-previews.hero-previews--bounce {
+    margin-top: 36px;
+  }
+
+  .hero-bounce-cards.bounce-cards {
+    height: 210px !important;
+  }
+
   .hero-thumb {
     width: 100px;
     height: 68px;
@@ -1122,6 +1157,10 @@ img {
 
   .hero-previews {
     gap: 8px;
+  }
+
+  .hero-bounce-cards.bounce-cards {
+    height: 180px !important;
   }
 
   .hero-thumb {

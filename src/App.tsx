@@ -1,8 +1,49 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ASCIIText from './components/ASCIIText';
+import BounceCards from './components/BounceCards';
 import { initSiteEffects } from './site-effects';
 
+const HERO_IMAGE_POOL = [
+  '/assets/works/honda-prelude-ui.jpg',
+  '/assets/works/good-am-poster.jpg',
+  '/assets/works/pulse-hero.jpg',
+  '/assets/works/divinely-uninspired-poster.jpg',
+  '/assets/works/substrate-game.jpg',
+  '/assets/works/honda-suv-lineup.jpg',
+  '/assets/works/civic-50th.jpg',
+  '/assets/works/after-hours-poster.jpg',
+  '/assets/works/civic-fb-banner.jpg',
+  '/assets/works/japanese-flavors-email.jpg',
+  '/assets/works/marshall-mathers-poster.jpg',
+  '/assets/works/faces-poster.jpg',
+  '/assets/works/broken-by-desire-poster.jpg',
+  '/assets/works/young-forever-poster.jpg',
+  '/assets/works/pretty-poison-poster.jpg',
+  '/assets/works/fallout-poster.jpg',
+  '/assets/works/mpr-patch.jpg',
+  '/assets/works/swimming-poster.jpg',
+  '/assets/works/honey-boot.png',
+] as const;
+
+function pickRandomUnique<T>(arr: readonly T[], count: number): T[] {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j]!, copy[i]!];
+  }
+  return copy.slice(0, count);
+}
+
+const HERO_BOUNCE_TRANSFORMS = [
+  'rotate(5deg) translate(-120px, 4px)',
+  'rotate(0deg) translate(-50px, -2px)',
+  'rotate(-5deg) translate(50px, 6px)',
+  'rotate(5deg) translate(120px, 0px)',
+];
+
 export default function App() {
+  const [heroFeatureImages] = useState(() => pickRandomUnique(HERO_IMAGE_POOL, 4));
+
   useEffect(() => {
     try {
       return initSiteEffects();
@@ -63,19 +104,18 @@ export default function App() {
           </div>
         </div>
 
-        <div className="hero-previews anim-fade-up" style={{ animationDelay: '0.5s' }}>
-          <div className="hero-thumb hero-thumb-1">
-            <img src="/assets/works/honda-prelude-ui.jpg" alt="" />
-          </div>
-          <div className="hero-thumb hero-thumb-2">
-            <img src="/assets/works/good-am-poster.jpg" alt="" />
-          </div>
-          <div className="hero-thumb hero-thumb-3">
-            <img src="/assets/works/pulse-hero.jpg" alt="" />
-          </div>
-          <div className="hero-thumb hero-thumb-4">
-            <img src="/assets/works/divinely-uninspired-poster.jpg" alt="" />
-          </div>
+        <div className="hero-previews hero-previews--bounce anim-fade-up" style={{ animationDelay: '0.5s' }}>
+          <BounceCards
+            className="hero-bounce-cards"
+            images={[...heroFeatureImages]}
+            containerWidth={520}
+            containerHeight={250}
+            animationDelay={0.85}
+            animationStagger={0.08}
+            easeType="elastic.out(1, 0.5)"
+            transformStyles={[...HERO_BOUNCE_TRANSFORMS]}
+            enableHover
+          />
         </div>
         <div className="hero-scroll-hint anim-fade-up" style={{ animationDelay: '0.7s' }}>
           <div className="scroll-line" />
@@ -113,6 +153,20 @@ export default function App() {
               <div className="work-card-info">
                 <h3>Substrate - Game Landing Page</h3>
                 <span className="work-meta">UI Design &middot; Concept &middot; 2026</span>
+              </div>
+            </div>
+
+            <div
+              className="work-card reveal"
+              data-desc="FTP honeypot and ESP32 flasher experience, built during the Cursor Hackathon (26 March 2026). Co-created with Gert Tali, Lukas Haavel, and Rivo Tüksammel. Deployed on Cloudflare Workers."
+              data-live-url="https://honey-boot.rivo-tuksammel.workers.dev"
+            >
+              <div className="work-card-img">
+                <img src="/assets/works/honey-boot.png" alt="HONEY//BOOT ESP32 flasher UI" loading="lazy" />
+              </div>
+              <div className="work-card-info">
+                <h3>HONEY//BOOT</h3>
+                <span className="work-meta">Hackathon &middot; Security / IoT &middot; 2026</span>
               </div>
             </div>
 
