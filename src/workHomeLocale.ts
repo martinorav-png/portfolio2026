@@ -18,7 +18,7 @@ const WORK = {
       imgAlt: 'Honda Prelude landing page UI',
     },
     et: {
-      title: 'Honda Prelude — maandumislehe kontseptsioon',
+      title: 'Honda Prelude - maandumislehe kontseptsioon',
       desc: 'Fiktiivne maandumisleht tulevase Honda Prelude jaoks, valminud kasutajaliidese väljakutsena. Rõhk julgel tüpograafial, tumedal automeelel ja spetsifikatsiooni esiletõstmisel.',
       meta: 'Kasutajaliidese disain · 2026',
       imgAlt: 'Honda Prelude maandumislehe kasutajaliides',
@@ -32,7 +32,7 @@ const WORK = {
       imgAlt: 'Substrate game landing page',
     },
     et: {
-      title: 'Substrate — mängu maandumisleht',
+      title: 'Substrate - mängu maandumisleht',
       desc: 'Fiktiivse psühholoogilise õudusmängu maandumislehe kontseptsioon: täisleht loenduri, galerii ja loojutustega paigutusega.',
       meta: 'Kasutajaliidese disain · Kontseptsioon · 2026',
       imgAlt: 'Substrate mängu maandumisleht',
@@ -60,7 +60,7 @@ const WORK = {
       imgAlt: 'Pulse app hero section',
     },
     et: {
-      title: 'Pulse — meeskonna heaolu rakendus',
+      title: 'Pulse - meeskonna heaolu rakendus',
       desc: 'Täismahus maandumislehe disain Pulse’ile, kontseptsioonilisele SaaS-ile, mis jälgib meeskonna tuju anonüümsete kuu-uuringute kaudu. AI-põhised soovitused, armatuurlaua UI, hinnakiri ja maskott.',
       meta: 'Tootedisain · Täisleht · 2025',
       imgAlt: 'Pulse rakenduse hero plokk',
@@ -74,7 +74,7 @@ const WORK = {
       imgAlt: 'Honda SUV lineup banner for Catwees',
     },
     et: {
-      title: 'Catwees Honda — SUV-valiku bänner',
+      title: 'Catwees Honda - SUV-valiku bänner',
       desc: 'Veeb bänner Catweesile, Honda ja Opel edasimüüjale Eestis. Elektri- ja hübriid-SUV valik julge tumesinise ja neoonkuma toonis.',
       meta: 'Graafiline disain · Klienttöö · 2023',
       imgAlt: 'Honda SUV-valiku bänner Catweesile',
@@ -89,22 +89,22 @@ const WORK = {
     },
     et: {
       title: 'Honda Civic 50. juubel',
-      desc: 'Ajakujunduse plakat kõigi Honda Civic põlvkondadega aastatel 1972–2022. Valmistatud Catwees edasimüüjale Civic e:HEV turuletoomiseks.',
+      desc: 'Ajakujunduse plakat kõigi Honda Civic põlvkondadega aastatel 1972-2022. Valmistatud Catwees edasimüüjale Civic e:HEV turuletoomiseks.',
       meta: 'Graafiline disain · Klienttöö · 2022',
       imgAlt: 'Honda Civic 50. juubeli ajajoon plakatil',
     },
   },
   catweesBrandAnim: {
     en: {
-      title: 'Catwees — Brand animation',
-      desc: 'Looping brand animation for Catwees, a Honda and Opel dealership in Estonia — logo and wordmark motion for the website, newsletters, and social posts.',
+      title: 'Catwees - Brand animation',
+      desc: 'Looping brand animation for Catwees, a Honda and Opel dealership in Estonia - logo and wordmark motion for the website, newsletters, and social posts.',
       meta: 'Motion · Catwees · Feb 2022',
       imgAlt: 'Catwees brand animation',
       lead: 'Logo and wordmark motion for the dealership’s digital channels.',
     },
     et: {
-      title: 'Catwees — brändi animatsioon',
-      desc: 'Korduv brändi animatsioon Catweesile, Honda ja Opel edasimüüjale Eestis — logo ja sõnamärgi liikumine kodulehel, uudiskirjades ja sotsiaalmeedias.',
+      title: 'Catwees - brändi animatsioon',
+      desc: 'Korduv brändi animatsioon Catweesile, Honda ja Opel edasimüüjale Eestis - logo ja sõnamärgi liikumine kodulehel, uudiskirjades ja sotsiaalmeedias.',
       meta: 'Liikuv graafika · Catwees · veebr 2022',
       imgAlt: 'Catwees brändi animatsioon',
       lead: 'Logo ja sõnamärgi liikumine edasimüüja digikanalites.',
@@ -112,14 +112,14 @@ const WORK = {
   },
   crvMotion: {
     en: {
-      title: 'Honda CR-V — Motion loop',
+      title: 'Honda CR-V - Motion loop',
       desc: 'Short motion loops for the Honda CR-V, built for Catwees social and display placements.',
       meta: 'Motion · Catwees · Oct 2023',
       imgAlt: 'Honda CR-V motion',
       lead: 'Animated showcase of the CR-V for Catwees online ads and feeds.',
     },
     et: {
-      title: 'Honda CR-V — liikuv tsükkel',
+      title: 'Honda CR-V - liikuv tsükkel',
       desc: 'Lühikesed liikuvad tsüklid Honda CR-V jaoks Catweesi sotsiaal- ja bännerpaigutustesse.',
       meta: 'Liikuv graafika · Catwees · okt 2023',
       imgAlt: 'Honda CR-V liikuv graafika',
@@ -128,14 +128,14 @@ const WORK = {
   },
   eny1Motion: {
     en: {
-      title: 'Honda e:Ny1 — Motion loop',
+      title: 'Honda e:Ny1 - Motion loop',
       desc: 'Motion clip highlighting the Honda e:Ny1 electric SUV for Catwees marketing.',
       meta: 'Motion · Catwees · Oct 2023',
       imgAlt: 'Honda e:Ny1 motion',
       lead: 'EV-focused animation for social and digital screens.',
     },
     et: {
-      title: 'Honda e:Ny1 — liikuv tsükkel',
+      title: 'Honda e:Ny1 - liikuv tsükkel',
       desc: 'Liikuv klipp Honda e:Ny1 elektri-SUV esiletõstmiseks Catweesi turunduses.',
       meta: 'Liikuv graafika · Catwees · okt 2023',
       imgAlt: 'Honda e:Ny1 liikuv graafika',
@@ -144,14 +144,14 @@ const WORK = {
   },
   zrvMotion: {
     en: {
-      title: 'Honda ZR-V — Motion loop',
+      title: 'Honda ZR-V - Motion loop',
       desc: 'Motion piece for the Honda ZR-V crossover, produced for Catwees campaigns.',
       meta: 'Motion · Catwees · Oct 2023',
       imgAlt: 'Honda ZR-V motion',
       lead: 'Loopable creative for the ZR-V launch push.',
     },
     et: {
-      title: 'Honda ZR-V — liikuv tsükkel',
+      title: 'Honda ZR-V - liikuv tsükkel',
       desc: 'Liikuv töö Honda ZR-V crossoveri jaoks Catweesi kampaaniate jaoks.',
       meta: 'Liikuv graafika · Catwees · okt 2023',
       imgAlt: 'Honda ZR-V liikuv graafika',
@@ -160,15 +160,15 @@ const WORK = {
   },
   catweesHomeBanner: {
     en: {
-      title: 'Catwees — Homepage banner',
-      desc: 'Animated hero banner for the Catwees website — layered car imagery and typography timed for the homepage header.',
+      title: 'Catwees - Homepage banner',
+      desc: 'Animated hero banner for the Catwees website - layered car imagery and typography timed for the homepage header.',
       meta: 'Motion · Catwees · Feb 2023',
       imgAlt: 'Catwees website banner animation',
       lead: 'Full-width animated banner for the dealership site.',
     },
     et: {
-      title: 'Catwees — kodulehe bänner',
-      desc: 'Animeeritud hero-bänner Catweesi kodulehel — kihiline auto pilt ja tüpograafia ajastatud avalehe päisesse.',
+      title: 'Catwees - kodulehe bänner',
+      desc: 'Animeeritud hero-bänner Catweesi kodulehel - kihiline auto pilt ja tüpograafia ajastatud avalehe päisesse.',
       meta: 'Liikuv graafika · Catwees · veebr 2023',
       imgAlt: 'Catweesi kodulehe bänneri animatsioon',
       lead: 'Täislaiune animeeritud bänner edasimüüja saidile.',
@@ -176,15 +176,15 @@ const WORK = {
   },
   kuubik: {
     en: {
-      title: 'Kuubik — 3D cube motion',
-      desc: 'Abstract cube transformation — motion study and social-ready clip for Catwees.',
+      title: 'Kuubik - 3D cube motion',
+      desc: 'Abstract cube transformation - motion study and social-ready clip for Catwees.',
       meta: 'Motion · Catwees · Dec 2022',
       imgAlt: 'Cube motion study',
       lead: 'Geometric animation for feeds and experiments.',
     },
     et: {
-      title: 'Kuubik — 3D kuubi liikumine',
-      desc: 'Abstraktne kuubi teisendus — liikumisuuring ja sotsiaalmeediaks sobiv klipp Catweesile.',
+      title: 'Kuubik - 3D kuubi liikumine',
+      desc: 'Abstraktne kuubi teisendus - liikumisuuring ja sotsiaalmeediaks sobiv klipp Catweesile.',
       meta: 'Liikuv graafika · Catwees · dets 2022',
       imgAlt: 'Kuubi liikumisuuring',
       lead: 'Geomeetriline animatsioon voogude ja katsete jaoks.',
@@ -192,15 +192,15 @@ const WORK = {
   },
   catweesComposite: {
     en: {
-      title: 'Catwees — Composite motion',
-      desc: 'After Effects composite export — layered graphics, glow, and transitions for a Catwees digital piece.',
+      title: 'Catwees - Composite motion',
+      desc: 'After Effects composite export - layered graphics, glow, and transitions for a Catwees digital piece.',
       meta: 'Motion · Catwees · Dec 2022',
       imgAlt: 'Catwees composite motion',
       lead: 'Full AE comp export with automotive styling and effects.',
     },
     et: {
-      title: 'Catwees — komposiit-liikumine',
-      desc: 'After Effects komposiidi eksport — kihiline graafika, sära ja üleminekud Catweesi digimaterjalile.',
+      title: 'Catwees - komposiit-liikumine',
+      desc: 'After Effects komposiidi eksport - kihiline graafika, sära ja üleminekud Catweesi digimaterjalile.',
       meta: 'Liikuv graafika · Catwees · dets 2022',
       imgAlt: 'Catweesi komposiit animatsioon',
       lead: 'Täielik AE komposiit automaatmeele ja efektidega.',
@@ -208,15 +208,15 @@ const WORK = {
   },
   detailingGif: {
     en: {
-      title: 'Detailing — Social GIF',
-      desc: 'GIF for Catwees detailing / polish services — quick loop for social stories and posts.',
+      title: 'Detailing - Social GIF',
+      desc: 'GIF for Catwees detailing / polish services - quick loop for social stories and posts.',
       meta: 'Motion · Catwees · Jun 2022',
       imgAlt: 'Car polishing service animation',
       lead: 'Short loop promoting polish and care services.',
     },
     et: {
-      title: 'Poleerimine — sotsiaal-GIF',
-      desc: 'GIF Catweesi poleerimis- ja hooldusteenuste jaoks — kiire tsükkel lugude ja postituste jaoks.',
+      title: 'Poleerimine - sotsiaal-GIF',
+      desc: 'GIF Catweesi poleerimis- ja hooldusteenuste jaoks - kiire tsükkel lugude ja postituste jaoks.',
       meta: 'Liikuv graafika · Catwees · juuni 2022',
       imgAlt: 'Auto poleerimise teenuse animatsioon',
       lead: 'Lühike tsükkel poleerimis- ja hooldusteenuste tutvustuseks.',
@@ -224,14 +224,14 @@ const WORK = {
   },
   hrvEmailHeader: {
     en: {
-      title: 'HR-V — Email header',
+      title: 'HR-V - Email header',
       desc: 'Animated header graphic for a Honda HR-V client email send, branded for Catwees.',
       meta: 'Motion · Catwees · Mar 2022',
       imgAlt: 'Honda HR-V email header animation',
       lead: 'Animated top banner for a customer email campaign.',
     },
     et: {
-      title: 'HR-V — e-kirja päis',
+      title: 'HR-V - e-kirja päis',
       desc: 'Animeeritud päisegraafika Honda HR-V kliendikirja jaoks, Catweesi brändiga.',
       meta: 'Liikuv graafika · Catwees · märts 2022',
       imgAlt: 'Honda HR-V e-kirja päise animatsioon',
@@ -240,14 +240,14 @@ const WORK = {
   },
   sinimustvalgeFb: {
     en: {
-      title: 'Sinimustvalge — Facebook clip',
+      title: 'Sinimustvalge - Facebook clip',
       desc: 'Facebook motion clip using Estonian blue-black-white tones for a Catwees national-day style post.',
       meta: 'Motion · Catwees · Feb 2022',
       imgAlt: 'Sinimustvalge Facebook motion',
       lead: 'Flag-inspired motion for a social post.',
     },
     et: {
-      title: 'Sinimustvalge — Facebooki klipp',
+      title: 'Sinimustvalge - Facebooki klipp',
       desc: 'Facebooki liikuv klipp Eesti sinimustvalgete toonidega Catweesi riigipühale sarnase postituse jaoks.',
       meta: 'Liikuv graafika · Catwees · veebr 2022',
       imgAlt: 'Sinimustvalge Facebooki liikuv graafika',
@@ -256,14 +256,14 @@ const WORK = {
   },
   newsletterLogo: {
     en: {
-      title: 'Newsletter — Logo animation',
+      title: 'Newsletter - Logo animation',
       desc: 'Looping Catwees logo animation sized for newsletter and email mastheads.',
       meta: 'Motion · Catwees · Feb 2022',
       imgAlt: 'Catwees email logo animation',
       lead: 'Masthead loop for Catwees mailings.',
     },
     et: {
-      title: 'Uudiskiri — logo animatsioon',
+      title: 'Uudiskiri - logo animatsioon',
       desc: 'Korduv Catweesi logo animatsioon uudiskirja ja e-kirja päiste jaoks.',
       meta: 'Liikuv graafika · Catwees · veebr 2022',
       imgAlt: 'Catweesi e-kirja logo animatsioon',
@@ -272,15 +272,15 @@ const WORK = {
   },
   christmasCard: {
     en: {
-      title: 'Christmas card — Animation',
-      desc: 'Animated Christmas card for Catwees — seasonal greeting for clients and social.',
+      title: 'Christmas card - Animation',
+      desc: 'Animated Christmas card for Catwees - seasonal greeting for clients and social.',
       meta: 'Motion · Catwees · Dec 2021',
       imgAlt: 'Christmas card animation',
       lead: 'Holiday loop for end-of-year outreach.',
     },
     et: {
-      title: 'Jõulukaart — animatsioon',
-      desc: 'Animeeritud jõulukaart Catweesile — hooajaline tervitus klientidele ja sotsiaalmeediale.',
+      title: 'Jõulukaart - animatsioon',
+      desc: 'Animeeritud jõulukaart Catweesile - hooajaline tervitus klientidele ja sotsiaalmeediale.',
       meta: 'Liikuv graafika · Catwees · dets 2021',
       imgAlt: 'Jõulukaardi animatsioon',
       lead: 'Pühade tsükkel aasta lõpu tervitusteks.',
@@ -288,15 +288,15 @@ const WORK = {
   },
   urbanSuvGif: {
     en: {
-      title: 'Urban SUV — Campaign GIF',
-      desc: 'GIF promoting a city-friendly SUV line — campaign motion for Catwees feeds.',
+      title: 'Urban SUV - Campaign GIF',
+      desc: 'GIF promoting a city-friendly SUV line - campaign motion for Catwees feeds.',
       meta: 'Motion · Catwees · Dec 2021',
       imgAlt: 'Urban SUV campaign GIF',
       lead: 'Quick animation for a compact SUV message.',
     },
     et: {
-      title: 'Linnamaastur — kampaania GIF',
-      desc: 'GIF linnasõbraliku SUV-seeria jaoks — kampaania liikuv graafika Catweesi voogude jaoks.',
+      title: 'Linnamaastur - kampaania GIF',
+      desc: 'GIF linnasõbraliku SUV-seeria jaoks - kampaania liikuv graafika Catweesi voogude jaoks.',
       meta: 'Liikuv graafika · Catwees · dets 2021',
       imgAlt: 'Linnamaasturi kampaania GIF',
       lead: 'Kiire animatsioon kompaktse SUV sõnumi jaoks.',
@@ -310,7 +310,7 @@ const WORK = {
       imgAlt: 'The Weeknd After Hours album poster',
     },
     et: {
-      title: 'After Hours — albumi plakat',
+      title: 'After Hours - albumi plakat',
       desc: 'Fännplakat The Weekndi albumile „After Hours”. Soe bokeh-toon, lugude loend ja Spotify koodi lõiming.',
       meta: 'Plakatidisain · Isiklik · 2024',
       imgAlt: 'The Weekndi After Hours albumi plakat',

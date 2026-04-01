@@ -4,10 +4,11 @@
 
   var STRINGS = {
     en: {
-      navWork: 'Work',
-      navAbout: 'About',
-      navSkills: 'Skills',
-      navContact: 'Contact',
+      navHome: 'home',
+      navWork: 'work',
+      navAbout: 'about me',
+      navSkills: 'skills',
+      navContact: 'contact',
       workPageTitle: 'All Work',
       workPageSubtitle: 'Client projects, UI concepts, posters, and everything in between.',
       filterAll: 'All',
@@ -30,10 +31,11 @@
       docTitle: 'All Work - Martin Orav',
     },
     et: {
-      navWork: 'Tööd',
-      navAbout: 'Minust',
-      navSkills: 'Oskused',
-      navContact: 'Kontakt',
+      navHome: 'avaleht',
+      navWork: 'tööd',
+      navAbout: 'minust',
+      navSkills: 'oskused',
+      navContact: 'kontakt',
       workPageTitle: 'Kõik tööd',
       workPageSubtitle: 'Klientprojektid, UI kontseptsioonid, plakatid ja kõik vahepealne.',
       filterAll: 'Kõik',
@@ -53,7 +55,7 @@
       langSwitch: 'Keel',
       themeToDark: 'Lülitu tumedale režiimile',
       themeToLight: 'Lülitu heledale režiimile',
-      docTitle: 'Kõik tööd – Martin Orav',
+      docTitle: 'Kõik tööd - Martin Orav',
     },
   };
 

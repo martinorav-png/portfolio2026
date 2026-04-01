@@ -63,7 +63,7 @@ export function initSiteEffects(options?: SiteEffectsOptions): () => void {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // —— Lightbox modal ——
+  // -- Lightbox modal --
   const overlay = document.createElement('div');
   overlay.className = 'modal-overlay';
 

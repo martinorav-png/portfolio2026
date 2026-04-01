@@ -1,5 +1,5 @@
 /**
- * Ball pit hero background — adapted from Kevin Levron / soju22 pattern
+ * Ball pit hero background - adapted from Kevin Levron / soju22 pattern
  * (RoomEnvironment + MeshPhysicalMaterial + instanced spheres).
  */
 import { useEffect, useRef } from 'react';
@@ -84,7 +84,7 @@ class MiniThreeApp {
   #time: TimeState = { elapsed: 0, delta: 0 };
   #raf = 0;
 
-  /** Window resize only — debounced. Parent size uses ResizeObserver (immediate). */
+  /** Window resize only - debounced. Parent size uses ResizeObserver (immediate). */
   #onWindowResize = () => {
     if (this.#resizeDebounce) clearTimeout(this.#resizeDebounce);
     this.#resizeDebounce = setTimeout(() => this.resize(), 100);
@@ -272,7 +272,7 @@ class MiniThreeApp {
   }
 }
 
-/* —— pointer bridge (document-level) —— */
+/* -- pointer bridge (document-level) -- */
 
 const registry = new Map<HTMLElement, InteractionState>();
 const pointerDoc = new Vector2();
@@ -422,7 +422,7 @@ function hitRect(rect: DOMRect) {
   return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
 }
 
-/* —— physics —— */
+/* -- physics -- */
 
 const { randFloat, randFloatSpread } = MathUtils;
 const _p = new Vector3();
@@ -571,7 +571,7 @@ class BallPhysics {
   }
 }
 
-/* —— scattering PBR material —— */
+/* -- scattering PBR material -- */
 
 class ScatteringPhysicalMaterial extends MeshPhysicalMaterial {
   uniforms: Record<string, { value: number }>;

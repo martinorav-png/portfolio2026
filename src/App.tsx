@@ -4,10 +4,11 @@ import BounceCards from './components/BounceCards';
 import HeroBackground from './HeroBackground';
 import { initSiteEffects } from './site-effects';
 import { useAppPreferences } from './ThemeLanguageContext';
+import Folder from './components/Folder';
 import { workHomeCards } from './workHomeLocale';
 
 const CONTACT_EMAIL = 'martinoravdisain@gmail.com';
-/** Opens Gmail compose in the browser — avoids broken `mailto:` when Chrome is the default handler. */
+/** Opens Gmail compose in the browser - avoids broken `mailto:` when Chrome is the default handler. */
 const CONTACT_GMAIL_COMPOSE = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_EMAIL)}`;
 const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}`;
 
@@ -33,6 +34,37 @@ const HERO_IMAGE_POOL = [
   '/assets/works/honey-boot.png',
 ] as const;
 
+/** Extra work thumbs for the folder widget (paths also used on the work grid). */
+const WORK_FOLDER_THUMB_POOL = [
+  ...HERO_IMAGE_POOL,
+  '/assets/works/pulse-landing-full.jpg',
+  '/assets/works/catwees/kodulehe-banner-3.gif',
+  '/assets/works/catwees/comp-1.gif',
+  '/assets/works/catwees/poleerimine.gif',
+  '/assets/works/catwees/joulukaart-6.gif',
+  '/assets/works/catwees/sobivlinnamaastur.gif',
+  '/assets/works/catwees/hrv-kliendimeil-2.gif',
+  '/assets/works/catwees/meilipealislogo.gif',
+] as const;
+
+function hslToHex(h: number, s: number, l: number): string {
+  const s1 = s / 100;
+  const l1 = l / 100;
+  const a = s1 * Math.min(l1, 1 - l1);
+  const f = (n: number) => {
+    const k = (n + h / 30) % 12;
+    const color = l1 - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return Math.round(255 * color)
+      .toString(16)
+      .padStart(2, '0');
+  };
+  return `#${f(0)}${f(8)}${f(4)}`;
+}
+
+function randomFolderColor(): string {
+  return hslToHex(Math.random() * 360, 50 + Math.random() * 38, 36 + Math.random() * 24);
+}
+
 function pickRandomUnique<T>(arr: readonly T[], count: number): T[] {
   const copy = [...arr];
   for (let i = copy.length - 1; i > 0; i--) {
@@ -52,6 +84,10 @@ const HERO_BOUNCE_TRANSFORMS = [
 export default function App() {
   const { theme, toggleTheme, locale, setLocale, t } = useAppPreferences();
   const [heroFeatureImages] = useState(() => pickRandomUnique(HERO_IMAGE_POOL, 4));
+  const [workFolderRoll] = useState(() => ({
+    color: randomFolderColor(),
+    thumbs: pickRandomUnique(WORK_FOLDER_THUMB_POOL, 3),
+  }));
 
   const tRef = useRef(t);
   tRef.current = t;
@@ -73,12 +109,13 @@ export default function App() {
     <>
       <nav className="nav" id="nav">
         <div className="nav-inner">
-          <a href="#" className="nav-logo">
-            Martin.
+          <a href="/" className="nav-logo">
+            martin.orav
           </a>
           <div className="nav-right">
             <div className="nav-links">
-              <a href="#work">{t('navWork')}</a>
+              <a href="/">{t('navHome')}</a>
+              <a href="/work.html">{t('navWork')}</a>
               <a href="#about">{t('navAbout')}</a>
               <a href="#skills">{t('navSkills')}</a>
               <a href="#contact">{t('navContact')}</a>
@@ -455,10 +492,26 @@ export default function App() {
             </div>
           </div>
 
-          <div className="work-cta reveal">
-            <a href="/work.html" className="btn btn-primary">
-              {t('viewAllWork')}
-            </a>
+          <div className="work-cta-row reveal">
+            <div className="work-cta-folder-wrap" title={t('workFolderHint')}>
+              <div className="work-cta-folder-stage">
+                <div className="work-cta-folder-mount">
+                  <Folder
+                    clickOnly
+                    size={2}
+                    color={workFolderRoll.color}
+                    items={workFolderRoll.thumbs.map((src) => (
+                      <img key={src} src={src} alt="" className="folder-paper-thumb" loading="lazy" />
+                    ))}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="work-cta-actions">
+              <a href="/work.html" className="btn btn-primary">
+                {t('viewAllWork')}
+              </a>
+            </div>
           </div>
         </div>
       </section>

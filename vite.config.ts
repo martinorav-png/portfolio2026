@@ -13,7 +13,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  // Only the Vite app entry — avoid scanning other .html files (email-template, work.html, etc.)
+  // Only the Vite app entry - avoid scanning other .html files (email-template, work.html, etc.)
   optimizeDeps: {
     entries: [path.resolve(__dirname, 'index.html')],
   },

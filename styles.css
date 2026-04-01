@@ -327,7 +327,7 @@ img {
   overflow: hidden;
 }
 
-/* 3D ball pit — full hero (nav → gradient divider above Selected Work) */
+/* 3D ball pit - full hero (nav → gradient divider above Selected Work) */
 .hero-ballpit-layer,
 .hero-dither-layer {
   position: absolute;
@@ -845,6 +845,47 @@ img {
 .work-cta {
   text-align: center;
   margin-top: 36px;
+}
+
+.work-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 4vw, 40px);
+  margin-top: 36px;
+}
+
+.work-cta-folder-wrap {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: min(360px, 55vh);
+  width: min(100%, 380px);
+  position: relative;
+  isolation: isolate;
+}
+
+.work-cta-folder-stage {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 100px 16px 12px;
+  box-sizing: border-box;
+}
+
+.work-cta-folder-mount {
+  position: relative;
+  z-index: 1;
+}
+
+.work-cta-actions {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 /* ========== Work Page ========== */
