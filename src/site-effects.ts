@@ -229,6 +229,9 @@ export function initSiteEffects(options?: SiteEffectsOptions): () => void {
   const onDocumentClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
     const card = target.closest('.work-card');
+    if (card && card.classList.contains('work-card--motion-collection')) {
+      return;
+    }
     if (card && !isOpen) {
       e.preventDefault();
       openModal(card as HTMLElement);

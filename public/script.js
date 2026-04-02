@@ -230,6 +230,9 @@ window.addEventListener('scroll', () => {
   // Click handlers for all work cards
   document.addEventListener('click', (e) => {
     const card = e.target.closest('.work-card');
+    if (card && card.classList.contains('work-card--motion-collection')) {
+      return;
+    }
     if (card && !isOpen) {
       e.preventDefault();
       openModal(card);
@@ -253,5 +256,279 @@ window.addEventListener('scroll', () => {
     if (e.key === 'Escape' && isOpen) {
       closeModal();
     }
+  });
+})();
+
+// Catwees motion collection (work page + any static page using .work-card--motion-collection)
+(function () {
+  var CATWEES_MOTION_ITEMS = [
+    {
+      kind: 'video',
+      src: 'assets/works/catwees/crv-2.mp4',
+      title: 'Honda CR-V - Motion loop',
+      desc: 'Short motion loops for the Honda CR-V, built for Catwees social and display placements.',
+      meta: 'Motion · Catwees · Oct 2023',
+    },
+    {
+      kind: 'video',
+      src: 'assets/works/catwees/eny1-2.mp4',
+      title: 'Honda e:Ny1 - Motion loop',
+      desc: 'Motion clip highlighting the Honda e:Ny1 electric SUV for Catwees marketing.',
+      meta: 'Motion · Catwees · Oct 2023',
+    },
+    {
+      kind: 'video',
+      src: 'assets/works/catwees/zrv-2.mp4',
+      title: 'Honda ZR-V - Motion loop',
+      desc: 'Motion piece for the Honda ZR-V crossover, produced for Catwees campaigns.',
+      meta: 'Motion · Catwees · Oct 2023',
+    },
+    {
+      kind: 'img',
+      src: 'assets/works/catwees/kodulehe-banner-3.gif',
+      title: 'Catwees - Homepage banner',
+      desc: 'Animated hero banner for the Catwees website - layered car imagery and typography timed for the homepage header.',
+      meta: 'Motion · Catwees · Feb 2023',
+    },
+    {
+      kind: 'video',
+      src: 'assets/works/catwees/kuubik.mp4',
+      title: 'Kuubik - 3D cube motion',
+      desc: 'Abstract cube transformation - motion study and social-ready clip for Catwees.',
+      meta: 'Motion · Catwees · Dec 2022',
+    },
+    {
+      kind: 'img',
+      src: 'assets/works/catwees/comp-1.gif',
+      title: 'Catwees - Composite motion',
+      desc: 'After Effects composite export - layered graphics, glow, and transitions for a Catwees digital piece.',
+      meta: 'Motion · Catwees · Dec 2022',
+    },
+    {
+      kind: 'img',
+      src: 'assets/works/catwees/poleerimine.gif',
+      title: 'Detailing - Social GIF',
+      desc: 'GIF for Catwees detailing / polish services - quick loop for social stories and posts.',
+      meta: 'Motion · Catwees · Jun 2022',
+    },
+    {
+      kind: 'img',
+      src: 'assets/works/catwees/hrv-kliendimeil-2.gif',
+      title: 'HR-V - Email header',
+      desc: 'Animated header graphic for a Honda HR-V client email send, branded for Catwees.',
+      meta: 'Motion · Catwees · Mar 2022',
+    },
+    {
+      kind: 'video',
+      src: 'assets/works/catwees/sinimustvalge-fb.mp4',
+      title: 'Sinimustvalge - Facebook clip',
+      desc: 'Facebook motion clip using Estonian blue-black-white tones for a Catwees national-day style post.',
+      meta: 'Motion · Catwees · Feb 2022',
+    },
+    {
+      kind: 'img',
+      src: 'assets/works/catwees/meilipealislogo.gif',
+      title: 'Newsletter - Logo animation',
+      desc: 'Looping Catwees logo animation sized for newsletter and email mastheads.',
+      meta: 'Motion · Catwees · Feb 2022',
+    },
+    {
+      kind: 'img',
+      src: 'assets/works/catwees/joulukaart-6.gif',
+      title: 'Christmas card - Animation',
+      desc: 'Animated Christmas card for Catwees - seasonal greeting for clients and social.',
+      meta: 'Motion · Catwees · Dec 2021',
+    },
+    {
+      kind: 'img',
+      src: 'assets/works/catwees/sobivlinnamaastur.gif',
+      title: 'Urban SUV - Campaign GIF',
+      desc: 'GIF promoting a city-friendly SUV line - campaign motion for Catwees feeds.',
+      meta: 'Motion · Catwees · Dec 2021',
+    },
+  ];
+
+  var motionOpen = false;
+  var detailIdx = -1;
+  var sourceCard = null;
+  var rootEl = null;
+
+  function getUi() {
+    var w = typeof window !== 'undefined' && window.__portfolioWorkStrings;
+    return {
+      back: (w && w.motionCollectionBack) || 'Back to grid',
+      close: (w && w.motionCollectionClose) || 'Close',
+    };
+  }
+
+  function ensureRoot() {
+    if (rootEl) return rootEl;
+    rootEl = document.createElement('div');
+    rootEl.className = 'motion-collection-overlay';
+    rootEl.setAttribute('role', 'dialog');
+    rootEl.setAttribute('aria-modal', 'true');
+    rootEl.innerHTML =
+      '<div class="motion-collection-panel">' +
+      '<button type="button" class="motion-collection-close" aria-label="">' +
+      '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+      '</button>' +
+      '<div class="motion-collection-body"></div>' +
+      '</div>';
+    document.body.appendChild(rootEl);
+    rootEl.querySelector('.motion-collection-close').addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeMotion();
+    });
+    rootEl.addEventListener('click', function (e) {
+      if (e.target === rootEl) closeMotion();
+    });
+    rootEl.querySelector('.motion-collection-panel').addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
+    return rootEl;
+  }
+
+  function render() {
+    var ui = getUi();
+    var el = ensureRoot();
+    var body = el.querySelector('.motion-collection-body');
+    var closeBtn = el.querySelector('.motion-collection-close');
+    closeBtn.setAttribute('aria-label', ui.close);
+
+    if (!sourceCard) return;
+
+    var title = sourceCard.querySelector('h3');
+    var desc = sourceCard.querySelector('.work-card-info p');
+    var meta = sourceCard.querySelector('.work-meta');
+    var headTitle = title ? title.textContent : 'Catwees Honda — Motion Collection';
+    var headDesc = desc ? desc.textContent : '';
+    var headMeta = meta ? meta.textContent : '';
+
+    if (detailIdx < 0) {
+      body.innerHTML =
+        '<header class="motion-collection-header"><h2 id="motion-collection-dlg-title"></h2>' +
+        '<p class="motion-collection-lead"></p><span class="motion-collection-meta"></span></header>' +
+        '<div class="motion-collection-grid"></div>';
+      body.querySelector('#motion-collection-dlg-title').textContent = headTitle;
+      body.querySelector('.motion-collection-lead').textContent = headDesc;
+      body.querySelector('.motion-collection-meta').textContent = headMeta;
+
+      var grid = body.querySelector('.motion-collection-grid');
+      CATWEES_MOTION_ITEMS.forEach(function (item, i) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'motion-collection-tile';
+        var media = document.createElement('div');
+        media.className = 'motion-collection-tile-media';
+        if (item.kind === 'video') {
+          var v = document.createElement('video');
+          v.muted = true;
+          v.playsInline = true;
+          v.loop = true;
+          v.autoplay = true;
+          v.preload = 'metadata';
+          v.innerHTML = '<source src="' + item.src + '" type="video/mp4">';
+          media.appendChild(v);
+        } else {
+          var im = document.createElement('img');
+          im.src = item.src;
+          im.alt = '';
+          im.loading = 'lazy';
+          media.appendChild(im);
+        }
+        var cap = document.createElement('span');
+        cap.className = 'motion-collection-tile-title';
+        cap.textContent = item.title;
+        btn.appendChild(media);
+        btn.appendChild(cap);
+        btn.addEventListener('click', function () {
+          detailIdx = i;
+          render();
+        });
+        grid.appendChild(btn);
+      });
+    } else {
+      var item = CATWEES_MOTION_ITEMS[detailIdx];
+      body.innerHTML =
+        '<div class="motion-collection-detail">' +
+        '<button type="button" class="motion-collection-back btn btn-secondary"></button>' +
+        '<div class="motion-collection-detail-media"></div>' +
+        '<div class="motion-collection-detail-info"><h3 class="mcd-title"></h3><p class="mcd-desc"></p><span class="work-meta mcd-meta"></span></div></div>';
+      body.querySelector('.motion-collection-back').textContent = ui.back;
+      body.querySelector('.motion-collection-back').addEventListener('click', function () {
+        detailIdx = -1;
+        render();
+      });
+      var wrap = body.querySelector('.motion-collection-detail-media');
+      if (item.kind === 'video') {
+        var vid = document.createElement('video');
+        vid.className = 'motion-collection-detail-vid';
+        vid.controls = true;
+        vid.playsInline = true;
+        vid.loop = true;
+        vid.preload = 'metadata';
+        vid.innerHTML = '<source src="' + item.src + '" type="video/mp4">';
+        wrap.appendChild(vid);
+      } else {
+        var img = document.createElement('img');
+        img.className = 'motion-collection-detail-img';
+        img.src = item.src;
+        img.alt = item.title;
+        wrap.appendChild(img);
+      }
+      body.querySelector('.mcd-title').textContent = item.title;
+      body.querySelector('.mcd-desc').textContent = item.desc;
+      body.querySelector('.mcd-meta').textContent = item.meta;
+    }
+  }
+
+  function openMotion(card) {
+    sourceCard = card;
+    detailIdx = -1;
+    motionOpen = true;
+    document.body.style.overflow = 'hidden';
+    var el = ensureRoot();
+    el.classList.add('active');
+    render();
+  }
+
+  function closeMotion() {
+    if (!motionOpen) return;
+    motionOpen = false;
+    detailIdx = -1;
+    sourceCard = null;
+    if (rootEl) rootEl.classList.remove('active');
+    document.body.style.overflow = '';
+    var body = rootEl && rootEl.querySelector('.motion-collection-body');
+    if (body) body.innerHTML = '';
+  }
+
+  document.addEventListener('click', function (e) {
+    var card = e.target.closest('.work-card--motion-collection');
+    if (!card) return;
+    e.preventDefault();
+    openMotion(card);
+  });
+
+  document.addEventListener(
+    'keydown',
+    function (e) {
+      if (!motionOpen || e.key !== 'Escape') return;
+      e.stopPropagation();
+      if (detailIdx >= 0) {
+        detailIdx = -1;
+        render();
+      } else {
+        closeMotion();
+      }
+    },
+    true
+  );
+
+  document.addEventListener('keydown', function (e) {
+    var card = document.activeElement && document.activeElement.closest('.work-card--motion-collection');
+    if (!card || (e.key !== 'Enter' && e.key !== ' ')) return;
+    e.preventDefault();
+    openMotion(card);
   });
 })();

@@ -10,14 +10,17 @@
       navSkills: 'skills',
       navContact: 'contact',
       workPageTitle: 'All Work',
-      workPageSubtitle: 'Client projects, UI concepts, posters, and everything in between.',
+      workPageSubtitle: 'Client projects, UI concepts, personal experiments, and everything in between.',
       filterAll: 'All',
       filterUi: 'UI Design',
       filterClient: 'Client Work',
-      filterPoster: 'Posters',
+      filterPersonal: 'Personal / Experiments',
       filterBranding: 'Branding',
       filterHackathon: 'Hackathon',
+      filterWebApps: 'Web apps',
       filterMotion: 'Motion',
+      webAppsSectionTitle: 'Web apps',
+      webAppsSectionDesc: 'School assignments · EKA',
       modalViewLive: 'View live project',
       footer: '© 2026 Martin Orav. Built with care.',
       behanceLabel: 'See more work',
@@ -29,6 +32,18 @@
       themeToDark: 'Switch to dark mode',
       themeToLight: 'Switch to light mode',
       docTitle: 'All Work - Martin Orav',
+      motionCollectionBadge: '12 pieces',
+      motionCollectionTitle: 'Catwees Honda — Motion Collection',
+      motionCollectionDesc:
+        '12 motion pieces across social ads, email headers, campaign GIFs, and product loops for an Estonian Honda dealership.',
+      motionCollectionMeta: 'Motion · Catwees · 2021–2023',
+      motionCollectionBack: 'Back to grid',
+      motionCollectionClose: 'Close collection',
+      mprWorkTitle: 'Emblem of the 4th Mortar Platoon, Viru Infantry Battalion',
+      mprWorkDesc:
+        'Shield-shaped emblem for MPR. Features pistons, crossed tools, wings, and a fox motif. Clean vector work in a black, green, and gold palette.',
+      mprWorkMeta: 'Emblem design · Military · 2022',
+      mprWorkImgAlt: 'Emblem of the 4th Mortar Platoon, Viru Infantry Battalion — unit patch on Estonian camouflage with flag tab',
     },
     et: {
       navHome: 'avaleht',
@@ -37,14 +52,17 @@
       navSkills: 'oskused',
       navContact: 'kontakt',
       workPageTitle: 'Kõik tööd',
-      workPageSubtitle: 'Klientprojektid, UI kontseptsioonid, plakatid ja kõik vahepealne.',
+      workPageSubtitle: 'Klientprojektid, UI kontseptsioonid, isiklikud eksperimendid ja kõik vahepealne.',
       filterAll: 'Kõik',
       filterUi: 'Kasutajaliides',
       filterClient: 'Klienttöö',
-      filterPoster: 'Plakatid',
+      filterPersonal: 'Isiklik / eksperimentaalne',
       filterBranding: 'Bränding',
       filterHackathon: 'Hackathon',
+      filterWebApps: 'Veebirakendused',
       filterMotion: 'Liikuv graafika',
+      webAppsSectionTitle: 'Veebirakendused',
+      webAppsSectionDesc: 'Koolitööd · EKA',
       modalViewLive: 'Vaata projekti võrgus',
       footer: '© 2026 Martin Orav. Ehitatud hoolega.',
       behanceLabel: 'Vaata rohkem töid',
@@ -56,6 +74,18 @@
       themeToDark: 'Lülitu tumedale režiimile',
       themeToLight: 'Lülitu heledale režiimile',
       docTitle: 'Kõik tööd - Martin Orav',
+      motionCollectionBadge: '12 tööd',
+      motionCollectionTitle: 'Catwees Honda — liikuva graafika kogu',
+      motionCollectionDesc:
+        '12 liikuvat tööd: sotsiaalreklaamid, e-kirjade päised, kampaania-GIFid ja tootetsüklid Eesti Honda edasimüüjale.',
+      motionCollectionMeta: 'Liikuv graafika · Catwees · 2021–2023',
+      motionCollectionBack: 'Tagasi võrgustikku',
+      motionCollectionClose: 'Sulge kogu',
+      mprWorkTitle: 'Viru jalaväepataljoni 4. miinipildujarühma embleem',
+      mprWorkDesc:
+        'Kilbikujuline embleem MPR-i jaoks. Kolvid, ristuvad tööriistad, tiivad ja rebane. Puhas vektorgraafika musta, rohelise ja kuldse paletiga.',
+      mprWorkMeta: 'Embleemidisain · Kaitsevägi · 2022',
+      mprWorkImgAlt: 'Viru jalaväepataljoni 4. miinipildujarühma embleem — üksusemärk maskeeringu vormil riigilipu ribaga',
     },
   };
 
@@ -119,7 +149,11 @@
   function syncWorkPageStrings() {
     var loc = readLocale();
     var t = STRINGS[loc] || STRINGS.en;
-    window.__portfolioWorkStrings = { modalViewLive: t.modalViewLive };
+    window.__portfolioWorkStrings = {
+      modalViewLive: t.modalViewLive,
+      motionCollectionBack: t.motionCollectionBack,
+      motionCollectionClose: t.motionCollectionClose,
+    };
   }
 
   function applyStaticI18n() {
@@ -128,6 +162,10 @@
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
       var key = el.getAttribute('data-i18n');
       if (key && t[key]) el.textContent = t[key];
+    });
+    document.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-alt');
+      if (key && t[key]) el.setAttribute('alt', t[key]);
     });
     document.title = t.docTitle;
   }
@@ -171,27 +209,41 @@
     }
   }
 
+  function applyWorkGridFilter(filter) {
+    var filterTargets = document.querySelectorAll('.work-grid-full .work-card, .work-grid-full .work-grid-subsection');
+    filterTargets.forEach(function (el) {
+      var cat = el.getAttribute('data-category');
+      var hideInAll = el.getAttribute('data-hide-in-all') === 'true';
+      var match;
+      if (filter === 'all') {
+        match = !hideInAll;
+      } else {
+        match = cat === filter;
+      }
+      if (match) {
+        el.classList.remove('hidden');
+        el.classList.add('visible');
+      } else {
+        el.classList.add('hidden');
+        el.classList.remove('visible');
+      }
+    });
+  }
+
   function initFilters() {
     var filterBtns = document.querySelectorAll('.filter-btn');
-    var cards = document.querySelectorAll('.work-grid-full .work-card');
     filterBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         filterBtns.forEach(function (b) {
           b.classList.remove('active');
         });
         btn.classList.add('active');
-        var filter = btn.getAttribute('data-filter');
-        cards.forEach(function (card) {
-          if (filter === 'all' || card.getAttribute('data-category') === filter) {
-            card.classList.remove('hidden');
-            card.classList.add('visible');
-          } else {
-            card.classList.add('hidden');
-            card.classList.remove('visible');
-          }
-        });
+        var filter = btn.getAttribute('data-filter') || 'all';
+        applyWorkGridFilter(filter);
       });
     });
+    var active = document.querySelector('.filter-btn.active[data-filter]');
+    applyWorkGridFilter(active ? active.getAttribute('data-filter') : 'all');
   }
 
   function getBehancePhrases() {

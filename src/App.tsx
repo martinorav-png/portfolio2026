@@ -6,6 +6,8 @@ import { initSiteEffects } from './site-effects';
 import { useAppPreferences } from './ThemeLanguageContext';
 import GlobalClickSpark from './components/GlobalClickSpark';
 import Folder from './components/Folder';
+import CatweesMotionCollectionCard from './components/CatweesMotionCollectionCard';
+import SkillsStrip from './components/SkillsStrip';
 import { workHomeCards } from './workHomeLocale';
 
 const CONTACT_EMAIL = 'martinoravdisain@gmail.com';
@@ -30,7 +32,7 @@ const HERO_IMAGE_POOL = [
   '/assets/works/young-forever-poster.jpg',
   '/assets/works/pretty-poison-poster.jpg',
   '/assets/works/fallout-poster.jpg',
-  '/assets/works/mpr-patch.jpg',
+  '/assets/works/mpr-emblem-photo.png',
   '/assets/works/swimming-poster.jpg',
   '/assets/works/honey-boot.png',
 ] as const;
@@ -274,11 +276,59 @@ export default function App() {
               data-live-url="https://honey-boot.rivo-tuksammel.workers.dev"
             >
               <div className="work-card-img">
+                <span className="work-live-badge" aria-label="Live deployment">
+                  <span className="work-live-badge__dot" aria-hidden="true" />
+                  live
+                </span>
                 <img src="/assets/works/honey-boot.png" alt={wh.honeyBoot.imgAlt} loading="lazy" />
               </div>
               <div className="work-card-info">
                 <h3>{wh.honeyBoot.title}</h3>
                 <span className="work-meta">{wh.honeyBoot.meta}</span>
+              </div>
+            </div>
+
+            <div
+              className="work-card reveal"
+              data-desc={wh.freeGamesExplorer.desc}
+              data-live-url="https://martinorav-png.github.io/free-games-explorer/"
+            >
+              <div className="work-card-img">
+                <span className="work-live-badge" aria-label="Live deployment">
+                  <span className="work-live-badge__dot" aria-hidden="true" />
+                  live
+                </span>
+                <img
+                  src="/assets/works/free-games-explorer-thumb.png"
+                  alt={wh.freeGamesExplorer.imgAlt}
+                  loading="lazy"
+                />
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.freeGamesExplorer.title}</h3>
+                <span className="work-meta">{wh.freeGamesExplorer.meta}</span>
+              </div>
+            </div>
+
+            <div
+              className="work-card reveal"
+              data-desc={wh.selfCareTracker.desc}
+              data-live-url="https://martinorav-png.github.io/self-care-tracker/"
+            >
+              <div className="work-card-img">
+                <span className="work-live-badge" aria-label="Live deployment">
+                  <span className="work-live-badge__dot" aria-hidden="true" />
+                  live
+                </span>
+                <img
+                  src="/assets/works/self-care-tracker-thumb.png"
+                  alt={wh.selfCareTracker.imgAlt}
+                  loading="lazy"
+                />
+              </div>
+              <div className="work-card-info">
+                <h3>{wh.selfCareTracker.title}</h3>
+                <span className="work-meta">{wh.selfCareTracker.meta}</span>
               </div>
             </div>
 
@@ -336,160 +386,22 @@ export default function App() {
               </div>
             </div>
 
-            <div className="work-card reveal" data-desc={wh.crvMotion.desc}>
-              <div className="work-card-img work-card-img--video">
-                <video muted playsInline loop autoPlay preload="metadata" aria-label={wh.crvMotion.imgAlt}>
-                  <source src="/assets/works/catwees/crv-2.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.crvMotion.title}</h3>
-                {wh.crvMotion.lead ? <p>{wh.crvMotion.lead}</p> : null}
-                <span className="work-meta">{wh.crvMotion.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.eny1Motion.desc}>
-              <div className="work-card-img work-card-img--video">
-                <video muted playsInline loop autoPlay preload="metadata" aria-label={wh.eny1Motion.imgAlt}>
-                  <source src="/assets/works/catwees/eny1-2.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.eny1Motion.title}</h3>
-                {wh.eny1Motion.lead ? <p>{wh.eny1Motion.lead}</p> : null}
-                <span className="work-meta">{wh.eny1Motion.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.zrvMotion.desc}>
-              <div className="work-card-img work-card-img--video">
-                <video muted playsInline loop autoPlay preload="metadata" aria-label={wh.zrvMotion.imgAlt}>
-                  <source src="/assets/works/catwees/zrv-2.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.zrvMotion.title}</h3>
-                {wh.zrvMotion.lead ? <p>{wh.zrvMotion.lead}</p> : null}
-                <span className="work-meta">{wh.zrvMotion.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.catweesHomeBanner.desc}>
-              <div className="work-card-img">
-                <img src="/assets/works/catwees/kodulehe-banner-3.gif" alt={wh.catweesHomeBanner.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.catweesHomeBanner.title}</h3>
-                {wh.catweesHomeBanner.lead ? <p>{wh.catweesHomeBanner.lead}</p> : null}
-                <span className="work-meta">{wh.catweesHomeBanner.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.kuubik.desc}>
-              <div className="work-card-img work-card-img--video">
-                <video muted playsInline loop autoPlay preload="metadata" aria-label={wh.kuubik.imgAlt}>
-                  <source src="/assets/works/catwees/kuubik.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.kuubik.title}</h3>
-                {wh.kuubik.lead ? <p>{wh.kuubik.lead}</p> : null}
-                <span className="work-meta">{wh.kuubik.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.catweesComposite.desc}>
-              <div className="work-card-img">
-                <img src="/assets/works/catwees/comp-1.gif" alt={wh.catweesComposite.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.catweesComposite.title}</h3>
-                {wh.catweesComposite.lead ? <p>{wh.catweesComposite.lead}</p> : null}
-                <span className="work-meta">{wh.catweesComposite.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.detailingGif.desc}>
-              <div className="work-card-img">
-                <img src="/assets/works/catwees/poleerimine.gif" alt={wh.detailingGif.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.detailingGif.title}</h3>
-                {wh.detailingGif.lead ? <p>{wh.detailingGif.lead}</p> : null}
-                <span className="work-meta">{wh.detailingGif.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.hrvEmailHeader.desc}>
-              <div className="work-card-img">
-                <img src="/assets/works/catwees/hrv-kliendimeil-2.gif" alt={wh.hrvEmailHeader.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.hrvEmailHeader.title}</h3>
-                {wh.hrvEmailHeader.lead ? <p>{wh.hrvEmailHeader.lead}</p> : null}
-                <span className="work-meta">{wh.hrvEmailHeader.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.sinimustvalgeFb.desc}>
-              <div className="work-card-img work-card-img--video">
-                <video muted playsInline loop autoPlay preload="metadata" aria-label={wh.sinimustvalgeFb.imgAlt}>
-                  <source src="/assets/works/catwees/sinimustvalge-fb.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.sinimustvalgeFb.title}</h3>
-                {wh.sinimustvalgeFb.lead ? <p>{wh.sinimustvalgeFb.lead}</p> : null}
-                <span className="work-meta">{wh.sinimustvalgeFb.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.newsletterLogo.desc}>
-              <div className="work-card-img">
-                <img src="/assets/works/catwees/meilipealislogo.gif" alt={wh.newsletterLogo.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.newsletterLogo.title}</h3>
-                {wh.newsletterLogo.lead ? <p>{wh.newsletterLogo.lead}</p> : null}
-                <span className="work-meta">{wh.newsletterLogo.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.christmasCard.desc}>
-              <div className="work-card-img">
-                <img src="/assets/works/catwees/joulukaart-6.gif" alt={wh.christmasCard.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.christmasCard.title}</h3>
-                {wh.christmasCard.lead ? <p>{wh.christmasCard.lead}</p> : null}
-                <span className="work-meta">{wh.christmasCard.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.urbanSuvGif.desc}>
-              <div className="work-card-img">
-                <img src="/assets/works/catwees/sobivlinnamaastur.gif" alt={wh.urbanSuvGif.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.urbanSuvGif.title}</h3>
-                {wh.urbanSuvGif.lead ? <p>{wh.urbanSuvGif.lead}</p> : null}
-                <span className="work-meta">{wh.urbanSuvGif.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.afterHoursPoster.desc}>
-              <div className="work-card-img">
-                <img src="/assets/works/after-hours-poster.jpg" alt={wh.afterHoursPoster.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.afterHoursPoster.title}</h3>
-                <span className="work-meta">{wh.afterHoursPoster.meta}</span>
-              </div>
-            </div>
+            <CatweesMotionCollectionCard locale={locale} />
           </div>
 
           <div className="work-cta-row reveal">
+            <div className="work-cta-arrow-hint">
+              <p className="work-cta-arrow-text">{t('workFolderPreviewCue')}</p>
+              <img
+                src="/assets/folder-preview-arrow.png"
+                alt=""
+                className="work-cta-arrow-img"
+                width={130}
+                height={130}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
             <div className="work-cta-folder-wrap" title={t('workFolderHint')}>
               <div className="work-cta-folder-stage">
                 <div className="work-cta-folder-mount">
@@ -516,20 +428,7 @@ export default function App() {
       <section className="section section-dark" id="skills">
         <div className="container">
           <h2 className="section-title reveal">{t('skillsTitle')}</h2>
-          <div className="tools-strip reveal">
-            <span className="tool-tag">Photoshop</span>
-            <span className="tool-tag">Figma</span>
-            <span className="tool-tag">Illustrator</span>
-            <span className="tool-tag">After Effects</span>
-            <span className="tool-tag">HTML / CSS</span>
-            <span className="tool-tag">JavaScript</span>
-            <span className="tool-tag">UI Design</span>
-            <span className="tool-tag">Graphic Design</span>
-            <span className="tool-tag">Branding</span>
-            <span className="tool-tag">Motion Graphics</span>
-            <span className="tool-tag">Print Design</span>
-            <span className="tool-tag">Email Design</span>
-          </div>
+          <SkillsStrip />
         </div>
       </section>
 

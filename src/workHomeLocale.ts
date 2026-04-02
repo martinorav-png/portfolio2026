@@ -7,6 +7,8 @@ export type WorkHomeCardCopy = {
   imgAlt: string;
   /** Optional short line under title (motion cards) */
   lead?: string;
+  /** e.g. "12 pieces" on the motion collection card */
+  pieceCountBadge?: string;
 };
 
 const WORK = {
@@ -41,15 +43,43 @@ const WORK = {
   honeyBoot: {
     en: {
       title: 'HONEY//BOOT',
-      desc: 'FTP honeypot and ESP32 flasher experience, built during the Cursor Hackathon (26 March 2026). Co-created with Gert Tali, Lukas Haavel, and Rivo Tüksammel. Deployed on Cloudflare Workers.',
+      desc: 'Web app that combines an FTP honeypot with an ESP32 firmware flasher. Built in 24 hours at the Cursor Hackathon (26 March 2026), with Gert Tali, Lukas Haavel, and Rivo Tüksammel. Live on Cloudflare Workers.',
       meta: 'Hackathon · Security / IoT · 2026',
       imgAlt: 'HONEY//BOOT ESP32 flasher UI',
     },
     et: {
       title: 'HONEY//BOOT',
-      desc: 'FTP honeypot ja ESP32 flashijaliides, valminud Cursor Hackathonil (26. märts 2026). Kaasautorid Gert Tali, Lukas Haavel ja Rivo Tüksammel. Juures Cloudflare Workersis.',
+      desc: 'Veebirakendus, mis ühendab FTP honeypoti ja ESP32 püsivara flashija. Valmis 24 tunniga Cursor Hackathonil (26. märts 2026) koos Gert Tali, Lukas Haaveli ja Rivo Tüksammeliga. Juures Cloudflare Workersis.',
       meta: 'Hackathon · Turvalisus / IoT · 2026',
       imgAlt: 'HONEY//BOOT ESP32 flashija kasutajaliides',
+    },
+  },
+  freeGamesExplorer: {
+    en: {
+      title: 'Free Games Explorer',
+      desc: 'Web app for discovering free-to-play games: search, platform and genre filters, favourites, and keyboard shortcuts. Neo-brutalist UI. School assignment for EKA. Live on GitHub Pages.',
+      meta: 'Web app · EKA · 2026',
+      imgAlt: 'Free Games Explorer app screenshot',
+    },
+    et: {
+      title: 'Free Games Explorer',
+      desc: 'Veebirakendus tasuta mängude avastamiseks: otsing, platvormi- ja žanrifiltrid, lemmikud ja kiirklahvid. Neo-brutalistlik kasutajaliides. Koolitöö EKA jaoks. Juures GitHub Pagesis.',
+      meta: 'Veebirakendus · EKA · 2026',
+      imgAlt: 'Free Games Exploreri rakenduse kuvatõmmis',
+    },
+  },
+  selfCareTracker: {
+    en: {
+      title: 'Päevaplaan — Self-care tracker',
+      desc: 'Web app for habits and self-care: quick-add tasks, categories, streaks, achievements, and light gamification (including a draggable plant). Estonian-first UI with local storage. School assignment for EKA. Live on GitHub Pages.',
+      meta: 'Web app · EKA · 2026',
+      imgAlt: 'Päevaplaan self-care tracker app screenshot',
+    },
+    et: {
+      title: 'Päevaplaan — enesehoolduse jälgija',
+      desc: 'Veebirakendus harjumuste ja enesehoolduse planeerimiseks: kiire ülesannete lisamine, kategooriad, streak, saavutused ja kerge mängustamine (sh lohistatav taim). Eestikeelne liides ja brauseri kohalik salvestus. Koolitöö EKA jaoks. Juures GitHub Pagesis.',
+      meta: 'Veebirakendus · EKA · 2026',
+      imgAlt: 'Päevaplaani rakenduse kuvatõmmis',
     },
   },
   pulse: {
@@ -108,6 +138,22 @@ const WORK = {
       meta: 'Liikuv graafika · Catwees · veebr 2022',
       imgAlt: 'Catwees brändi animatsioon',
       lead: 'Logo ja sõnamärgi liikumine edasimüüja digikanalites.',
+    },
+  },
+  catweesMotionCollection: {
+    en: {
+      title: 'Catwees Honda — Motion Collection',
+      desc: '12 motion pieces across social ads, email headers, campaign GIFs, and product loops for an Estonian Honda dealership.',
+      meta: 'Motion · Catwees · 2021–2023',
+      imgAlt: 'Grid preview of Catwees Honda motion work',
+      pieceCountBadge: '12 pieces',
+    },
+    et: {
+      title: 'Catwees Honda — liikuva graafika kogu',
+      desc: '12 liikuvat tööd: sotsiaalreklaamid, e-kirjade päised, kampaania-GIFid ja tootetsüklid Eesti Honda edasimüüjale.',
+      meta: 'Liikuv graafika · Catwees · 2021–2023',
+      imgAlt: 'Catwees Honda liikuva graafika eelvaate ruudustik',
+      pieceCountBadge: '12 tööd',
     },
   },
   crvMotion: {
@@ -329,10 +375,13 @@ export function workHomeCards(locale: Locale): Record<WorkHomeCardId, WorkHomeCa
     hondaPrelude: WORK.hondaPrelude[locale],
     substrate: WORK.substrate[locale],
     honeyBoot: WORK.honeyBoot[locale],
+    freeGamesExplorer: WORK.freeGamesExplorer[locale],
+    selfCareTracker: WORK.selfCareTracker[locale],
     pulse: WORK.pulse[locale],
     catweesSuv: WORK.catweesSuv[locale],
     civic50: WORK.civic50[locale],
     catweesBrandAnim: WORK.catweesBrandAnim[locale],
+    catweesMotionCollection: WORK.catweesMotionCollection[locale],
     crvMotion: WORK.crvMotion[locale],
     eny1Motion: WORK.eny1Motion[locale],
     zrvMotion: WORK.zrvMotion[locale],

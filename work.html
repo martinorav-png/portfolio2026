@@ -51,7 +51,7 @@
   <div class="page-header">
     <div class="container">
       <h1 class="section-title anim-fade-up" data-i18n="workPageTitle">All Work</h1>
-      <p class="section-subtitle anim-fade-up" data-i18n="workPageSubtitle" style="animation-delay: 0.1s">Client projects, UI concepts, posters, and everything in between.</p>
+      <p class="section-subtitle anim-fade-up" data-i18n="workPageSubtitle" style="animation-delay: 0.1s">Client projects, UI concepts, personal experiments, and everything in between.</p>
     </div>
   </div>
 
@@ -63,9 +63,10 @@
         <button type="button" class="filter-btn active" data-filter="all" data-i18n="filterAll">All</button>
         <button type="button" class="filter-btn" data-filter="ui" data-i18n="filterUi">UI Design</button>
         <button type="button" class="filter-btn" data-filter="client" data-i18n="filterClient">Client Work</button>
-        <button type="button" class="filter-btn" data-filter="poster" data-i18n="filterPoster">Posters</button>
+        <button type="button" class="filter-btn" data-filter="personal" data-i18n="filterPersonal">Personal / Experiments</button>
         <button type="button" class="filter-btn" data-filter="branding" data-i18n="filterBranding">Branding</button>
         <button type="button" class="filter-btn" data-filter="hackathon" data-i18n="filterHackathon">Hackathon</button>
+        <button type="button" class="filter-btn" data-filter="webapp" data-i18n="filterWebApps">Web apps</button>
         <button type="button" class="filter-btn" data-filter="motion" data-i18n="filterMotion">Motion</button>
       </div>
 
@@ -105,14 +106,44 @@
           </div>
         </div>
 
-        <div class="work-card reveal" data-category="hackathon" data-live-url="https://honey-boot.rivo-tuksammel.workers.dev" data-desc="FTP honeypot and ESP32 flasher interface, built during the Cursor Hackathon (26 March 2026). Co-created with Gert Tali, Lukas Haavel, and Rivo Tüksammel. Deployed on Cloudflare Workers.">
+        <div class="work-card reveal" data-category="hackathon" data-live-url="https://honey-boot.rivo-tuksammel.workers.dev" data-desc="Web app that combines an FTP honeypot with an ESP32 firmware flasher. Built in 24 hours at the Cursor Hackathon (26 March 2026), with Gert Tali, Lukas Haavel, and Rivo Tüksammel. Live on Cloudflare Workers.">
           <div class="work-card-img">
+            <span class="work-live-badge" aria-label="Live deployment"><span class="work-live-badge__dot" aria-hidden="true"></span>live</span>
             <img src="assets/works/honey-boot.png" alt="HONEY//BOOT ESP32 flasher UI" loading="lazy">
           </div>
           <div class="work-card-info">
             <h3>HONEY//BOOT</h3>
-            <p>FTP honeypot and ESP32 flasher web app from the Cursor Hackathon. Live on Cloudflare Workers.</p>
+            <p>Web app combining an FTP honeypot with an ESP32 firmware flasher. Built in 24h at the Cursor Hackathon. Live on Cloudflare Workers.</p>
             <span class="work-meta">Hackathon &middot; Security / IoT &middot; 2026</span>
+          </div>
+        </div>
+
+        <div class="work-grid-subsection reveal" data-category="webapp">
+          <h2 class="work-grid-subsection-title" data-i18n="webAppsSectionTitle">Web apps</h2>
+          <p class="work-grid-subsection-desc" data-i18n="webAppsSectionDesc">School assignments · EKA</p>
+        </div>
+
+        <div class="work-card reveal" data-category="webapp" data-live-url="https://martinorav-png.github.io/free-games-explorer/" data-desc="Web app for discovering free-to-play games: search, platform and genre filters, favourites, and keyboard shortcuts. Neo-brutalist UI. School assignment for EKA. Live on GitHub Pages.">
+          <div class="work-card-img">
+            <span class="work-live-badge" aria-label="Live deployment"><span class="work-live-badge__dot" aria-hidden="true"></span>live</span>
+            <img src="assets/works/free-games-explorer-thumb.png" alt="Free Games Explorer app screenshot" loading="lazy">
+          </div>
+          <div class="work-card-info">
+            <h3>Free Games Explorer</h3>
+            <p>Web app with search, filters, favourites, and keyboard shortcuts for free games. Neo-brutalist UI. EKA assignment. Live on GitHub Pages.</p>
+            <span class="work-meta">Web app &middot; EKA &middot; 2026</span>
+          </div>
+        </div>
+
+        <div class="work-card reveal" data-category="webapp" data-live-url="https://martinorav-png.github.io/self-care-tracker/" data-desc="Web app for habits and self-care: quick-add tasks, categories, streaks, achievements, and light gamification (including a draggable plant). Estonian-first UI with local storage. School assignment for EKA. Live on GitHub Pages.">
+          <div class="work-card-img">
+            <span class="work-live-badge" aria-label="Live deployment"><span class="work-live-badge__dot" aria-hidden="true"></span>live</span>
+            <img src="assets/works/self-care-tracker-thumb.png" alt="Päevaplaan self-care tracker app screenshot" loading="lazy">
+          </div>
+          <div class="work-card-info">
+            <h3>Päevaplaan &mdash; Self-care tracker</h3>
+            <p>Web app for habits and self-care—tasks, streaks, achievements, and a draggable plant. Estonian UI, local storage. EKA assignment. Live on GitHub Pages.</p>
+            <span class="work-meta">Web app &middot; EKA &middot; 2026</span>
           </div>
         </div>
 
@@ -175,150 +206,27 @@
           </div>
         </div>
 
-        <div class="work-card reveal" data-category="motion" data-desc="Short motion loops for the Honda CR-V, built for Catwees social and display placements.">
-          <div class="work-card-img work-card-img--video">
-            <video muted playsinline loop autoplay preload="metadata" aria-label="Honda CR-V motion">
-              <source src="assets/works/catwees/crv-2.mp4" type="video/mp4">
-            </video>
+        <div class="work-card work-card--motion-collection reveal" data-category="motion" tabindex="0" role="button" aria-haspopup="dialog" data-desc="12 motion pieces across social ads, email headers, campaign GIFs, and product loops for an Estonian Honda dealership.">
+          <div class="work-card-img work-card-img--motion-collection">
+            <span class="work-piece-count-badge" data-i18n="motionCollectionBadge">12 pieces</span>
+            <div class="motion-collection-preview-grid" aria-hidden="true">
+              <div class="motion-collection-preview-cell"><video class="motion-collection-preview-cell-media" muted playsinline loop autoplay preload="metadata" aria-hidden="true"><source src="assets/works/catwees/crv-2.mp4" type="video/mp4"></video></div>
+              <div class="motion-collection-preview-cell"><video class="motion-collection-preview-cell-media" muted playsinline loop autoplay preload="metadata" aria-hidden="true"><source src="assets/works/catwees/eny1-2.mp4" type="video/mp4"></video></div>
+              <div class="motion-collection-preview-cell"><video class="motion-collection-preview-cell-media" muted playsinline loop autoplay preload="metadata" aria-hidden="true"><source src="assets/works/catwees/zrv-2.mp4" type="video/mp4"></video></div>
+              <div class="motion-collection-preview-cell"><img class="motion-collection-preview-cell-media" src="assets/works/catwees/kodulehe-banner-3.gif" alt="" loading="lazy"></div>
+              <div class="motion-collection-preview-cell"><img class="motion-collection-preview-cell-media" src="assets/works/catwees/comp-1.gif" alt="" loading="lazy"></div>
+              <div class="motion-collection-preview-cell"><img class="motion-collection-preview-cell-media" src="assets/works/catwees/poleerimine.gif" alt="" loading="lazy"></div>
+            </div>
           </div>
           <div class="work-card-info">
-            <h3>Honda CR-V - Motion loop</h3>
-            <p>Animated showcase of the CR-V for Catwees online ads and feeds.</p>
-            <span class="work-meta">Motion &middot; Catwees &middot; Oct 2023</span>
+            <h3 data-i18n="motionCollectionTitle">Catwees Honda — Motion Collection</h3>
+            <p data-i18n="motionCollectionDesc">12 motion pieces across social ads, email headers, campaign GIFs, and product loops for an Estonian Honda dealership.</p>
+            <span class="work-meta" data-i18n="motionCollectionMeta">Motion &middot; Catwees &middot; 2021–2023</span>
           </div>
         </div>
 
-        <div class="work-card reveal" data-category="motion" data-desc="Motion clip highlighting the Honda e:Ny1 electric SUV for Catwees marketing.">
-          <div class="work-card-img work-card-img--video">
-            <video muted playsinline loop autoplay preload="metadata" aria-label="Honda e Ny1 motion">
-              <source src="assets/works/catwees/eny1-2.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="work-card-info">
-            <h3>Honda e:Ny1 - Motion loop</h3>
-            <p>EV-focused animation for social and digital screens.</p>
-            <span class="work-meta">Motion &middot; Catwees &middot; Oct 2023</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="motion" data-desc="Motion piece for the Honda ZR-V crossover, produced for Catwees campaigns.">
-          <div class="work-card-img work-card-img--video">
-            <video muted playsinline loop autoplay preload="metadata" aria-label="Honda ZR-V motion">
-              <source src="assets/works/catwees/zrv-2.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="work-card-info">
-            <h3>Honda ZR-V - Motion loop</h3>
-            <p>Loopable creative for the ZR-V launch push.</p>
-            <span class="work-meta">Motion &middot; Catwees &middot; Oct 2023</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="motion" data-desc="Animated hero banner for the Catwees website - layered car imagery and typography timed for the homepage header.">
-          <div class="work-card-img">
-            <img src="assets/works/catwees/kodulehe-banner-3.gif" alt="Catwees website banner animation" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>Catwees - Homepage banner</h3>
-            <p>Full-width animated banner for the dealership site.</p>
-            <span class="work-meta">Motion &middot; Catwees &middot; Feb 2023</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="motion" data-desc="Abstract cube transformation - motion study and social-ready clip for Catwees.">
-          <div class="work-card-img work-card-img--video">
-            <video muted playsinline loop autoplay preload="metadata" aria-label="Cube motion study">
-              <source src="assets/works/catwees/kuubik.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="work-card-info">
-            <h3>Kuubik - 3D cube motion</h3>
-            <p>Geometric animation for feeds and experiments.</p>
-            <span class="work-meta">Motion &middot; Catwees &middot; Dec 2022</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="motion" data-desc="After Effects composite export - layered graphics, glow, and transitions for a Catwees digital piece.">
-          <div class="work-card-img">
-            <img src="assets/works/catwees/comp-1.gif" alt="Catwees composite motion Comp 1" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>Catwees - Composite motion</h3>
-            <p>Full AE comp export with automotive styling and effects.</p>
-            <span class="work-meta">Motion &middot; Catwees &middot; Dec 2022</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="motion" data-desc="GIF for Catwees detailing / polish services - quick loop for social stories and posts.">
-          <div class="work-card-img">
-            <img src="assets/works/catwees/poleerimine.gif" alt="Car polishing service animation" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>Detailing - Social GIF</h3>
-            <p>Short loop promoting polish and care services.</p>
-            <span class="work-meta">Motion &middot; Catwees &middot; Jun 2022</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="motion" data-desc="Animated header graphic for a Honda HR-V client email send, branded for Catwees.">
-          <div class="work-card-img">
-            <img src="assets/works/catwees/hrv-kliendimeil-2.gif" alt="Honda HR-V email header animation" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>HR-V - Email header</h3>
-            <p>Animated top banner for a customer email campaign.</p>
-            <span class="work-meta">Motion &middot; Catwees &middot; Mar 2022</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="motion" data-desc="Facebook motion clip using Estonian blue-black-white tones for a Catwees national-day style post.">
-          <div class="work-card-img work-card-img--video">
-            <video muted playsinline loop autoplay preload="metadata" aria-label="Sinimustvalge Facebook motion">
-              <source src="assets/works/catwees/sinimustvalge-fb.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="work-card-info">
-            <h3>Sinimustvalge - Facebook clip</h3>
-            <p>Flag-inspired motion for a social post.</p>
-            <span class="work-meta">Motion &middot; Catwees &middot; Feb 2022</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="motion" data-desc="Looping Catwees logo animation sized for newsletter and email mastheads.">
-          <div class="work-card-img">
-            <img src="assets/works/catwees/meilipealislogo.gif" alt="Catwees email logo animation" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>Newsletter - Logo animation</h3>
-            <p>Masthead loop for Catwees mailings.</p>
-            <span class="work-meta">Motion &middot; Catwees &middot; Feb 2022</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="motion" data-desc="Animated Christmas card for Catwees - seasonal greeting for clients and social.">
-          <div class="work-card-img">
-            <img src="assets/works/catwees/joulukaart-6.gif" alt="Christmas card animation" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>Christmas card - Animation</h3>
-            <p>Holiday loop for end-of-year outreach.</p>
-            <span class="work-meta">Motion &middot; Catwees &middot; Dec 2021</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="motion" data-desc="GIF promoting a city-friendly SUV line - campaign motion for Catwees feeds.">
-          <div class="work-card-img">
-            <img src="assets/works/catwees/sobivlinnamaastur.gif" alt="Urban SUV campaign GIF" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>Urban SUV - Campaign GIF</h3>
-            <p>Quick animation for a compact SUV message.</p>
-            <span class="work-meta">Motion &middot; Catwees &middot; Dec 2021</span>
-          </div>
-        </div>
-
-        <!-- Posters -->
-        <div class="work-card reveal" data-category="poster">
+        <!-- Personal (fan posters & experiments) — top three also visible in “All” -->
+        <div class="work-card reveal" data-category="personal">
           <div class="work-card-img">
             <img src="assets/works/good-am-poster.jpg" alt="Mac Miller GO:OD AM Album Poster" loading="lazy">
           </div>
@@ -329,18 +237,7 @@
           </div>
         </div>
 
-        <div class="work-card reveal" data-category="poster">
-          <div class="work-card-img">
-            <img src="assets/works/divinely-uninspired-poster.jpg" alt="Lewis Capaldi Divinely Uninspired Album Poster" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>Divinely Uninspired - Album Poster</h3>
-            <p>Fan poster for Lewis Capaldi's debut. Dramatic red monochrome treatment with a sunset silhouette that captures the album's emotional weight.</p>
-            <span class="work-meta">Poster Design &middot; Personal &middot; 2023</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="poster">
+        <div class="work-card reveal" data-category="personal">
           <div class="work-card-img">
             <img src="assets/works/after-hours-poster.jpg" alt="The Weeknd After Hours Album Poster" loading="lazy">
           </div>
@@ -351,73 +248,7 @@
           </div>
         </div>
 
-        <div class="work-card reveal" data-category="poster">
-          <div class="work-card-img">
-            <img src="assets/works/swimming-poster.jpg" alt="Mac Miller Swimming Album Poster" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>Swimming - Album Poster</h3>
-            <p>Fan poster for Mac Miller's "Swimming". Dreamy pastel sky palette extending the album's visual language with tracklist and color swatches.</p>
-            <span class="work-meta">Poster Design &middot; Personal &middot; 2023</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="poster">
-          <div class="work-card-img">
-            <img src="assets/works/marshall-mathers-poster.jpg" alt="Eminem Marshall Mathers LP Poster" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>The Marshall Mathers LP - Album Poster</h3>
-            <p>Fan poster for Eminem's iconic album. Dark, brooding teal color grading with the classic porch cover art and full tracklist.</p>
-            <span class="work-meta">Poster Design &middot; Personal &middot; 2023</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="poster">
-          <div class="work-card-img">
-            <img src="assets/works/faces-poster.jpg" alt="Mac Miller Faces Mixtape Poster" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>Faces - Mixtape Poster</h3>
-            <p>Poster for Mac Miller's "Faces" mixtape. Psychedelic cover art with a wavy background treatment and full tracklist.</p>
-            <span class="work-meta">Poster Design &middot; Personal &middot; 2023</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="poster">
-          <div class="work-card-img">
-            <img src="assets/works/broken-by-desire-poster.jpg" alt="Lewis Capaldi Broken by Desire Album Poster" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>Broken by Desire - Album Poster</h3>
-            <p>Fan poster for Lewis Capaldi's second album. Dreamy blue palette with surreal floating stairs and a contemplative mood.</p>
-            <span class="work-meta">Poster Design &middot; Personal &middot; 2023</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="poster">
-          <div class="work-card-img">
-            <img src="assets/works/young-forever-poster.jpg" alt="Nessa Barrett Young Forever Poster" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>Young Forever - Album Poster</h3>
-            <p>Fan poster for Nessa Barrett's "Young Forever". Ethereal dark green forest aesthetic with angelic imagery and full tracklist.</p>
-            <span class="work-meta">Poster Design &middot; Personal &middot; 2023</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="poster">
-          <div class="work-card-img">
-            <img src="assets/works/pretty-poison-poster.jpg" alt="Nessa Barrett Pretty Poison EP Poster" loading="lazy">
-          </div>
-          <div class="work-card-info">
-            <h3>Pretty Poison - EP Poster</h3>
-            <p>Fan poster for Nessa Barrett's EP. Vibrant neon pink and purple glow with floating hearts and a playful-dark vibe.</p>
-            <span class="work-meta">Poster Design &middot; Personal &middot; 2022</span>
-          </div>
-        </div>
-
-        <div class="work-card reveal" data-category="poster">
+        <div class="work-card reveal" data-category="personal">
           <div class="work-card-img">
             <img src="assets/works/fallout-poster.jpg" alt="Fallout Minimalist Game Poster" loading="lazy">
           </div>
@@ -428,15 +259,94 @@
           </div>
         </div>
 
+        <div class="work-card reveal" data-category="personal" data-hide-in-all="true">
+          <div class="work-card-img">
+            <img src="assets/works/divinely-uninspired-poster.jpg" alt="Lewis Capaldi Divinely Uninspired Album Poster" loading="lazy">
+          </div>
+          <div class="work-card-info">
+            <h3>Divinely Uninspired - Album Poster</h3>
+            <p>Fan poster for Lewis Capaldi's debut. Dramatic red monochrome treatment with a sunset silhouette that captures the album's emotional weight.</p>
+            <span class="work-meta">Poster Design &middot; Personal &middot; 2023</span>
+          </div>
+        </div>
+
+        <div class="work-card reveal" data-category="personal" data-hide-in-all="true">
+          <div class="work-card-img">
+            <img src="assets/works/swimming-poster.jpg" alt="Mac Miller Swimming Album Poster" loading="lazy">
+          </div>
+          <div class="work-card-info">
+            <h3>Swimming - Album Poster</h3>
+            <p>Fan poster for Mac Miller's "Swimming". Dreamy pastel sky palette extending the album's visual language with tracklist and color swatches.</p>
+            <span class="work-meta">Poster Design &middot; Personal &middot; 2023</span>
+          </div>
+        </div>
+
+        <div class="work-card reveal" data-category="personal" data-hide-in-all="true">
+          <div class="work-card-img">
+            <img src="assets/works/marshall-mathers-poster.jpg" alt="Eminem Marshall Mathers LP Poster" loading="lazy">
+          </div>
+          <div class="work-card-info">
+            <h3>The Marshall Mathers LP - Album Poster</h3>
+            <p>Fan poster for Eminem's iconic album. Dark, brooding teal color grading with the classic porch cover art and full tracklist.</p>
+            <span class="work-meta">Poster Design &middot; Personal &middot; 2023</span>
+          </div>
+        </div>
+
+        <div class="work-card reveal" data-category="personal" data-hide-in-all="true">
+          <div class="work-card-img">
+            <img src="assets/works/faces-poster.jpg" alt="Mac Miller Faces Mixtape Poster" loading="lazy">
+          </div>
+          <div class="work-card-info">
+            <h3>Faces - Mixtape Poster</h3>
+            <p>Poster for Mac Miller's "Faces" mixtape. Psychedelic cover art with a wavy background treatment and full tracklist.</p>
+            <span class="work-meta">Poster Design &middot; Personal &middot; 2023</span>
+          </div>
+        </div>
+
+        <div class="work-card reveal" data-category="personal" data-hide-in-all="true">
+          <div class="work-card-img">
+            <img src="assets/works/broken-by-desire-poster.jpg" alt="Lewis Capaldi Broken by Desire Album Poster" loading="lazy">
+          </div>
+          <div class="work-card-info">
+            <h3>Broken by Desire - Album Poster</h3>
+            <p>Fan poster for Lewis Capaldi's second album. Dreamy blue palette with surreal floating stairs and a contemplative mood.</p>
+            <span class="work-meta">Poster Design &middot; Personal &middot; 2023</span>
+          </div>
+        </div>
+
+        <div class="work-card reveal" data-category="personal" data-hide-in-all="true">
+          <div class="work-card-img">
+            <img src="assets/works/young-forever-poster.jpg" alt="Nessa Barrett Young Forever Poster" loading="lazy">
+          </div>
+          <div class="work-card-info">
+            <h3>Young Forever - Album Poster</h3>
+            <p>Fan poster for Nessa Barrett's "Young Forever". Ethereal dark green forest aesthetic with angelic imagery and full tracklist.</p>
+            <span class="work-meta">Poster Design &middot; Personal &middot; 2023</span>
+          </div>
+        </div>
+
+        <div class="work-card reveal" data-category="personal" data-hide-in-all="true">
+          <div class="work-card-img">
+            <img src="assets/works/pretty-poison-poster.jpg" alt="Nessa Barrett Pretty Poison EP Poster" loading="lazy">
+          </div>
+          <div class="work-card-info">
+            <h3>Pretty Poison - EP Poster</h3>
+            <p>Fan poster for Nessa Barrett's EP. Vibrant neon pink and purple glow with floating hearts and a playful-dark vibe.</p>
+            <span class="work-meta">Poster Design &middot; Personal &middot; 2022</span>
+          </div>
+        </div>
+
         <!-- Branding -->
         <div class="work-card reveal" data-category="branding">
           <div class="work-card-img">
-            <img src="assets/works/mpr-patch.jpg" alt="MPR Motorsport Team Patch Design" loading="lazy">
+            <img src="assets/works/mpr-emblem-photo.png" alt="" loading="lazy" data-i18n-alt="mprWorkImgAlt">
           </div>
           <div class="work-card-info">
-            <h3>MPR - Team Patch Design</h3>
-            <p>Shield-shaped emblem for MPR. Features pistons, crossed tools, wings, and a fox motif. Clean vector work in a black, green, and gold palette.</p>
-            <span class="work-meta">Logo &middot; Branding &middot; 2022</span>
+            <h3 data-i18n="mprWorkTitle">Emblem of the 4th Mortar Platoon, Viru Infantry Battalion</h3>
+            <p data-i18n="mprWorkDesc">
+              Shield-shaped emblem for MPR. Features pistons, crossed tools, wings, and a fox motif. Clean vector work in a black, green, and gold palette.
+            </p>
+            <span class="work-meta" data-i18n="mprWorkMeta">Emblem design &middot; Military &middot; 2022</span>
           </div>
         </div>
 
