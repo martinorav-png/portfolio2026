@@ -244,6 +244,9 @@
 }
 
 .pc-avatar-content {
+  /* Above .pc-shine (3) and .pc-glare (4); same level as name block (5), earlier in DOM */
+  position: relative;
+  z-index: 5;
   mix-blend-mode: luminosity;
   overflow: visible;
   transform: translateZ(2);
@@ -252,6 +255,10 @@
 
 .pc-avatar-content .avatar {
   width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
   position: absolute;
   left: 50%;
   transform-origin: 50% 100%;
@@ -427,6 +434,12 @@
 }
 
 @media (max-width: 768px) {
+  /* Luminosity + stacking is flaky on iOS; narrow viewports need a normal blend for the photo */
+  .pc-avatar-content {
+    mix-blend-mode: normal;
+    isolation: isolate;
+  }
+
   .pc-card {
     height: 70svh;
     max-height: 450px;
@@ -469,6 +482,14 @@
   .pc-contact-btn {
     padding: 6px 12px;
     font-size: 11px;
+  }
+}
+
+/* Tablets / phones in landscape can be >768px wide but still touch-primary */
+@media (pointer: coarse) {
+  .pc-avatar-content {
+    mix-blend-mode: normal;
+    isolation: isolate;
   }
 }
 
