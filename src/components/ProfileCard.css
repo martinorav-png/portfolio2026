@@ -34,7 +34,8 @@
   perspective: 500px;
   transform: translate3d(0, 0, 0.1px);
   position: relative;
-  touch-action: none;
+  /* pan-y: page can scroll when the gesture starts on the card; none blocked vertical scroll on phones */
+  touch-action: pan-y;
 }
 
 .pc-behind {

@@ -272,7 +272,7 @@ class MiniThreeApp {
   }
 }
 
-/* -- pointer bridge (document-level) -- */
+/* -- pointer bridge: mouse on document, touch only on canvas (body-level touch breaks mobile scroll) -- */
 
 const registry = new Map<HTMLElement, InteractionState>();
 const pointerDoc = new Vector2();
@@ -297,23 +297,24 @@ function registerInteraction(domElement: HTMLElement, state: InteractionState) {
       document.body.addEventListener('pointermove', onPointerMove);
       document.body.addEventListener('pointerleave', onPointerLeave);
       document.body.addEventListener('click', onClick);
-      document.body.addEventListener('touchstart', onTouchStart, { passive: false });
-      document.body.addEventListener('touchmove', onTouchMove, { passive: false });
-      document.body.addEventListener('touchend', onTouchEnd);
-      document.body.addEventListener('touchcancel', onTouchEnd);
       registryActive = true;
     }
+    // Non-passive touch on document.body cancels scrolling and can prevent click on iOS; attach to canvas only.
+    domElement.addEventListener('touchstart', onTouchStart, { passive: false });
+    domElement.addEventListener('touchmove', onTouchMove, { passive: false });
+    domElement.addEventListener('touchend', onTouchEnd);
+    domElement.addEventListener('touchcancel', onTouchEnd);
   }
   state.dispose = () => {
+    domElement.removeEventListener('touchstart', onTouchStart);
+    domElement.removeEventListener('touchmove', onTouchMove);
+    domElement.removeEventListener('touchend', onTouchEnd);
+    domElement.removeEventListener('touchcancel', onTouchEnd);
     registry.delete(domElement);
     if (registry.size === 0) {
       document.body.removeEventListener('pointermove', onPointerMove);
       document.body.removeEventListener('pointerleave', onPointerLeave);
       document.body.removeEventListener('click', onClick);
-      document.body.removeEventListener('touchstart', onTouchStart);
-      document.body.removeEventListener('touchmove', onTouchMove);
-      document.body.removeEventListener('touchend', onTouchEnd);
-      document.body.removeEventListener('touchcancel', onTouchEnd);
       registryActive = false;
     }
   };
@@ -321,6 +322,9 @@ function registerInteraction(domElement: HTMLElement, state: InteractionState) {
 }
 
 function onPointerMove(e: PointerEvent) {
+  // Touch uses canvas-only handlers; ignore pointermove from touch or it tracks the finger over the
+  // ballpit and fights native scrolling / synthesized clicks.
+  if (e.pointerType === 'touch') return;
   pointerDoc.set(e.clientX, e.clientY);
   processInteraction();
 }
@@ -361,69 +365,54 @@ function onPointerLeave() {
 }
 
 function onTouchStart(e: TouchEvent) {
-  if (e.touches.length === 0) return;
+  const canvas = e.currentTarget as HTMLElement;
+  const st = registry.get(canvas);
+  if (!st || e.touches.length === 0) return;
   pointerDoc.set(e.touches[0]!.clientX, e.touches[0]!.clientY);
-  let hitAny = false;
-  for (const [elem, st] of registry) {
-    const rect = elem.getBoundingClientRect();
-    if (hitRect(rect)) {
-      hitAny = true;
-      st.touching = true;
-      setLocalPointer(st, rect);
+  const rect = canvas.getBoundingClientRect();
+  if (!hitRect(rect)) return;
+  st.touching = true;
+  setLocalPointer(st, rect);
+  if (!st.hover) {
+    st.hover = true;
+    st.onEnter(st);
+  }
+  st.onMove(st);
+  e.preventDefault();
+}
+
+function onTouchMove(e: TouchEvent) {
+  const canvas = e.currentTarget as HTMLElement;
+  const st = registry.get(canvas);
+  if (!st || e.touches.length === 0) return;
+  pointerDoc.set(e.touches[0]!.clientX, e.touches[0]!.clientY);
+  const rect = canvas.getBoundingClientRect();
+  setLocalPointer(st, rect);
+  if (hitRect(rect)) {
+    if (st.touching) {
       if (!st.hover) {
         st.hover = true;
         st.onEnter(st);
       }
       st.onMove(st);
     }
+  } else if (st.hover && st.touching) {
+    st.onMove(st);
   }
-  // Only block the default (scroll/zoom) when the gesture starts on the canvas;
-  // body-level listeners would otherwise disable scrolling site-wide on mobile.
-  if (hitAny) {
+  if (st.touching) {
     e.preventDefault();
   }
 }
 
-function onTouchMove(e: TouchEvent) {
-  if (e.touches.length === 0) return;
-  pointerDoc.set(e.touches[0]!.clientX, e.touches[0]!.clientY);
-  for (const [elem, st] of registry) {
-    const rect = elem.getBoundingClientRect();
-    setLocalPointer(st, rect);
-    if (hitRect(rect)) {
-      // Do not set touching here: a scroll that passes over the canvas must not
-      // steal the gesture (that was also causing preventDefault on every move).
-      if (st.touching) {
-        if (!st.hover) {
-          st.hover = true;
-          st.onEnter(st);
-        }
-        st.onMove(st);
-      }
-    } else if (st.hover && st.touching) {
-      st.onMove(st);
-    }
-  }
-  let activeTouchDrag = false;
-  for (const st of registry.values()) {
-    if (st.touching) {
-      activeTouchDrag = true;
-      break;
-    }
-  }
-  if (activeTouchDrag) {
-    e.preventDefault();
-  }
-}
-
-function onTouchEnd() {
-  for (const st of registry.values()) {
-    if (st.touching) {
-      st.touching = false;
-      if (st.hover) {
-        st.hover = false;
-        st.onLeave(st);
-      }
+function onTouchEnd(e: TouchEvent) {
+  const canvas = e.currentTarget as HTMLElement;
+  const st = registry.get(canvas);
+  if (!st) return;
+  if (st.touching) {
+    st.touching = false;
+    if (st.hover) {
+      st.hover = false;
+      st.onLeave(st);
     }
   }
 }
