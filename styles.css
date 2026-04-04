@@ -791,15 +791,103 @@ img {
 .bio-photo {
   margin: 0;
   border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+  overflow: visible;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.bio-photo img {
+/* ProfileCard tilt effect: fit bio column, allow page scroll on touch */
+.bio-photo .pc-card-wrapper {
   width: 100%;
-  height: auto;
-  object-fit: cover;
+  max-width: 380px;
+  touch-action: pan-y;
+}
+
+.bio-photo .pc-card {
+  height: auto !important;
+  max-height: min(480px, 62svh);
+  width: 100%;
+  aspect-ratio: 0.718;
+}
+
+/* Site favicon as repeating holo mask (ProfileCard --icon) — larger tiles = sparser pattern */
+.bio-photo .pc-shine {
+  -webkit-mask-image: var(--icon);
+  -webkit-mask-mode: luminance;
+  -webkit-mask-repeat: repeat;
+  -webkit-mask-size: 96px 96px;
+  -webkit-mask-position: top calc(200% - (var(--background-y) * 5)) left calc(100% - var(--background-x));
+  mask-size: 96px 96px;
+}
+
+/* Softer holo on hover (default ProfileCard effect is very bright on the portrait) */
+.bio-photo .pc-shine::before {
+  filter: brightness(calc(1.05 + var(--pointer-from-center) * 0.35))
+    contrast(calc(1.05 + var(--pointer-from-center) * 0.55))
+    saturate(calc(0.42 + var(--pointer-from-center) * 0.28));
+}
+
+.bio-photo .pc-card:hover .pc-shine,
+.bio-photo .pc-card.active .pc-shine {
+  filter: brightness(0.48) contrast(1.08) saturate(0.32);
+}
+
+.bio-photo .pc-card:hover .pc-shine::before,
+.bio-photo .pc-card.active .pc-shine::before,
+.bio-photo .pc-card:hover .pc-shine::after,
+.bio-photo .pc-card.active .pc-shine::after {
+  opacity: 0.32;
+}
+
+.bio-photo .pc-card:hover .pc-shine::before,
+.bio-photo .pc-card.active .pc-shine::before {
+  filter: brightness(0.88) contrast(1.08) saturate(0.38);
+}
+
+.bio-photo .pc-glare {
+  filter: brightness(0.52) contrast(1.04);
+  opacity: 0.78;
+}
+
+.bio-photo .pc-card:hover .pc-glare,
+.bio-photo .pc-card.active .pc-glare {
+  opacity: 0.55;
+  filter: brightness(0.42) contrast(1.02);
+}
+
+.bio-photo .pc-card:hover .pc-avatar-content .avatar,
+.bio-photo .pc-card.active .pc-avatar-content .avatar {
+  filter: brightness(0.94) contrast(0.98);
+}
+
+/* Bio ProfileCard: darker, solid type (gradient + luminosity blend was low-contrast on the holo) */
+.bio-photo .pc-content:not(.pc-avatar-content) {
+  mix-blend-mode: normal;
+}
+
+.bio-photo .pc-details h3 {
+  background-image: none;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: #b4bccf;
+  color: #b4bccf;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.92),
+    0 0 20px rgba(0, 0, 0, 0.55);
+}
+
+.bio-photo .pc-details p {
+  background-image: none;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: #7f889c;
+  color: #7f889c;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.88),
+    0 0 14px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 900px) {
@@ -812,6 +900,10 @@ img {
     max-width: 400px;
     margin: 0 auto;
     order: -1;
+  }
+
+  .bio-photo .pc-card {
+    max-height: min(440px, 58svh);
   }
 }
 
@@ -864,6 +956,17 @@ img {
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
+}
+
+.work-card-img--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--color-border);
+}
+
+.work-card-img--split img {
+  min-height: 0;
 }
 
 /* Subtle deployed indicator (e.g. HONEY//BOOT on Workers) */
@@ -1753,6 +1856,30 @@ img {
 .modal-img-wrap {
   width: 100%;
   background: #f0f0f0;
+}
+
+.modal-img-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  box-sizing: border-box;
+  max-height: min(58vh, 640px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal-img-gallery[hidden] {
+  display: none !important;
+}
+
+.modal-gallery-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  flex-shrink: 0;
+  border-radius: var(--radius-md, 8px);
 }
 
 .modal-img {

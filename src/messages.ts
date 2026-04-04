@@ -7,6 +7,7 @@ export const messages = {
     navSkills: 'skills',
     navContact: 'contact',
     navAbout: 'about me',
+    navMenuToggle: 'Open menu',
     heroHey: "Hey, I'm",
     heroSubtitle:
       'A student with a thing for design. I make graphics, UI concepts, and a bunch of other fun stuff!',
@@ -30,6 +31,8 @@ export const messages = {
       'I care about making technology feel human - to create experiences that are clear, meaningful, and quietly satisfying to use.',
     bioP3: 'Good design makes the world a nicer place :)',
     bioPhotoAlt: 'Martin outdoors in Sofia',
+    bioName: 'Martin Orav',
+    bioProfileTitle: 'Product Designer',
     themeToLight: 'Switch to light mode',
     themeToDark: 'Switch to dark mode',
     langSwitch: 'Language',
@@ -43,6 +46,7 @@ export const messages = {
     navSkills: 'oskused',
     navContact: 'kontakt',
     navAbout: 'minust',
+    navMenuToggle: 'Ava menüü',
     heroHey: 'Hei, olen',
     heroSubtitle:
       'Õpilane, kellele meeldib disain. Teen graafikat, UI kontseptsioone ja veel igasugu lõbusaid asju!',
@@ -66,6 +70,8 @@ export const messages = {
       'Minu jaoks on oluline, et tehnoloogia tunduks inimlik - luua kogemusi, mis on selged, mõttekad ja vaikselt rahuldust pakkuvad.',
     bioP3: 'Hea disain teeb maailma ilusamaks :)',
     bioPhotoAlt: 'Martin väljas Sofias',
+    bioName: 'Martin Orav',
+    bioProfileTitle: 'Tootedisainer',
     themeToLight: 'Lülitu heledale režiimile',
     themeToDark: 'Lülitu tumedale režiimile',
     langSwitch: 'Keel',

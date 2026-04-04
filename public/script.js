@@ -69,6 +69,7 @@ window.addEventListener('scroll', () => {
 
   modal.innerHTML = `
     <div class="modal-img-wrap">
+      <div class="modal-img-gallery" hidden></div>
       <img class="modal-img" src="" alt="">
       <video class="modal-video" controls playsinline loop preload="metadata" hidden></video>
     </div>
@@ -83,6 +84,7 @@ window.addEventListener('scroll', () => {
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
 
+  const modalImgGallery = modal.querySelector('.modal-img-gallery');
   const modalImg = modal.querySelector('.modal-img');
   const modalVideo = modal.querySelector('.modal-video');
   const modalTitle = modal.querySelector('.modal-title');
@@ -115,6 +117,8 @@ window.addEventListener('scroll', () => {
     const desc = card.dataset.desc || (descP ? descP.textContent : '');
 
     if (cardVideo && modalVideo) {
+      modalImgGallery.hidden = true;
+      modalImgGallery.replaceChildren();
       modalVideo.removeAttribute('hidden');
       modalVideo.style.display = 'block';
       modalImg.style.display = 'none';
@@ -130,7 +134,6 @@ window.addEventListener('scroll', () => {
       modalVideo.play().catch(function () {});
       modalImg.removeAttribute('src');
     } else if (img) {
-      modalImg.style.display = 'block';
       if (modalVideo) {
         modalVideo.pause();
         modalVideo.removeAttribute('src');
@@ -138,8 +141,27 @@ window.addEventListener('scroll', () => {
         modalVideo.setAttribute('hidden', '');
         modalVideo.style.display = 'none';
       }
-      modalImg.src = card.dataset.fullImg || img.src;
-      modalImg.alt = img.alt;
+      var cardImgs = card.querySelectorAll('.work-card-img img');
+      var fullImg = card.dataset.fullImg;
+      if (cardImgs.length > 1) {
+        modalImgGallery.replaceChildren();
+        cardImgs.forEach(function (node, i) {
+          var shot = document.createElement('img');
+          shot.className = 'modal-gallery-img';
+          shot.src = i === 0 && fullImg ? fullImg : node.src;
+          shot.alt = node.alt || '';
+          modalImgGallery.appendChild(shot);
+        });
+        modalImgGallery.hidden = false;
+        modalImg.style.display = 'none';
+        modalImg.removeAttribute('src');
+      } else {
+        modalImgGallery.hidden = true;
+        modalImgGallery.replaceChildren();
+        modalImg.style.display = 'block';
+        modalImg.src = fullImg || img.src;
+        modalImg.alt = img.alt;
+      }
     }
     modalTitle.textContent = title;
     modalDesc.textContent = desc;
@@ -193,6 +215,10 @@ window.addEventListener('scroll', () => {
 
   function closeModal() {
     if (!isOpen) return;
+
+    modalImgGallery.hidden = true;
+    modalImgGallery.replaceChildren();
+    modalImg.style.display = '';
 
     if (modalVideo) {
       modalVideo.pause();

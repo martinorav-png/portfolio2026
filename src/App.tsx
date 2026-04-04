@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import ASCIIText from './components/ASCIIText';
 import BounceCards from './components/BounceCards';
 import HeroBackground from './HeroBackground';
@@ -8,12 +8,18 @@ import GlobalClickSpark from './components/GlobalClickSpark';
 import Folder from './components/Folder';
 import CatweesMotionCollectionCard from './components/CatweesMotionCollectionCard';
 import SkillsStrip from './components/SkillsStrip';
+import ProfileCard from './components/ProfileCard';
+import HeroBubbleCtas from './components/HeroBubbleCtas';
 import { workHomeCards } from './workHomeLocale';
+import { messages } from './messages';
 
 const CONTACT_EMAIL = 'martinoravdisain@gmail.com';
 /** Opens Gmail compose in the browser - avoids broken `mailto:` when Chrome is the default handler. */
 const CONTACT_GMAIL_COMPOSE = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_EMAIL)}`;
 const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}`;
+
+/** Favicon used as holo mask pattern on the about ProfileCard */
+const SITE_ICON_PATTERN_URL = '/favicon.png';
 
 const HERO_IMAGE_POOL = [
   '/assets/works/honda-prelude-ui.jpg',
@@ -68,6 +74,30 @@ function randomFolderColor(): string {
   return hslToHex(Math.random() * 360, 50 + Math.random() * 38, 36 + Math.random() * 24);
 }
 
+/** Holo / glow accents for ProfileCard — new palette on each full page load. */
+function randomBioProfileCardStyle(): CSSProperties {
+  const h0 = Math.random() * 360;
+  const sat = 56 + Math.random() * 26;
+  const lit = 50 + Math.random() * 16;
+  const hsl = (degOffset: number) => {
+    const h = (h0 + degOffset) % 360;
+    return `hsl(${Math.round(h)}, ${Math.round(sat)}%, ${Math.round(lit)}%)`;
+  };
+  const h0r = Math.round(h0);
+  const h1 = Math.round((h0 + 118) % 360);
+  const hg = Math.round((h0 + 48) % 360);
+  return {
+    '--sunpillar-1': hsl(0),
+    '--sunpillar-2': hsl(52),
+    '--sunpillar-3': hsl(104),
+    '--sunpillar-4': hsl(156),
+    '--sunpillar-5': hsl(208),
+    '--sunpillar-6': hsl(260),
+    '--inner-gradient': `linear-gradient(145deg, hsla(${h0r}, 42%, 24%, 0.5) 0%, hsla(${h1}, 48%, 34%, 0.4) 100%)`,
+    '--behind-glow-color': `hsla(${hg}, 52%, 44%, 0.34)`,
+  } as CSSProperties;
+}
+
 function pickRandomUnique<T>(arr: readonly T[], count: number): T[] {
   const copy = [...arr];
   for (let i = copy.length - 1; i > 0; i--) {
@@ -91,11 +121,38 @@ export default function App() {
     color: randomFolderColor(),
     thumbs: pickRandomUnique(WORK_FOLDER_THUMB_POOL, 3),
   }));
+  const [bioProfileCardStyle] = useState(() => randomBioProfileCardStyle());
 
   const tRef = useRef(t);
   tRef.current = t;
 
   const wh = useMemo(() => workHomeCards(locale), [locale]);
+
+  const heroBubbleItems = useMemo(() => {
+    const m = messages[locale];
+    return [
+      {
+        href: '#work',
+        label: m.heroCtaWork,
+        ariaLabel: m.heroCtaWork,
+        rotation: -5,
+        hoverStyles:
+          theme === 'dark'
+            ? { bgColor: '#e8e4dc', textColor: '#121214' }
+            : { bgColor: '#1a1a1a', textColor: '#faf9f7' },
+      },
+      {
+        href: '#contact',
+        label: m.heroCtaContact,
+        ariaLabel: m.heroCtaContact,
+        rotation: 5,
+        hoverStyles:
+          theme === 'dark'
+            ? { bgColor: '#3b82f6', textColor: '#ffffff' }
+            : { bgColor: '#2563eb', textColor: '#ffffff' },
+      },
+    ];
+  }, [locale, theme]);
 
   useEffect(() => {
     try {
@@ -192,13 +249,8 @@ export default function App() {
           <p className="hero-subtitle anim-fade-up" style={{ animationDelay: '0.2s' }}>
             {t('heroSubtitle')}
           </p>
-          <div className="hero-cta anim-fade-up" style={{ animationDelay: '0.35s' }}>
-            <a href="#work" className="btn btn-primary">
-              {t('heroCtaWork')}
-            </a>
-            <a href="#contact" className="btn btn-secondary">
-              {t('heroCtaContact')}
-            </a>
+          <div className="hero-cta hero-cta--bubble anim-fade-up" style={{ animationDelay: '0.35s' }}>
+            <HeroBubbleCtas items={heroBubbleItems} />
           </div>
         </div>
 
@@ -231,13 +283,16 @@ export default function App() {
               <p>{t('bioP2')}</p>
               <p className="bio-closing">{t('bioP3')}</p>
             </div>
-            <figure className="bio-photo">
-              <img
-                src="/assets/martin-portrait.png"
-                alt={t('bioPhotoAlt')}
-                width={560}
-                height={700}
-                loading="lazy"
+            <figure className="bio-photo" aria-label={t('bioPhotoAlt')}>
+              <ProfileCard
+                className="bio-profile-card"
+                style={bioProfileCardStyle}
+                avatarUrl="/assets/martin-portrait.png"
+                iconUrl={SITE_ICON_PATTERN_URL}
+                grainUrl=""
+                name={t('bioName')}
+                title={t('bioProfileTitle')}
+                showUserInfo={false}
               />
             </figure>
           </div>

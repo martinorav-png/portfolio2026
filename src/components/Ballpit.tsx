@@ -361,42 +361,58 @@ function onPointerLeave() {
 }
 
 function onTouchStart(e: TouchEvent) {
-  if (e.touches.length > 0) {
-    e.preventDefault();
-    pointerDoc.set(e.touches[0]!.clientX, e.touches[0]!.clientY);
-    for (const [elem, st] of registry) {
-      const rect = elem.getBoundingClientRect();
-      if (hitRect(rect)) {
-        st.touching = true;
-        setLocalPointer(st, rect);
-        if (!st.hover) {
-          st.hover = true;
-          st.onEnter(st);
-        }
-        st.onMove(st);
+  if (e.touches.length === 0) return;
+  pointerDoc.set(e.touches[0]!.clientX, e.touches[0]!.clientY);
+  let hitAny = false;
+  for (const [elem, st] of registry) {
+    const rect = elem.getBoundingClientRect();
+    if (hitRect(rect)) {
+      hitAny = true;
+      st.touching = true;
+      setLocalPointer(st, rect);
+      if (!st.hover) {
+        st.hover = true;
+        st.onEnter(st);
       }
+      st.onMove(st);
     }
+  }
+  // Only block the default (scroll/zoom) when the gesture starts on the canvas;
+  // body-level listeners would otherwise disable scrolling site-wide on mobile.
+  if (hitAny) {
+    e.preventDefault();
   }
 }
 
 function onTouchMove(e: TouchEvent) {
-  if (e.touches.length > 0) {
-    e.preventDefault();
-    pointerDoc.set(e.touches[0]!.clientX, e.touches[0]!.clientY);
-    for (const [elem, st] of registry) {
-      const rect = elem.getBoundingClientRect();
-      setLocalPointer(st, rect);
-      if (hitRect(rect)) {
+  if (e.touches.length === 0) return;
+  pointerDoc.set(e.touches[0]!.clientX, e.touches[0]!.clientY);
+  for (const [elem, st] of registry) {
+    const rect = elem.getBoundingClientRect();
+    setLocalPointer(st, rect);
+    if (hitRect(rect)) {
+      // Do not set touching here: a scroll that passes over the canvas must not
+      // steal the gesture (that was also causing preventDefault on every move).
+      if (st.touching) {
         if (!st.hover) {
           st.hover = true;
-          st.touching = true;
           st.onEnter(st);
         }
         st.onMove(st);
-      } else if (st.hover && st.touching) {
-        st.onMove(st);
       }
+    } else if (st.hover && st.touching) {
+      st.onMove(st);
     }
+  }
+  let activeTouchDrag = false;
+  for (const st of registry.values()) {
+    if (st.touching) {
+      activeTouchDrag = true;
+      break;
+    }
+  }
+  if (activeTouchDrag) {
+    e.preventDefault();
   }
 }
 
@@ -745,11 +761,26 @@ function randomBallpitPalette(keyCount = 10): number[] {
 }
 
 export function createBallpit(canvas: HTMLCanvasElement, opts: Partial<BallpitGroupConfig> = {}) {
+  const prefersCoarse =
+    typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+  const narrowViewport =
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+  const reduceGpu = prefersCoarse || narrowViewport;
+  const perfOpts: Partial<BallpitGroupConfig> = reduceGpu
+    ? {
+        ...opts,
+        count: Math.min(opts.count ?? DEFAULT_BALLPIT.count, 56),
+      }
+    : opts;
+
   const three = new MiniThreeApp({
     canvas,
     size: 'parent',
-    rendererOptions: { antialias: true, alpha: true },
+    rendererOptions: { antialias: !reduceGpu, alpha: true },
   });
+  if (reduceGpu) {
+    three.maxPixelRatio = 1.5;
+  }
   three.renderer.toneMapping = ACESFilmicToneMapping;
   three.camera.position.set(0, 0, 20);
   three.camera.lookAt(0, 0, 0);
@@ -769,7 +800,7 @@ export function createBallpit(canvas: HTMLCanvasElement, opts: Partial<BallpitGr
     three.scene.add(spheres);
   }
 
-  init(opts);
+  init(perfOpts);
 
   const raycaster = new Raycaster();
   const plane = new Plane(new Vector3(0, 0, 1), 0);

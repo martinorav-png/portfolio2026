@@ -77,6 +77,7 @@ export function initSiteEffects(options?: SiteEffectsOptions): () => void {
 
   modal.innerHTML = `
     <div class="modal-img-wrap">
+      <div class="modal-img-gallery" hidden></div>
       <img class="modal-img" src="" alt="">
       <video class="modal-video" controls playsinline loop preload="metadata" hidden></video>
     </div>
@@ -91,6 +92,7 @@ export function initSiteEffects(options?: SiteEffectsOptions): () => void {
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
 
+  const modalImgGallery = modal.querySelector('.modal-img-gallery') as HTMLDivElement;
   const modalImg = modal.querySelector('.modal-img') as HTMLImageElement;
   const modalVideo = modal.querySelector('.modal-video') as HTMLVideoElement;
   const modalTitle = modal.querySelector('.modal-title') as HTMLElement;
@@ -121,6 +123,8 @@ export function initSiteEffects(options?: SiteEffectsOptions): () => void {
     const desc = card.dataset.desc || (descP ? descP.textContent : '') || '';
 
     if (cardVideo && modalVideo) {
+      modalImgGallery.hidden = true;
+      modalImgGallery.replaceChildren();
       modalVideo.removeAttribute('hidden');
       modalVideo.style.display = 'block';
       modalImg.style.display = 'none';
@@ -137,7 +141,6 @@ export function initSiteEffects(options?: SiteEffectsOptions): () => void {
       void modalVideo.play().catch(() => {});
       modalImg.removeAttribute('src');
     } else if (img) {
-      modalImg.style.display = 'block';
       if (modalVideo) {
         modalVideo.pause();
         modalVideo.removeAttribute('src');
@@ -145,8 +148,27 @@ export function initSiteEffects(options?: SiteEffectsOptions): () => void {
         modalVideo.setAttribute('hidden', '');
         modalVideo.style.display = 'none';
       }
-      modalImg.src = card.dataset.fullImg || img.src;
-      modalImg.alt = img.alt;
+      const cardImgs = card.querySelectorAll<HTMLImageElement>('.work-card-img img');
+      const fullImg = card.dataset.fullImg;
+      if (cardImgs.length > 1) {
+        modalImgGallery.replaceChildren();
+        cardImgs.forEach((node, i) => {
+          const shot = document.createElement('img');
+          shot.className = 'modal-gallery-img';
+          shot.src = i === 0 && fullImg ? fullImg : node.src;
+          shot.alt = node.alt || '';
+          modalImgGallery.appendChild(shot);
+        });
+        modalImgGallery.hidden = false;
+        modalImg.style.display = 'none';
+        modalImg.removeAttribute('src');
+      } else {
+        modalImgGallery.hidden = true;
+        modalImgGallery.replaceChildren();
+        modalImg.style.display = 'block';
+        modalImg.src = fullImg || img.src;
+        modalImg.alt = img.alt;
+      }
     }
     modalTitle.textContent = title;
     modalDesc.textContent = desc;
@@ -195,6 +217,10 @@ export function initSiteEffects(options?: SiteEffectsOptions): () => void {
 
   function closeModal() {
     if (!isOpen) return;
+
+    modalImgGallery.hidden = true;
+    modalImgGallery.replaceChildren();
+    modalImg.style.display = '';
 
     modalVideo?.pause();
     modalVideo?.removeAttribute('src');

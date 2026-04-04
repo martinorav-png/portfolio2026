@@ -1,0 +1,68 @@
+.hero-bubble-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-bubble-cta {
+  --hb-bg: var(--color-card);
+  --hb-fg: var(--color-text);
+  --hb-hover-bg: var(--color-text);
+  --hb-hover-fg: var(--color-bg);
+  --hb-rot: 0deg;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 clamp(1.25rem, 3vw, 2rem);
+  border-radius: 999px;
+  background: var(--hb-bg);
+  color: var(--hb-fg);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border);
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  will-change: transform;
+  overflow: hidden;
+}
+
+.hero-bubble-cta:hover {
+  background: var(--hb-hover-bg);
+  color: var(--hb-hover-fg);
+  transform: rotate(var(--hb-rot)) scale(1.04);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+}
+
+.hero-bubble-cta:active {
+  transform: rotate(var(--hb-rot)) scale(0.98);
+}
+
+.hero-bubble-cta__label {
+  display: inline-block;
+  line-height: 1.2;
+  will-change: transform, opacity;
+}
+
+@media (min-width: 900px) {
+  .hero-bubble-cta {
+    transform: rotate(var(--hb-rot));
+  }
+
+  .hero-bubble-cta:hover {
+    transform: rotate(var(--hb-rot)) scale(1.06);
+  }
+
+  .hero-bubble-cta:active {
+    transform: rotate(var(--hb-rot)) scale(0.96);
+  }
+}
