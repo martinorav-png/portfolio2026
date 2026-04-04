@@ -116,6 +116,8 @@ const HERO_BOUNCE_TRANSFORMS = [
 
 export default function App() {
   const { theme, toggleTheme, locale, setLocale, t } = useAppPreferences();
+  /** Full-viewport click sparks use capture-phase pointerdown; skip on touch-primary devices. */
+  const [showGlobalClickSpark, setShowGlobalClickSpark] = useState(false);
   const [heroFeatureImages] = useState(() => pickRandomUnique(HERO_IMAGE_POOL, 4));
   const [workFolderRoll] = useState(() => ({
     color: randomFolderColor(),
@@ -165,9 +167,17 @@ export default function App() {
     }
   }, []);
 
+  useEffect(() => {
+    const mq = window.matchMedia('(pointer: fine)');
+    const sync = () => setShowGlobalClickSpark(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
   return (
     <>
-      <GlobalClickSpark />
+      {showGlobalClickSpark ? <GlobalClickSpark /> : null}
       <nav className="nav" id="nav">
         <div className="nav-inner">
           <a href="/" className="nav-logo">
