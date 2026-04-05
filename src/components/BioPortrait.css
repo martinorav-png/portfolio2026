@@ -1,0 +1,71 @@
+/* Simple about portrait — layout shell in styles.css (.bio-photo--simple); inner card below */
+.bio-portrait {
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #121218;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+  touch-action: pan-y;
+}
+
+.bio-portrait__media {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  aspect-ratio: 520 / 724;
+  background: #121218;
+}
+
+.bio-portrait__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+.bio-portrait__overlay {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.bio-portrait__name {
+  font-family: var(--font-heading);
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.2rem, 3.8vw, 1.65rem);
+  font-weight: 600;
+  color: #b4bccf;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.92),
+    0 0 20px rgba(0, 0, 0, 0.55);
+}
+
+.bio-portrait__role {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #7f889c;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.88),
+    0 0 14px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 900px) {
+  .bio-portrait__media {
+    min-height: 260px;
+    max-height: min(480px, 62svh);
+  }
+}
+
+@media (max-width: 480px) {
+  .bio-portrait__media {
+    min-height: 240px;
+    max-height: min(420px, 58svh);
+  }
+}

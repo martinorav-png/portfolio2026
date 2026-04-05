@@ -254,6 +254,7 @@
 }
 
 .pc-avatar-content .avatar {
+  display: block;
   width: 100%;
   height: auto;
   max-height: 100%;
@@ -261,6 +262,7 @@
   object-position: center bottom;
   position: absolute;
   left: 50%;
+  z-index: 2;
   transform-origin: 50% 100%;
   transform: translateX(calc(-50% + (var(--pointer-from-left) - 0.5) * 6px)) translateZ(0)
     scaleY(calc(1 + (var(--pointer-from-top) - 0.5) * 0.02)) scaleX(calc(1 + (var(--pointer-from-left) - 0.5) * 0.01));
@@ -274,7 +276,8 @@
   content: '';
   position: absolute;
   inset: 0;
-  z-index: 1;
+  /* Keep below the photo; z-index: 1 sat above an unlayered img on WebKit mobile */
+  z-index: 0;
   backdrop-filter: none;
   pointer-events: none;
 }
@@ -286,7 +289,7 @@
   bottom: var(--ui-inset);
   left: var(--ui-inset);
   right: var(--ui-inset);
-  z-index: 2;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -581,4 +584,49 @@
     font-size: 9px;
     border-radius: 50px;
   }
+}
+
+/* About section: portrait layer under holo so favicon mask + color-dodge sit on top of the photo */
+.pc-card--bio .pc-avatar-content {
+  z-index: 1;
+  position: relative;
+  mix-blend-mode: normal;
+  isolation: isolate;
+  overflow: visible;
+  min-height: min(320px, 78vw);
+  width: 100%;
+  height: 100%;
+  display: block !important;
+}
+
+.pc-card--bio .pc-avatar-content .avatar {
+  display: block !important;
+  position: absolute;
+  inset: 0;
+  left: auto;
+  bottom: auto;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: cover;
+  object-position: center bottom;
+  z-index: 1;
+  opacity: 1;
+  transform: translateZ(0);
+  transform-origin: center bottom;
+  transition: none;
+  will-change: auto;
+}
+
+.pc-card--bio .pc-shine {
+  z-index: 2;
+}
+
+.pc-card--bio .pc-glare {
+  z-index: 3;
+}
+
+.pc-card--bio .pc-content:not(.pc-avatar-content) {
+  z-index: 4;
+  mix-blend-mode: normal;
 }

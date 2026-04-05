@@ -9,7 +9,9 @@ import Folder from './components/Folder';
 import CatweesMotionCollectionCard from './components/CatweesMotionCollectionCard';
 import SkillsStrip from './components/SkillsStrip';
 import ProfileCard from './components/ProfileCard';
+import BioPortrait from './components/BioPortrait';
 import HeroBubbleCtas from './components/HeroBubbleCtas';
+import { useBioHoloLayout } from './useBioHoloLayout';
 import { workHomeCards } from './workHomeLocale';
 import { messages } from './messages';
 
@@ -20,6 +22,9 @@ const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}`;
 
 /** Favicon used as holo mask pattern on the about ProfileCard */
 const SITE_ICON_PATTERN_URL = '/favicon.png';
+
+/** Public folder portrait — respect Vite base path so deploys not at domain root still resolve */
+const BIO_PORTRAIT_URL = `${import.meta.env.BASE_URL.replace(/\/?$/, '/')}assets/martin-portrait.png`;
 
 const HERO_IMAGE_POOL = [
   '/assets/works/honda-prelude-ui.jpg',
@@ -124,6 +129,7 @@ export default function App() {
     thumbs: pickRandomUnique(WORK_FOLDER_THUMB_POOL, 3),
   }));
   const [bioProfileCardStyle] = useState(() => randomBioProfileCardStyle());
+  const showBioHolo = useBioHoloLayout();
 
   const tRef = useRef(t);
   tRef.current = t;
@@ -293,18 +299,28 @@ export default function App() {
               <p>{t('bioP2')}</p>
               <p className="bio-closing">{t('bioP3')}</p>
             </div>
-            <figure className="bio-photo" aria-label={t('bioPhotoAlt')}>
-              <ProfileCard
-                className="bio-profile-card"
-                style={bioProfileCardStyle}
-                avatarUrl="/assets/martin-portrait.png"
-                iconUrl={SITE_ICON_PATTERN_URL}
-                grainUrl=""
+            {showBioHolo ? (
+              <figure className="bio-photo" aria-label={t('bioPhotoAlt')}>
+                <ProfileCard
+                  className="bio-profile-card"
+                  bioVariant
+                  style={bioProfileCardStyle}
+                  avatarUrl={BIO_PORTRAIT_URL}
+                  iconUrl={SITE_ICON_PATTERN_URL}
+                  grainUrl=""
+                  name={t('bioName')}
+                  title={t('bioProfileTitle')}
+                  showUserInfo={false}
+                />
+              </figure>
+            ) : (
+              <BioPortrait
+                imageSrc={BIO_PORTRAIT_URL}
+                imageAlt={t('bioPhotoAlt')}
                 name={t('bioName')}
                 title={t('bioProfileTitle')}
-                showUserInfo={false}
               />
-            </figure>
+            )}
           </div>
         </div>
       </section>

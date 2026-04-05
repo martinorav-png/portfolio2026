@@ -409,6 +409,13 @@ img {
   opacity: 0.9;
 }
 
+/* Touch: WebGL layer is decorative only — no pointer listeners, pans scroll the page */
+@media (pointer: coarse) {
+  .hero--ballpit .hero-ballpit-layer {
+    pointer-events: none;
+  }
+}
+
 .hero-dither-layer {
   opacity: 1;
 }
@@ -788,7 +795,8 @@ img {
   color: var(--color-text) !important;
 }
 
-.bio-photo {
+.bio-photo,
+.bio-photo--simple {
   margin: 0;
   border-radius: var(--radius-lg);
   overflow: visible;
@@ -799,7 +807,6 @@ img {
   align-items: center;
 }
 
-/* ProfileCard tilt effect: fit bio column, allow page scroll on touch */
 .bio-photo .pc-card-wrapper {
   width: 100%;
   max-width: 380px;
@@ -813,7 +820,7 @@ img {
   aspect-ratio: 0.718;
 }
 
-/* Site favicon as repeating holo mask (ProfileCard --icon) — larger tiles = sparser pattern */
+/* Site favicon as repeating holo mask — larger tiles = sparser pattern */
 .bio-photo .pc-shine {
   -webkit-mask-image: var(--icon);
   -webkit-mask-mode: luminance;
@@ -823,7 +830,6 @@ img {
   mask-size: 96px 96px;
 }
 
-/* Softer holo on hover (default ProfileCard effect is very bright on the portrait) */
 .bio-photo .pc-shine::before {
   filter: brightness(calc(1.05 + var(--pointer-from-center) * 0.35))
     contrast(calc(1.05 + var(--pointer-from-center) * 0.55))
@@ -858,12 +864,6 @@ img {
   filter: brightness(0.42) contrast(1.02);
 }
 
-.bio-photo .pc-card:hover .pc-avatar-content .avatar,
-.bio-photo .pc-card.active .pc-avatar-content .avatar {
-  filter: brightness(0.94) contrast(0.98);
-}
-
-/* Bio ProfileCard: darker, solid type (gradient + luminosity blend was low-contrast on the holo) */
 .bio-photo .pc-content:not(.pc-avatar-content) {
   mix-blend-mode: normal;
 }
@@ -896,7 +896,8 @@ img {
     gap: 32px;
   }
 
-  .bio-photo {
+  .bio-photo,
+  .bio-photo--simple {
     max-width: 400px;
     margin: 0 auto;
     order: -1;

@@ -24,6 +24,8 @@ const ProfileCardComponent = ({
   behindGlowColor,
   behindGlowSize,
   className = '',
+  /** About section: stack portrait under holo layers so favicon mask + color-dodge show on top */
+  bioVariant = false,
   enableTilt = true,
   enableMobileTilt = false,
   mobileTiltSensitivity = 5,
@@ -313,7 +315,7 @@ const ProfileCardComponent = ({
     >
       {behindGlowEnabled && <div className="pc-behind" />}
       <div ref={shellRef} className="pc-card-shell">
-        <section className="pc-card">
+        <section className={`pc-card${bioVariant ? ' pc-card--bio' : ''}`}>
           <div className="pc-inside">
             <div className="pc-shine" />
             <div className="pc-glare" />
@@ -322,10 +324,12 @@ const ProfileCardComponent = ({
                 className="avatar"
                 src={avatarUrl}
                 alt={`${name || 'User'} avatar`}
-                loading="lazy"
-                onError={e => {
-                  const t = e.target;
-                  t.style.display = 'none';
+                loading="eager"
+                decoding="async"
+                onError={() => {
+                  if (import.meta.env.DEV) {
+                    console.warn('[ProfileCard] Avatar failed to load:', avatarUrl);
+                  }
                 }}
               />
               {showUserInfo && (
