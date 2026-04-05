@@ -252,19 +252,21 @@ export default function App() {
           <p className="hero-label anim-fade-up">
             <span className="prism-text">{t('heroHey')}</span>
           </p>
-          <div className="ascii-name-container anim-fade-up" style={{ animationDelay: '0.1s' }}>
-            <ASCIIText
-              text="Martin"
-              enableWaves
-              asciiFontSize={10}
-              textFontSize={300}
-              planeBaseHeight={13}
-              textColor={theme === 'dark' ? '#e8e4dc' : '#fdf9f3'}
-            />
+          <div className="hero-headline-safe">
+            <div className="ascii-name-container anim-fade-up" style={{ animationDelay: '0.1s' }}>
+              <ASCIIText
+                text="Martin"
+                enableWaves
+                asciiFontSize={10}
+                textFontSize={300}
+                planeBaseHeight={13}
+                textColor={theme === 'dark' ? '#e8e4dc' : '#fdf9f3'}
+              />
+            </div>
+            <p className="hero-subtitle anim-fade-up" style={{ animationDelay: '0.2s' }}>
+              {t('heroSubtitle')}
+            </p>
           </div>
-          <p className="hero-subtitle anim-fade-up" style={{ animationDelay: '0.2s' }}>
-            {t('heroSubtitle')}
-          </p>
           <div className="hero-cta hero-cta--bubble anim-fade-up" style={{ animationDelay: '0.35s' }}>
             <HeroBubbleCtas items={heroBubbleItems} />
           </div>

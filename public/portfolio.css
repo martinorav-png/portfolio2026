@@ -433,6 +433,10 @@ img {
   pointer-events: auto;
 }
 
+.hero--dither .hero-headline-safe .hero-subtitle {
+  pointer-events: auto;
+}
+
 .hero--ballpit .hero-bg .orb {
   opacity: 0.28;
 }
@@ -597,6 +601,86 @@ img {
 @media (max-width: 768px) {
   .ascii-name-container {
     height: 160px;
+  }
+
+  /* Dark + dither on narrow screens: soft black vignette behind ASCII name + subtitle so
+     the WebGL dither does not read through blend modes, fading out at the edges */
+  [data-theme='dark'] .hero.hero--dither .hero-headline-safe {
+    position: relative;
+    isolation: isolate;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: min(900px, 100%);
+  }
+
+  [data-theme='dark'] .hero.hero--dither .hero-headline-safe::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    max-width: none;
+    top: -32px;
+    bottom: -44px;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 98% 135% at 50% 44%,
+      rgb(0 0 0 / 0.94) 0%,
+      rgb(0 0 0 / 0.8) 24%,
+      rgb(0 0 0 / 0.5) 48%,
+      rgb(0 0 0 / 0.18) 70%,
+      rgb(0 0 0 / 0) 90%
+    );
+    /* Feather top/bottom so the rect doesn’t read as a hard horizontal cut */
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgb(0 0 0 / 0.25) 8%,
+      rgb(0 0 0 / 0.65) 16%,
+      #000 26%,
+      #000 74%,
+      rgb(0 0 0 / 0.65) 84%,
+      rgb(0 0 0 / 0.25) 92%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgb(0 0 0 / 0.25) 8%,
+      rgb(0 0 0 / 0.65) 16%,
+      #000 26%,
+      #000 74%,
+      rgb(0 0 0 / 0.65) 84%,
+      rgb(0 0 0 / 0.25) 92%,
+      transparent 100%
+    );
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    animation: hero-headline-safe-in 1s ease-out 0.15s both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme='dark'] .hero.hero--dither .hero-headline-safe::before {
+      animation: none;
+    }
+  }
+
+  [data-theme='dark'] .hero.hero--dither .hero-headline-safe .ascii-name-container,
+  [data-theme='dark'] .hero.hero--dither .hero-headline-safe .hero-subtitle {
+    position: relative;
+    z-index: 1;
+  }
+
+  @keyframes hero-headline-safe-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }
 
