@@ -214,7 +214,7 @@ img {
 .nav-links a {
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--color-text-secondary);
+  color: var(--color-text);
   transition: color var(--transition);
   position: relative;
 }
