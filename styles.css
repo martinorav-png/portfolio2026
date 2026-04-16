@@ -441,6 +441,75 @@ img {
   opacity: 0.28;
 }
 
+/* Light + iridescence: soft white vignette behind ASCII name + subtitle
+   so the shader colours don't bleed through the text */
+.hero--ballpit .hero-headline-safe {
+  position: relative;
+  isolation: isolate;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: min(900px, 100%);
+}
+
+.hero--ballpit .hero-headline-safe::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  max-width: none;
+  top: -32px;
+  bottom: -44px;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 98% 135% at 50% 44%,
+    rgb(250 250 250 / 0.92) 0%,
+    rgb(250 250 250 / 0.76) 24%,
+    rgb(250 250 250 / 0.44) 48%,
+    rgb(250 250 250 / 0.14) 70%,
+    rgb(250 250 250 / 0) 90%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(0 0 0 / 0.25) 8%,
+    rgb(0 0 0 / 0.65) 16%,
+    #000 26%,
+    #000 74%,
+    rgb(0 0 0 / 0.65) 84%,
+    rgb(0 0 0 / 0.25) 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(0 0 0 / 0.25) 8%,
+    rgb(0 0 0 / 0.65) 16%,
+    #000 26%,
+    #000 74%,
+    rgb(0 0 0 / 0.65) 84%,
+    rgb(0 0 0 / 0.25) 92%,
+    transparent 100%
+  );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  animation: hero-headline-safe-in 1s ease-out 0.15s both;
+}
+
+.hero--ballpit .hero-headline-safe .ascii-name-container,
+.hero--ballpit .hero-headline-safe .hero-subtitle {
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtitle needs full text colour in light mode — secondary grey disappears on the shader */
+.hero--ballpit .hero-subtitle {
+  color: var(--color-text);
+}
+
 .hero--ballpit .hero-dots,
 .hero--ballpit .hero-grain,
 .hero--dither .hero-dots,
