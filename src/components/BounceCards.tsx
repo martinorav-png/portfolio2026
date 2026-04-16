@@ -11,6 +11,7 @@ export type BounceCardsProps = {
   easeType?: string;
   transformStyles?: string[];
   enableHover?: boolean;
+  imageLoading?: 'lazy' | 'eager';
 };
 
 const defaultTransforms = [
@@ -37,6 +38,7 @@ export default function BounceCards({
   easeType = 'elastic.out(1, 0.5)',
   transformStyles,
   enableHover = true,
+  imageLoading = 'lazy',
 }: BounceCardsProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -141,7 +143,7 @@ export default function BounceCards({
               src={src}
               alt=""
               draggable={false}
-              loading="lazy"
+              loading={imageLoading}
               style={{
                 width: '100%',
                 height: '100%',

@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
-import ASCIIText from './components/ASCIIText';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+
+const ASCIIText = lazy(() => import('./components/ASCIIText'));
 import BounceCards from './components/BounceCards';
 import HeroBackground from './HeroBackground';
 import { initSiteEffects } from './site-effects';
@@ -254,14 +255,16 @@ export default function App() {
           </p>
           <div className="hero-headline-safe">
             <div className="ascii-name-container anim-fade-up" style={{ animationDelay: '0.1s' }}>
-              <ASCIIText
-                text="Martin"
-                enableWaves
-                asciiFontSize={10}
-                textFontSize={300}
-                planeBaseHeight={13}
-                textColor={theme === 'dark' ? '#e8e4dc' : '#fdf9f3'}
-              />
+              <Suspense fallback={null}>
+                <ASCIIText
+                  text="Martin"
+                  enableWaves
+                  asciiFontSize={10}
+                  textFontSize={300}
+                  planeBaseHeight={13}
+                  textColor={theme === 'dark' ? '#e8e4dc' : '#fdf9f3'}
+                />
+              </Suspense>
             </div>
             <p className="hero-subtitle anim-fade-up" style={{ animationDelay: '0.2s' }}>
               {t('heroSubtitle')}
@@ -283,6 +286,7 @@ export default function App() {
             easeType="elastic.out(1, 0.5)"
             transformStyles={[...HERO_BOUNCE_TRANSFORMS]}
             enableHover
+            imageLoading="eager"
           />
         </div>
         <div className="hero-scroll-hint anim-fade-up" style={{ animationDelay: '0.7s' }}>
