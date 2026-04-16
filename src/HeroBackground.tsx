@@ -21,7 +21,19 @@ function useCoarsePointer(): boolean {
 
 export default function HeroBackground({ theme }: { theme: Theme }) {
   const coarsePointer = useCoarsePointer();
-  const ballpitInteractive = !coarsePointer;
+  // Delay GL startup until the main thread is free — keeps TBT low on desktop.
+  // On touch/mobile devices skip WebGL entirely; the CSS orbs already provide
+  // visual interest and the physics + shader compilation are too expensive.
+  const [showGL, setShowGL] = useState(false);
+
+  useEffect(() => {
+    if (coarsePointer) return;
+    const id = window.setTimeout(() => setShowGL(true), 2000);
+    return () => window.clearTimeout(id);
+  }, [coarsePointer]);
+
+  if (coarsePointer || !showGL) return null;
+
   if (theme === 'dark') {
     return (
       <div className="hero-dither-layer" aria-hidden>
@@ -45,13 +57,12 @@ export default function HeroBackground({ theme }: { theme: Theme }) {
     <div className="hero-ballpit-layer" aria-hidden>
       <Suspense fallback={null}>
         <Ballpit
-          key={ballpitInteractive ? 'ballpit-interactive' : 'ballpit-static'}
           className="ballpit"
           count={100}
           gravity={0.01}
           friction={0.9975}
           wallBounce={0.95}
-          followCursor={ballpitInteractive}
+          followCursor
         />
       </Suspense>
     </div>

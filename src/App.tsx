@@ -49,17 +49,12 @@ const HERO_IMAGE_POOL = [
   '/assets/works/honey-boot.png',
 ] as const;
 
-/** Extra work thumbs for the folder widget (paths also used on the work grid). */
+/** Extra work thumbs for the folder widget — JPEGs/PNGs only; GIFs are
+ *  excluded here because they are 2–45 MB each and would blow up the home
+ *  page payload if randomly selected. They are shown on the work page. */
 const WORK_FOLDER_THUMB_POOL = [
   ...HERO_IMAGE_POOL,
   '/assets/works/pulse-landing-full.jpg',
-  '/assets/works/catwees/kodulehe-banner-3.gif',
-  '/assets/works/catwees/comp-1.gif',
-  '/assets/works/catwees/poleerimine.gif',
-  '/assets/works/catwees/joulukaart-6.gif',
-  '/assets/works/catwees/sobivlinnamaastur.gif',
-  '/assets/works/catwees/hrv-kliendimeil-2.gif',
-  '/assets/works/catwees/meilipealislogo.gif',
 ] as const;
 
 function hslToHex(h: number, s: number, l: number): string {
