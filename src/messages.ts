@@ -10,7 +10,7 @@ export const messages = {
     navMenuToggle: 'Open menu',
     heroHey: "Hey, I'm",
     heroSubtitle:
-      'A student with a thing for design. I make graphics, UI concepts, and a bunch of other fun stuff!',
+      'I design interfaces, make things move, and occasionally ship stuff that runs on hardware.',
     heroCtaWork: "see what i've made",
     heroCtaContact: 'say hi',
     workTitle: 'selected work',
@@ -26,7 +26,7 @@ export const messages = {
     footer: '© 2026 Martin Orav. Built with care.',
     bioTitle: 'About',
     bioP1:
-      'My name is Martin and I am a Digital Product Design student at the Estonian Academy of Arts. I like to work on things such as graphic design, interaction design, game design and much more!',
+      'I work across UI design, motion, and brand work - for screens, for the web, and sometimes for hardware. Studying Digital Product Design at the Estonian Academy of Arts.',
     bioP2:
       'I care about making technology feel human - to create experiences that are clear, meaningful, and quietly satisfying to use.',
     bioP3: 'Good design makes the world a nicer place :)',
@@ -49,7 +49,7 @@ export const messages = {
     navMenuToggle: 'Ava menüü',
     heroHey: 'Hei, olen',
     heroSubtitle:
-      'Õpilane, kellele meeldib disain. Teen graafikat, UI kontseptsioone ja veel igasugu lõbusaid asju!',
+      'Disainin liideseid, panen asju liikuma ja mõnikord saadan välja ka midagi, mis päriselt riistvaral töötab.',
     heroCtaWork: 'vaata, mida olen teinud',
     heroCtaContact: 'ütle tsau!',
     workTitle: 'valitud tööd',
@@ -65,7 +65,7 @@ export const messages = {
     footer: '© 2026 Martin Orav. Ehitatud hoolega.',
     bioTitle: 'minust',
     bioP1:
-      'Minu nimi on Martin ja olen Eesti Kunstiakadeemia digitaalse tootedisaini õppe suuna õpilane. Meeldib teha asju nagu graafiline disain, interaktsioonidisain, mängudisain ja palju muud!',
+      'Töötan UI disaini, motion-i ja bränditöö vallas - ekraanidele, veebi ja mõnikord ka riistvarale. Õpin digitaalset tootedisaini Eesti Kunstiakadeemias.',
     bioP2:
       'Minu jaoks on oluline, et tehnoloogia tunduks inimlik - luua kogemusi, mis on selged, mõttekad ja vaikselt rahuldust pakkuvad.',
     bioP3: 'Hea disain teeb maailma ilusamaks :)',
