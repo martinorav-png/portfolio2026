@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import type { Theme } from './ThemeLanguageContext';
 
-const Ballpit = lazy(() => import('./components/Ballpit'));
+const FluidGlass = lazy(() => import('./components/FluidGlass'));
 
 const Dither = lazy(() => import('./components/Dither'));
 
@@ -56,13 +56,12 @@ export default function HeroBackground({ theme }: { theme: Theme }) {
   return (
     <div className="hero-ballpit-layer" aria-hidden>
       <Suspense fallback={null}>
-        <Ballpit
-          className="ballpit"
-          count={100}
-          gravity={0.01}
-          friction={0.9975}
-          wallBounce={0.95}
-          followCursor
+        <FluidGlass
+          scale={0.25}
+          ior={1.15}
+          thickness={5}
+          chromaticAberration={0.1}
+          anisotropy={0.01}
         />
       </Suspense>
     </div>
