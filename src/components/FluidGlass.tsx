@@ -1,16 +1,17 @@
 /* eslint-disable react/no-unknown-property */
 /**
- * FluidGlass — lens-only hero background.
- * Stripped from the React Bits FluidGlass component:
- *   - No ScrollControls / demo images / typography
- *   - Transparent canvas (blends over the existing hero background)
- *   - Lens follows the mouse pointer
+ * FluidGlass — lens hero background.
+ * Renders a pastel background (matching the CSS hero orbs) inside the FBO
+ * scene so the glass lens has real colour to refract.
  */
 import * as THREE from 'three';
-import { useRef, useState, useEffect, memo } from 'react';
+import { useRef, useState, memo } from 'react';
 import { Canvas, createPortal, useFrame, useThree } from '@react-three/fiber';
 import { useFBO, useGLTF, MeshTransmissionMaterial } from '@react-three/drei';
 import { easing } from 'maath';
+
+// Matches --color-bg + the three CSS orb colours exactly
+const BG_COLOR = new THREE.Color('#fafafa');
 
 interface LensSceneProps {
   ior?: number;
@@ -32,7 +33,11 @@ const LensScene = memo(function LensScene({
     nodes: Record<string, THREE.Mesh>;
   };
   const buffer = useFBO();
-  const [scene] = useState(() => new THREE.Scene());
+  const [scene] = useState(() => {
+    const s = new THREE.Scene();
+    s.background = BG_COLOR;
+    return s;
+  });
   const { viewport: vp } = useThree();
 
   useFrame((state, delta) => {
@@ -50,11 +55,34 @@ const LensScene = memo(function LensScene({
 
   return (
     <>
-      {createPortal(null, scene)}
+      {createPortal(
+        <>
+          {/* Orb 1 — purple, top-left */}
+          <mesh position={[-4, 2.5, 13]}>
+            <sphereGeometry args={[2.8, 32, 32]} />
+            <meshBasicMaterial color="#b794f6" transparent opacity={0.55} />
+          </mesh>
+          {/* Orb 2 — teal, bottom-right */}
+          <mesh position={[4, -2, 13]}>
+            <sphereGeometry args={[2.4, 32, 32]} />
+            <meshBasicMaterial color="#63d5db" transparent opacity={0.5} />
+          </mesh>
+          {/* Orb 3 — orange, bottom-left */}
+          <mesh position={[-2, -3, 12]}>
+            <sphereGeometry args={[2, 32, 32]} />
+            <meshBasicMaterial color="#ffa94d" transparent opacity={0.45} />
+          </mesh>
+        </>,
+        scene
+      )}
+
+      {/* Full-screen quad showing the FBO — this IS the hero background */}
       <mesh scale={[vp.width, vp.height, 1]}>
         <planeGeometry />
-        <meshBasicMaterial map={buffer.texture} transparent opacity={0} />
+        <meshBasicMaterial map={buffer.texture} />
       </mesh>
+
+      {/* The glass lens */}
       <mesh
         ref={ref}
         scale={scale}
@@ -80,7 +108,6 @@ export default function FluidGlass(props: LensSceneProps) {
     <Canvas
       camera={{ position: [0, 0, 20], fov: 15 }}
       gl={{ alpha: true, antialias: true }}
-      style={{ background: 'transparent' }}
     >
       <LensScene {...props} />
     </Canvas>
