@@ -33,7 +33,7 @@
       themeToLight: 'Switch to light mode',
       docTitle: 'All Work - Martin Orav',
       motionCollectionBadge: '12 pieces',
-      motionCollectionTitle: 'Catwees Honda — Motion Collection',
+      motionCollectionTitle: 'Catwees Honda - Motion Collection',
       motionCollectionDesc:
         '12 motion pieces across social ads, email headers, campaign GIFs, and product loops for an Estonian Honda dealership.',
       motionCollectionMeta: 'Motion · Catwees · 2021–2023',
@@ -43,7 +43,7 @@
       mprWorkDesc:
         'Shield-shaped emblem for MPR. Features pistons, crossed tools, wings, and a fox motif. Clean vector work in a black, green, and gold palette.',
       mprWorkMeta: 'Emblem design · Military · 2022',
-      mprWorkImgAlt: 'Emblem of the 4th Mortar Platoon, Viru Infantry Battalion — unit patch on Estonian camouflage with flag tab',
+      mprWorkImgAlt: 'Emblem of the 4th Mortar Platoon, Viru Infantry Battalion - unit patch on Estonian camouflage with flag tab',
     },
     et: {
       navHome: 'avaleht',
@@ -85,7 +85,7 @@
       mprWorkDesc:
         'Kilbikujuline embleem MPR-i jaoks. Kolvid, ristuvad tööriistad, tiivad ja rebane. Puhas vektorgraafika musta, rohelise ja kuldse paletiga.',
       mprWorkMeta: 'Embleemidisain · Kaitsevägi · 2022',
-      mprWorkImgAlt: 'Viru jalaväepataljoni 4. miinipildujarühma embleem — üksusemärk maskeeringu vormil riigilipu ribaga',
+      mprWorkImgAlt: 'Viru jalaväepataljoni 4. miinipildujarühma embleem - üksusemärk maskeeringu vormil riigilipu ribaga',
     },
   };
 

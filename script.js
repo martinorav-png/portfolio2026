@@ -426,7 +426,7 @@ window.addEventListener('scroll', () => {
     var title = sourceCard.querySelector('h3');
     var desc = sourceCard.querySelector('.work-card-info p');
     var meta = sourceCard.querySelector('.work-meta');
-    var headTitle = title ? title.textContent : 'Catwees Honda — Motion Collection';
+    var headTitle = title ? title.textContent : 'Catwees Honda - Motion Collection';
     var headDesc = desc ? desc.textContent : '';
     var headMeta = meta ? meta.textContent : '';
 

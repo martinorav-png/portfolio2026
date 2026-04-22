@@ -58,27 +58,27 @@ const WORK = {
     en: {
       title: 'Free Games Explorer',
       desc: 'Web app for discovering free-to-play games: search, platform and genre filters, favourites, and keyboard shortcuts. Neo-brutalist UI. School assignment for EKA. Live on GitHub Pages.',
-      meta: 'Web app · EKA · 2026',
+      meta: 'Web app · EKA · 2025',
       imgAlt: 'Free Games Explorer app screenshot',
     },
     et: {
       title: 'Free Games Explorer',
       desc: 'Veebirakendus tasuta mängude avastamiseks: otsing, platvormi- ja žanrifiltrid, lemmikud ja kiirklahvid. Neo-brutalistlik kasutajaliides. Koolitöö EKA jaoks. Juures GitHub Pagesis.',
-      meta: 'Veebirakendus · EKA · 2026',
+      meta: 'Veebirakendus · EKA · 2025',
       imgAlt: 'Free Games Exploreri rakenduse kuvatõmmis',
     },
   },
   selfCareTracker: {
     en: {
-      title: 'Päevaplaan — Self-care tracker',
+      title: 'Päevaplaan - Self-care tracker',
       desc: 'Web app for habits and self-care: quick-add tasks, categories, streaks, achievements, and light gamification (including a draggable plant). Estonian-first UI with local storage. School assignment for EKA. Live on GitHub Pages.',
-      meta: 'Web app · EKA · 2026',
+      meta: 'Web app · EKA · 2025',
       imgAlt: 'Päevaplaan self-care tracker app screenshot',
     },
     et: {
-      title: 'Päevaplaan — enesehoolduse jälgija',
+      title: 'Päevaplaan - enesehoolduse jälgija',
       desc: 'Veebirakendus harjumuste ja enesehoolduse planeerimiseks: kiire ülesannete lisamine, kategooriad, streak, saavutused ja kerge mängustamine (sh lohistatav taim). Eestikeelne liides ja brauseri kohalik salvestus. Koolitöö EKA jaoks. Juures GitHub Pagesis.',
-      meta: 'Veebirakendus · EKA · 2026',
+      meta: 'Veebirakendus · EKA · 2025',
       imgAlt: 'Päevaplaani rakenduse kuvatõmmis',
     },
   },
@@ -86,13 +86,13 @@ const WORK = {
     en: {
       title: 'Pulse - Team Wellness App',
       desc: 'Full landing page design for Pulse, a concept SaaS app that tracks team mood through anonymous monthly surveys. Features AI-powered recommendations, dashboard UI, pricing, and a custom mascot.',
-      meta: 'Product Design · Full Landing Page · 2025',
+      meta: 'Product Design · Full Landing Page · 2026',
       imgAlt: 'Pulse app hero section',
     },
     et: {
       title: 'Pulse - meeskonna heaolu rakendus',
       desc: 'Täismahus maandumislehe disain Pulse’ile, kontseptsioonilisele SaaS-ile, mis jälgib meeskonna tuju anonüümsete kuu-uuringute kaudu. AI-põhised soovitused, armatuurlaua UI, hinnakiri ja maskott.',
-      meta: 'Tootedisain · Täisleht · 2025',
+      meta: 'Tootedisain · Täisleht · 2026',
       imgAlt: 'Pulse rakenduse hero plokk',
     },
   },
@@ -142,14 +142,14 @@ const WORK = {
   },
   catweesMotionCollection: {
     en: {
-      title: 'Catwees Honda — Motion Collection',
+      title: 'Catwees Honda - Motion Collection',
       desc: '12 motion pieces across social ads, email headers, campaign GIFs, and product loops for an Estonian Honda dealership.',
       meta: 'Motion · Catwees · 2021–2023',
       imgAlt: 'Grid preview of Catwees Honda motion work',
       pieceCountBadge: '12 pieces',
     },
     et: {
-      title: 'Catwees Honda — liikuva graafika kogu',
+      title: 'Catwees Honda - liikuva graafika kogu',
       desc: '12 liikuvat tööd: sotsiaalreklaamid, e-kirjade päised, kampaania-GIFid ja tootetsüklid Eesti Honda edasimüüjale.',
       meta: 'Liikuv graafika · Catwees · 2021–2023',
       imgAlt: 'Catwees Honda liikuva graafika eelvaate ruudustik',

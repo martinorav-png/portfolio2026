@@ -8,6 +8,7 @@ import { useAppPreferences } from './ThemeLanguageContext';
 import GlobalClickSpark from './components/GlobalClickSpark';
 import Folder from './components/Folder';
 import CatweesMotionCollectionCard from './components/CatweesMotionCollectionCard';
+import WorkTimeline, { type TLEntry } from './components/WorkTimeline';
 import SkillsStrip from './components/SkillsStrip';
 import ProfileCard from './components/ProfileCard';
 import BioPortrait from './components/BioPortrait';
@@ -131,6 +132,102 @@ export default function App() {
   tRef.current = t;
 
   const wh = useMemo(() => workHomeCards(locale), [locale]);
+
+  const timelineItems = useMemo<TLEntry[]>(() => [
+    {
+      id: 'pulse',
+      year: '2026',
+      title: wh.pulse.title,
+      meta: wh.pulse.meta,
+      desc: wh.pulse.desc,
+      imgSrc: '/assets/works/pulse-hero.jpg',
+      imgAlt: wh.pulse.imgAlt,
+      liveUrl: 'https://martinorav-png.github.io/pulse-UI',
+    },
+    {
+      id: 'honeyBoot',
+      year: '2026',
+      title: wh.honeyBoot.title,
+      meta: wh.honeyBoot.meta,
+      desc: wh.honeyBoot.desc,
+      imgSrc: '/assets/works/honey-boot.png',
+      imgAlt: wh.honeyBoot.imgAlt,
+      liveUrl: 'https://honey-boot.rivo-tuksammel.workers.dev',
+    },
+    {
+      id: 'substrate',
+      year: '2026',
+      title: wh.substrate.title,
+      meta: wh.substrate.meta,
+      desc: wh.substrate.desc,
+      imgSrc: '/assets/works/substrate-game.jpg',
+      imgAlt: wh.substrate.imgAlt,
+    },
+    {
+      id: 'hondaPrelude',
+      year: '2026',
+      title: wh.hondaPrelude.title,
+      meta: wh.hondaPrelude.meta,
+      desc: wh.hondaPrelude.desc,
+      imgSrc: '/assets/works/honda-prelude-ui.jpg',
+      imgAlt: wh.hondaPrelude.imgAlt,
+    },
+    {
+      id: 'freeGamesExplorer',
+      year: '2025',
+      title: wh.freeGamesExplorer.title,
+      meta: wh.freeGamesExplorer.meta,
+      desc: wh.freeGamesExplorer.desc,
+      imgSrc: '/assets/works/free-games-explorer-thumb.png',
+      imgAlt: wh.freeGamesExplorer.imgAlt,
+      liveUrl: 'https://martinorav-png.github.io/free-games-explorer/',
+    },
+    {
+      id: 'selfCareTracker',
+      year: '2025',
+      title: wh.selfCareTracker.title,
+      meta: wh.selfCareTracker.meta,
+      desc: wh.selfCareTracker.desc,
+      imgSrc: '/assets/works/self-care-tracker-thumb.png',
+      imgAlt: wh.selfCareTracker.imgAlt,
+      liveUrl: 'https://martinorav-png.github.io/self-care-tracker/',
+    },
+    {
+      id: 'catweesSuv',
+      year: '2023',
+      title: wh.catweesSuv.title,
+      meta: wh.catweesSuv.meta,
+      desc: wh.catweesSuv.desc,
+      imgSrc: '/assets/works/honda-suv-lineup.jpg',
+      imgAlt: wh.catweesSuv.imgAlt,
+    },
+    {
+      id: 'civic50',
+      year: '2022',
+      title: wh.civic50.title,
+      meta: wh.civic50.meta,
+      desc: wh.civic50.desc,
+      imgSrc: '/assets/works/civic-50th.jpg',
+      imgAlt: wh.civic50.imgAlt,
+    },
+    {
+      id: 'catweesBrandAnim',
+      year: '2022',
+      title: wh.catweesBrandAnim.title,
+      meta: wh.catweesBrandAnim.meta,
+      desc: wh.catweesBrandAnim.desc,
+      videoSrc: '/assets/works/catwees/catwees-animation.mp4',
+      imgAlt: wh.catweesBrandAnim.imgAlt,
+    },
+    {
+      id: 'catweesMotionCollection',
+      year: '2021',
+      title: wh.catweesMotionCollection.title,
+      meta: wh.catweesMotionCollection.meta,
+      desc: wh.catweesMotionCollection.desc,
+      renderCard: () => <CatweesMotionCollectionCard locale={locale} noReveal />,
+    },
+  ], [wh, locale]);
 
   const heroBubbleItems = useMemo(() => {
     const m = messages[locale];
@@ -257,7 +354,7 @@ export default function App() {
                   asciiFontSize={10}
                   textFontSize={300}
                   planeBaseHeight={13}
-                  textColor={theme === 'dark' ? '#e8e4dc' : '#fdf9f3'}
+                  textColor="#fdf9f3"
                 />
               </Suspense>
             </div>
@@ -285,7 +382,11 @@ export default function App() {
           />
         </div>
         <div className="hero-scroll-hint anim-fade-up" style={{ animationDelay: '0.7s' }}>
-          <div className="scroll-line" />
+          <div className="scroll-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </div>
         </div>
       </section>
 
@@ -331,145 +432,7 @@ export default function App() {
           <h2 className="section-title reveal">{t('workTitle')}</h2>
           <p className="section-subtitle reveal">{t('workSubtitle')}</p>
 
-          <div className="work-grid">
-            <div className="work-card reveal" data-desc={wh.hondaPrelude.desc}>
-              <div className="work-card-img">
-                <img src="/assets/works/honda-prelude-ui.jpg" alt={wh.hondaPrelude.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.hondaPrelude.title}</h3>
-                <span className="work-meta">{wh.hondaPrelude.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.substrate.desc}>
-              <div className="work-card-img">
-                <img src="/assets/works/substrate-game.jpg" alt={wh.substrate.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.substrate.title}</h3>
-                <span className="work-meta">{wh.substrate.meta}</span>
-              </div>
-            </div>
-
-            <div
-              className="work-card reveal"
-              data-desc={wh.honeyBoot.desc}
-              data-live-url="https://honey-boot.rivo-tuksammel.workers.dev"
-            >
-              <div className="work-card-img">
-                <span className="work-live-badge" aria-label="Live deployment">
-                  <span className="work-live-badge__dot" aria-hidden="true" />
-                  live
-                </span>
-                <img src="/assets/works/honey-boot.png" alt={wh.honeyBoot.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.honeyBoot.title}</h3>
-                <span className="work-meta">{wh.honeyBoot.meta}</span>
-              </div>
-            </div>
-
-            <div
-              className="work-card reveal"
-              data-desc={wh.freeGamesExplorer.desc}
-              data-live-url="https://martinorav-png.github.io/free-games-explorer/"
-            >
-              <div className="work-card-img">
-                <span className="work-live-badge" aria-label="Live deployment">
-                  <span className="work-live-badge__dot" aria-hidden="true" />
-                  live
-                </span>
-                <img
-                  src="/assets/works/free-games-explorer-thumb.png"
-                  alt={wh.freeGamesExplorer.imgAlt}
-                  loading="lazy"
-                />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.freeGamesExplorer.title}</h3>
-                <span className="work-meta">{wh.freeGamesExplorer.meta}</span>
-              </div>
-            </div>
-
-            <div
-              className="work-card reveal"
-              data-desc={wh.selfCareTracker.desc}
-              data-live-url="https://martinorav-png.github.io/self-care-tracker/"
-            >
-              <div className="work-card-img">
-                <span className="work-live-badge" aria-label="Live deployment">
-                  <span className="work-live-badge__dot" aria-hidden="true" />
-                  live
-                </span>
-                <img
-                  src="/assets/works/self-care-tracker-thumb.png"
-                  alt={wh.selfCareTracker.imgAlt}
-                  loading="lazy"
-                />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.selfCareTracker.title}</h3>
-                <span className="work-meta">{wh.selfCareTracker.meta}</span>
-              </div>
-            </div>
-
-            <div
-              className="work-card reveal"
-              data-desc={wh.pulse.desc}
-              data-full-img="/assets/works/pulse-landing-full.jpg"
-            >
-              <div className="work-card-img">
-                <img src="/assets/works/pulse-hero.jpg" alt={wh.pulse.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.pulse.title}</h3>
-                <span className="work-meta">{wh.pulse.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.catweesSuv.desc}>
-              <div className="work-card-img">
-                <img src="/assets/works/honda-suv-lineup.jpg" alt={wh.catweesSuv.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.catweesSuv.title}</h3>
-                <span className="work-meta">{wh.catweesSuv.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.civic50.desc}>
-              <div className="work-card-img">
-                <img src="/assets/works/civic-50th.jpg" alt={wh.civic50.imgAlt} loading="lazy" />
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.civic50.title}</h3>
-                <span className="work-meta">{wh.civic50.meta}</span>
-              </div>
-            </div>
-
-            <div className="work-card reveal" data-desc={wh.catweesBrandAnim.desc}>
-              <div className="work-card-img work-card-img--video">
-                <video
-                  muted
-                  playsInline
-                  loop
-                  autoPlay
-                  preload="metadata"
-                  aria-label={wh.catweesBrandAnim.imgAlt}
-                >
-                  <source src="/assets/works/catwees/catwees-animation.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <div className="work-card-info">
-                <h3>{wh.catweesBrandAnim.title}</h3>
-                {wh.catweesBrandAnim.lead ? <p>{wh.catweesBrandAnim.lead}</p> : null}
-                <span className="work-meta">{wh.catweesBrandAnim.meta}</span>
-              </div>
-            </div>
-
-            <CatweesMotionCollectionCard locale={locale} />
-          </div>
+          <WorkTimeline items={timelineItems} />
 
           <div className="work-cta-row reveal">
             <div className="work-cta-arrow-hint">

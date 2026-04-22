@@ -214,7 +214,7 @@ img {
 .nav-links a {
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--color-text-secondary);
+  color: var(--color-text);
   transition: color var(--transition);
   position: relative;
 }
@@ -441,6 +441,28 @@ img {
   opacity: 0.28;
 }
 
+/* Light + iridescence: soft white vignette behind ASCII name + subtitle
+   so the shader colours don't bleed through the text */
+.hero--ballpit .hero-headline-safe {
+  position: relative;
+  isolation: isolate;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: min(900px, 100%);
+}
+
+
+.hero--ballpit .hero-headline-safe .ascii-name-container,
+.hero--ballpit .hero-headline-safe .hero-subtitle {
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtitle needs full text colour in light mode — secondary grey disappears on the shader */
+.hero--ballpit .hero-subtitle {
+  color: var(--color-text);
+}
+
 .hero--ballpit .hero-dots,
 .hero--ballpit .hero-grain,
 .hero--dither .hero-dots,
@@ -589,13 +611,7 @@ img {
   position: absolute;
   left: 0;
   top: 0;
-  background-image: radial-gradient(circle, #7c3aed 0%, #06b6d4 50%, #f59e0b 100%);
-  background-attachment: fixed;
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
   z-index: 9;
-  mix-blend-mode: difference;
 }
 
 @media (max-width: 768px) {
@@ -685,10 +701,10 @@ img {
 }
 
 .hero-label {
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  letter-spacing: 0.05em;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 16px;
 }
@@ -696,16 +712,32 @@ img {
 .hero-label .prism-text {
   background: linear-gradient(
     90deg,
-    #666 0%,
+    #111111 0%,
     #7c3aed 40%,
     #06b6d4 60%,
-    #666 100%
+    #111111 100%
   );
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: prismLabel 6s ease-in-out infinite;
+  filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.6));
+}
+
+[data-theme='dark'] .hero-label .prism-text {
+  background: linear-gradient(
+    90deg,
+    #e2e2e2 0%,
+    #a78bfa 40%,
+    #38bdf8 60%,
+    #e2e2e2 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.6));
 }
 
 @keyframes prismLabel {
@@ -810,31 +842,28 @@ img {
 
 .hero-scroll-hint {
   position: absolute;
-  bottom: 40px;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.scroll-line {
-  width: 1px;
-  height: 48px;
-  background: var(--color-border);
-  position: relative;
-  overflow: hidden;
+.scroll-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+  animation: scrollArrowBounce 1.8s ease-in-out infinite;
 }
 
-.scroll-line::after {
-  content: '';
-  position: absolute;
-  top: -48px;
-  left: 0;
-  width: 1px;
-  height: 48px;
-  background: var(--color-text);
-  animation: scrollLine 2s ease-in-out infinite;
+.scroll-arrow svg {
+  width: 28px;
+  height: 28px;
 }
 
-@keyframes scrollLine {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(96px); }
+@keyframes scrollArrowBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(6px); opacity: 0.9; }
 }
 
 /* Animated gradient divider between hero and content */

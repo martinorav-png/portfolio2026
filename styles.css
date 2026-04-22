@@ -451,53 +451,6 @@ img {
   max-width: min(900px, 100%);
 }
 
-.hero--ballpit .hero-headline-safe::before {
-  content: '';
-  position: absolute;
-  z-index: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
-  max-width: none;
-  top: -32px;
-  bottom: -44px;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse 98% 135% at 50% 44%,
-    rgb(250 250 250 / 0.92) 0%,
-    rgb(250 250 250 / 0.76) 24%,
-    rgb(250 250 250 / 0.44) 48%,
-    rgb(250 250 250 / 0.14) 70%,
-    rgb(250 250 250 / 0) 90%
-  );
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgb(0 0 0 / 0.25) 8%,
-    rgb(0 0 0 / 0.65) 16%,
-    #000 26%,
-    #000 74%,
-    rgb(0 0 0 / 0.65) 84%,
-    rgb(0 0 0 / 0.25) 92%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgb(0 0 0 / 0.25) 8%,
-    rgb(0 0 0 / 0.65) 16%,
-    #000 26%,
-    #000 74%,
-    rgb(0 0 0 / 0.65) 84%,
-    rgb(0 0 0 / 0.25) 92%,
-    transparent 100%
-  );
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  animation: hero-headline-safe-in 1s ease-out 0.15s both;
-}
 
 .hero--ballpit .hero-headline-safe .ascii-name-container,
 .hero--ballpit .hero-headline-safe .hero-subtitle {
@@ -658,13 +611,11 @@ img {
   position: absolute;
   left: 0;
   top: 0;
-  background-image: radial-gradient(circle, #7c3aed 0%, #06b6d4 50%, #f59e0b 100%);
-  background-attachment: fixed;
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
   z-index: 9;
-  mix-blend-mode: difference;
+}
+
+[data-theme='light'] .ascii-name-container {
+  filter: invert(1);
 }
 
 @media (max-width: 768px) {
@@ -754,10 +705,10 @@ img {
 }
 
 .hero-label {
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  letter-spacing: 0.05em;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 16px;
 }
@@ -765,16 +716,32 @@ img {
 .hero-label .prism-text {
   background: linear-gradient(
     90deg,
-    #666 0%,
+    #111111 0%,
     #7c3aed 40%,
     #06b6d4 60%,
-    #666 100%
+    #111111 100%
   );
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: prismLabel 6s ease-in-out infinite;
+  filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.6));
+}
+
+[data-theme='dark'] .hero-label .prism-text {
+  background: linear-gradient(
+    90deg,
+    #e2e2e2 0%,
+    #a78bfa 40%,
+    #38bdf8 60%,
+    #e2e2e2 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.6));
 }
 
 @keyframes prismLabel {
@@ -879,31 +846,28 @@ img {
 
 .hero-scroll-hint {
   position: absolute;
-  bottom: 40px;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.scroll-line {
-  width: 1px;
-  height: 48px;
-  background: var(--color-border);
-  position: relative;
-  overflow: hidden;
+.scroll-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+  animation: scrollArrowBounce 1.8s ease-in-out infinite;
 }
 
-.scroll-line::after {
-  content: '';
-  position: absolute;
-  top: -48px;
-  left: 0;
-  width: 1px;
-  height: 48px;
-  background: var(--color-text);
-  animation: scrollLine 2s ease-in-out infinite;
+.scroll-arrow svg {
+  width: 28px;
+  height: 28px;
 }
 
-@keyframes scrollLine {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(96px); }
+@keyframes scrollArrowBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(6px); opacity: 0.9; }
 }
 
 /* Animated gradient divider between hero and content */
@@ -1422,6 +1386,172 @@ img {
   color: var(--color-text-secondary);
   opacity: 0.7;
   letter-spacing: 0.02em;
+}
+
+/* ========== Work Timeline (Snake) ========== */
+
+.work-timeline {
+  position: relative;
+  padding: 0.5rem 0 2rem;
+}
+
+/* Continuous vertical spine through the centre column */
+.work-timeline::before {
+  content: '';
+  position: absolute;
+  left: calc(50% - 1px);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0,
+    var(--color-border) 3rem,
+    var(--color-border) calc(100% - 3rem),
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Each timeline row: left card | 3rem spine | right card */
+.tl-row {
+  display: grid;
+  grid-template-columns: 1fr 3rem 1fr;
+  align-items: center;
+  gap: 0;
+  padding: 1rem 0;
+  opacity: 0;
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tl-row--r { transform: translateX(52px); }
+.tl-row--l { transform: translateX(-52px); }
+
+.tl-row--in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Card halves */
+.tl-half {
+  position: relative;
+}
+
+/* Horizontal arm: a line from the dot edge to the card */
+/* For right items: arm on the right half, extending left into the spine */
+.tl-row--r .tl-half--r::before {
+  content: '';
+  position: absolute;
+  left: -1.5rem;         /* 1.5rem = half of the 3rem spine column = dot centre */
+  top: 50%;
+  width: 1.5rem;
+  height: 2px;
+  background: var(--color-border);
+  transform: translateY(-50%);
+}
+
+/* For left items: arm on the left half, extending right into the spine */
+.tl-row--l .tl-half--l::before {
+  content: '';
+  position: absolute;
+  right: -1.5rem;
+  top: 50%;
+  width: 1.5rem;
+  height: 2px;
+  background: var(--color-border);
+  transform: translateY(-50%);
+}
+
+/* Spine centre column */
+.tl-spine-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Node: pulsing dot + year label */
+.tl-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.tl-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--color-card);
+  border: 2px solid var(--color-border);
+  box-shadow: 0 0 0 3px var(--color-card);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+  flex-shrink: 0;
+}
+
+.tl-row--in .tl-dot {
+  border-color: var(--color-text-secondary);
+  box-shadow: 0 0 0 3px var(--color-card), 0 0 10px color-mix(in srgb, var(--color-text-secondary) 35%, transparent);
+  transform: scale(1.15);
+}
+
+.tl-year {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.65;
+}
+
+/* Suppress the .reveal animation on cards inside the timeline rows
+   (the tl-row parent handles the entrance animation already)        */
+.tl-row .work-card.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: all var(--transition), opacity 0.3s ease !important;
+}
+
+/* Mobile: collapse to a left-pinned single column */
+@media (max-width: 640px) {
+  .work-timeline::before {
+    left: 1.4rem;
+  }
+
+  .tl-row {
+    grid-template-columns: 2.8rem 1fr;
+  }
+
+  .tl-row--r,
+  .tl-row--l {
+    transform: translateX(0) translateY(24px);
+  }
+
+  .tl-spine-col {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* Both halves go to column 2 on mobile; empty ones collapse via :empty */
+  .tl-half--l,
+  .tl-half--r {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .tl-half:empty {
+    display: none;
+  }
+
+  /* Unify the arm direction on mobile (always left-to-card) */
+  .tl-row--r .tl-half--r::before,
+  .tl-row--l .tl-half--l::before {
+    left: -1.4rem;
+    right: auto;
+    width: 1.4rem;
+  }
 }
 
 /* ========== Work CTA ========== */

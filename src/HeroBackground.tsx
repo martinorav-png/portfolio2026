@@ -14,8 +14,8 @@ function hslToRgb(h: number, s: number, l: number): [number, number, number] {
 
 // Light mode: full hue wheel, high saturation, bright — always visually distinct.
 function randomLightColor(): [number, number, number] {
-  const hue = Math.random() * 360;         // any hue
-  const sat = 0.7 + Math.random() * 0.3;  // 70–100% saturated
+  const hue = Math.random() * 360;
+  const sat = 0.7 + Math.random() * 0.3;   // 70–100% saturated
   const lit = 0.62 + Math.random() * 0.16; // 62–78% lightness
   return hslToRgb(hue, sat, lit);
 }

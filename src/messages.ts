@@ -49,7 +49,7 @@ export const messages = {
     navMenuToggle: 'Ava menüü',
     heroHey: 'Hei, olen',
     heroSubtitle:
-      'Disainin liideseid, panen asju liikuma ja mõnikord saadan välja ka midagi, mis päriselt riistvaral töötab.',
+      'Disainin liideseid, panen asju liikuma ja mõnikord saadan välja ka midagi, mis riistvaral töötab.',
     heroCtaWork: 'vaata, mida olen teinud',
     heroCtaContact: 'ütle tsau!',
     workTitle: 'valitud tööd',

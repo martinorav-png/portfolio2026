@@ -11,6 +11,8 @@ import { workHomeCard } from '../workHomeLocale';
 
 type Props = {
   locale: Locale;
+  /** Pass true when the card is inside a WorkTimeline row (parent handles entrance animation) */
+  noReveal?: boolean;
 };
 
 function MotionThumb({
@@ -45,7 +47,7 @@ function MotionThumb({
   return <img className={className} src={media.src} alt={alt} loading="lazy" />;
 }
 
-export default function CatweesMotionCollectionCard({ locale }: Props) {
+export default function CatweesMotionCollectionCard({ locale, noReveal = false }: Props) {
   const coll = workHomeCard(locale, 'catweesMotionCollection');
   const [open, setOpen] = useState(false);
   const [detailId, setDetailId] = useState<CatweesMotionCollectionItemId | null>(null);
@@ -161,7 +163,7 @@ export default function CatweesMotionCollectionCard({ locale }: Props) {
   return (
     <>
       <div
-        className="work-card work-card--motion-collection reveal"
+        className={`work-card work-card--motion-collection${noReveal ? '' : ' reveal'}`}
         role="button"
         tabIndex={0}
         onClick={() => setOpen(true)}
