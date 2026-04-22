@@ -2377,6 +2377,138 @@ img {
   }
 }
 
+/* ========== Case Study Modal ========== */
+.case-study-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 5vh 16px 8vh;
+  overflow-y: auto;
+}
+
+.case-study-panel {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: 52px 52px 56px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+  margin: auto 0;
+}
+
+.case-study-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(128, 128, 128, 0.15);
+  color: var(--color-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.case-study-close:hover {
+  background: rgba(128, 128, 128, 0.28);
+  transform: scale(1.08);
+}
+
+.case-study-header {
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.case-study-meta {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0 0 10px;
+}
+
+.case-study-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.case-study-intro {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--color-text);
+  margin-bottom: 36px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.case-study-section {
+  margin-bottom: 30px;
+}
+
+.case-study-section-heading {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+  margin: 0 0 10px;
+}
+
+.case-study-section-body {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--color-text);
+  margin: 0 0 12px;
+}
+
+.case-study-section-body:last-child {
+  margin-bottom: 0;
+}
+
+/* Button on the card */
+.case-study-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  letter-spacing: 0.03em;
+  transition: color var(--transition), gap var(--transition);
+}
+
+.case-study-btn:hover {
+  color: var(--color-text);
+  gap: 8px;
+}
+
+@media (max-width: 600px) {
+  .case-study-panel {
+    padding: 36px 24px 40px;
+  }
+}
+
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: 'Geist Variable', sans-serif;

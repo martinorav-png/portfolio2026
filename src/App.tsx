@@ -143,6 +143,7 @@ export default function App() {
       imgSrc: '/assets/works/pulse-hero.jpg',
       imgAlt: wh.pulse.imgAlt,
       liveUrl: 'https://martinorav-png.github.io/pulse-UI',
+      caseStudy: wh.pulse.caseStudy,
     },
     {
       id: 'honeyBoot',
@@ -162,6 +163,7 @@ export default function App() {
       desc: wh.substrate.desc,
       imgSrc: '/assets/works/substrate-game.jpg',
       imgAlt: wh.substrate.imgAlt,
+      caseStudy: wh.substrate.caseStudy,
     },
     {
       id: 'hondaPrelude',

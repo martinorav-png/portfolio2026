@@ -1,5 +1,15 @@
 import type { Locale } from './messages';
 
+export type CaseStudySection = {
+  readonly heading: string;
+  readonly body: string;
+};
+
+export type CaseStudy = {
+  readonly intro?: string;
+  readonly sections: readonly CaseStudySection[];
+};
+
 export type WorkHomeCardCopy = {
   title: string;
   desc: string;
@@ -9,6 +19,8 @@ export type WorkHomeCardCopy = {
   lead?: string;
   /** e.g. "12 pieces" on the motion collection card */
   pieceCountBadge?: string;
+  /** Long-form case study content shown in a modal */
+  caseStudy?: CaseStudy;
 };
 
 const WORK = {
@@ -32,12 +44,46 @@ const WORK = {
       desc: 'Landing page concept for a fictional psychological horror game. Designed the full page with countdown timer, gallery, and a story-driven layout.',
       meta: 'UI Design · Concept · 2026',
       imgAlt: 'Substrate game landing page',
+      caseStudy: {
+        intro: 'A coming soon page for SUBSTRATE, a fictional psychological sci-fi horror game. The premise: a scientist discovers that all of humanity exists inside a simulation that\'s beginning to collapse.',
+        sections: [
+          {
+            heading: 'The challenge',
+            body: 'Full page in Figma, Auto Layout: that\'s the assignment. The actual design problem was harder — finding a visual language that could carry the themes (simulation breakdown, identity collapse, the unreliability of reality) without landing on generic horror. It needed to feel like it came from inside the game\'s world, not just from the genre.',
+          },
+          {
+            heading: 'Design approach',
+            body: 'Marathon was the main reference — Bungie\'s 1994 original and the new 2025 shooter: the white space, the ultra-bold condensed type, the geometric grid layouts. SUBSTRATE takes that DNA: black background, neon yellow (#D9FF00) as the primary, blue (#1A3FFF) only for glitch moments. Bebas Neue, Barlow Condensed.\n\nThe React + Vite build has a canvas-based perspective grid with a scan line and randomised glitch bursts, a floating particle network, 3D mouse-parallax on the hero title via Framer Motion springs, a randomised glitch title using clip-path layers, AnimatePresence countdown transitions, a crossfade Fragment Gallery, and an Entity Status Block that adds narrative texture next to the title.',
+          },
+          {
+            heading: 'Outcome',
+            body: 'A production-ready prototype that takes the broken-simulation concept seriously at the UI level. The theme is in how the interface itself behaves.',
+          },
+        ],
+      },
     },
     et: {
       title: 'Substrate - mängu maandumisleht',
       desc: 'Fiktiivse psühholoogilise õudusmängu maandumislehe kontseptsioon: täisleht loenduri, galerii ja loojutustega paigutusega.',
       meta: 'Kasutajaliidese disain · Kontseptsioon · 2026',
       imgAlt: 'Substrate mängu maandumisleht',
+      caseStudy: {
+        intro: 'Tulevamislehe kontseptsioon SUBSTRATE\'ile — fiktiivne psühholoogiline teaduslik-fantastika õudusmäng. Eeldus: teadlane avastab, et kogu inimkond elab simulatsioonis, mis hakkab lagunema.',
+        sections: [
+          {
+            heading: 'Väljakutse',
+            body: 'Täisleht Figmas, Auto Layout: see on ülesanne. Tegelik disainiprobleem oli raskem — leida visuaalne keel, mis kannab teemasid (simulatsiooni lagunemine, identiteedi kokkuvarisemine, reaalsuse ebausaldatavus) ilma üldisesse õudusžanrisse libisemata. Leht pidi tunduma, nagu tuleks see mängu maailmast seest, mitte ainult žanrist.',
+          },
+          {
+            heading: 'Disainilähenemine',
+            body: 'Peamine referents oli Marathon — Bungie 1994. aasta originaal ja uus 2025. aasta shooter: valge ruum, ülipaks kondenseeritud tüpograafia, geomeetrilised ruudustiku paigutused. SUBSTRATE võtab selle DNA: must taust, neoonkollane (#D9FF00) põhivärvina, sinine (#1A3FFF) ainult glitch-hetkedeks. Bebas Neue, Barlow Condensed.\n\nReact + Vite ehitus sisaldab canvas-põhist perspektiivruudustikku skannijoonega ja juhuslike glitch-puhangutega, hõljuvat osakeste võrku, 3D hiireparallaxi hero-pealkirjal Framer Motion vedrudega, juhuslikku glitch-pealkirja clip-path kihtide abil, AnimatePresence loenduriüleminekuid, ristlahustumisega Fragment Gallery\'t ja Entity Status Block\'i, mis lisab narratiivset tekstuuri pealkirja kõrvale.',
+          },
+          {
+            heading: 'Tulemus',
+            body: 'Tootmisvalmis prototüüp, mis võtab katkise-simulatsiooni kontseptsiooni tõsiselt ka kasutajaliidese tasandil. Teema avaldub selles, kuidas liides ise käitub.',
+          },
+        ],
+      },
     },
   },
   honeyBoot: {
@@ -84,16 +130,50 @@ const WORK = {
   },
   pulse: {
     en: {
-      title: 'Pulse - Team Wellness App',
-      desc: 'Full landing page design for Pulse, a concept SaaS app that tracks team mood through anonymous monthly surveys. Features AI-powered recommendations, dashboard UI, pricing, and a custom mascot.',
-      meta: 'Product Design · Full Landing Page · 2026',
-      imgAlt: 'Pulse app hero section',
+      title: ‘Pulse - Team Wellness App’,
+      desc: ‘Full landing page design for Pulse, a concept SaaS app that tracks team mood through anonymous monthly surveys. Features AI-powered recommendations, dashboard UI, pricing, and a custom mascot.’,
+      meta: ‘Product Design · Full Landing Page · 2026’,
+      imgAlt: ‘Pulse app hero section’,
+      caseStudy: {
+        intro: ‘Pulse is a B2B SaaS platform for HR leaders at small-to-mid-sized companies. Monthly anonymous surveys, AI-generated insights, a clear read on how teams are actually doing.’,
+        sections: [
+          {
+            heading: ‘The challenge’,
+            body: ‘HR wellbeing tools fail in one of two ways. Too clinical and you signal surveillance. Too warm and you come off condescending. The brief was to find the middle: credible enough that HR buys it, human enough that employees don\’t immediately distrust it.’,
+          },
+          {
+            heading: ‘Design approach’,
+            body: ‘Teal (#2E8B7A) and coral (#D9604A) on cream and warm neutrals. DM Serif Display with DM Sans — editorial rather than generic SaaS. The mascot, Pip, is a rounded blob with an EKG line across its belly and a small heart, which sounds slightly absurd but works: it gives the brand something concrete to be.\n\nThe landing page ran across 1280px desktop and 390px mobile, lo-fi wireframes first, then a full design system, then multiple rounds on the hero. Copy was in Estonian for the academic context. The main constraint was keeping it from sounding preachy. Wellbeing products love contrast-based copy ("Not surveillance. Care.") and it almost always backfires.’,
+          },
+          {
+            heading: ‘Outcome’,
+            body: ‘The warmth feels earned rather than performed. Avoids the sterile B2B trap without overcorrecting into something that reads as unserious. That balance is harder than it sounds.’,
+          },
+        ],
+      },
     },
     et: {
-      title: 'Pulse - meeskonna heaolu rakendus',
-      desc: 'Täismahus maandumislehe disain Pulse’ile, kontseptsioonilisele SaaS-ile, mis jälgib meeskonna tuju anonüümsete kuu-uuringute kaudu. AI-põhised soovitused, armatuurlaua UI, hinnakiri ja maskott.',
-      meta: 'Tootedisain · Täisleht · 2026',
-      imgAlt: 'Pulse rakenduse hero plokk',
+      title: ‘Pulse - meeskonna heaolu rakendus’,
+      desc: ‘Täismahus maandumislehe disain Pulse’ile, kontseptsioonilisele SaaS-ile, mis jälgib meeskonna tuju anonüümsete kuu-uuringute kaudu. AI-põhised soovitused, armatuurlaua UI, hinnakiri ja maskott.’,
+      meta: ‘Tootedisain · Täisleht · 2026’,
+      imgAlt: ‘Pulse rakenduse hero plokk’,
+      caseStudy: {
+        intro: ‘Pulse on B2B SaaS platvorm väikeste ja keskmiste ettevõtete personalijuhtidele. Igakuised anonüümsed uuringud, AI-loodud ülevaated — selge pilt sellest, kuidas meeskonnad tegelikult enenevad.’,
+        sections: [
+          {
+            heading: ‘Väljakutse’,
+            body: ‘Personalile suunatud heaolutööriistad kukuvad läbi kahel viisil. Liiga kliiniline ja annad märku jälgimisest. Liiga soe ja tundud patroneeriv. Ülesanne oli leida kesktee: piisavalt usaldusväärne, et HR otsustaks osta, piisavalt inimlik, et töötajad kohe ei usaldaks.’,
+          },
+          {
+            heading: ‘Disainilähenemine’,
+            body: ‘Teal (#2E8B7A) ja korall (#D9604A) kreemi ja soojade neutraalsete toonide peal. DM Serif Display koos DM Sansiga — ajakirjalik, mitte tavaline SaaS-esteetika. Maskott Pip on ümara kujuga plekk EKG-joonega kõhul ja väikese südamega — kõlab veidi absurdselt, aga töötab: annab brändile midagi konkreetset.\n\nMaandumisleht disainiti 1280px töölauaks ja 390px mobiiliks, alustades lo-fi eskiisidest, seejärel täielik disainisüsteem ja mitu hero-sektsiooni iteratsiooni. Tekst oli akadeemilise konteksti jaoks eesti keeles. Peamine piirang — vältida moraliseerimist. Heaolubrändid armastavad kontrastipõhist kopeerimist ("Mitte jälgimine. Hoolitsus.") ja see peaaegu alati läheb viltu.’,
+          },
+          {
+            heading: ‘Tulemus’,
+            body: ‘Soojus tundub teenituna, mitte etendusena. Väldib steriilset B2B lõksu, ületamata piiri tõsiselt-võetavuse kaotuse suunas. See tasakaal on raskem, kui tundub.’,
+          },
+        ],
+      },
     },
   },
   catweesSuv: {
